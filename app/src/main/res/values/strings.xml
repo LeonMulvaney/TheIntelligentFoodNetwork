@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">The Intelligent Food Network</string>
+    <string name="home_logo_info">The Intelligent Food Network  \n © TIFN Inc 2017</string>
+    <string name="my_food_network">My Food Network</string>
+    <string name="shopping">Shopping</string>
+    <string name="recipes">Recipes</string>
+    <string name="account">Account</string>
+</resources>
