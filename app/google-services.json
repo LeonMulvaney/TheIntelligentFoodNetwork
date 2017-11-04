@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "182454534003",
+    "firebase_url": "https://theintelligentfoodnetwork.firebaseio.com",
+    "project_id": "theintelligentfoodnetwork",
+    "storage_bucket": "theintelligentfoodnetwork.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182454534003:android:8069770a908982b5",
+        "android_client_info": {
+          "package_name": "ie.ncirl.a14445618.theintelligentfoodnetwork"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "182454534003-k13o6118re5vtcrro01ek925hlkg532b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ie.ncirl.a14445618.theintelligentfoodnetwork",
+            "certificate_hash": "7b4089ea635b6e4cb6ee21bd7909c74352ca87b6"
+          }
+        },
+        {
+          "client_id": "182454534003-5od0nigma5dbbrbd6teap0ccc7cicv1k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAlyBKuRrzz7MGCitwMrtHgDsB1QiMdx0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "182454534003-5od0nigma5dbbrbd6teap0ccc7cicv1k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
