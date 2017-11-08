@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.MyFoodNetwork">
+    tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.MyFoodNetwork"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/dbAddButton"
+        android:layout_marginTop="40dp"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text="Add to DB"
+        />
+
+    <Button
+        android:id="@+id/dbViewButton"
+        android:layout_marginTop="40dp"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text="View DB"
+        />
+
+    <TextView
+        android:id="@+id/dbDisplayTv"
+        android:layout_marginTop="40dp"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"/>
+
+</LinearLayout>
