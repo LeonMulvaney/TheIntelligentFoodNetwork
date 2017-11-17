@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MyFoodNetwork"></activity>
+        <activity android:name=".MyFoodNetwork" />
+        <activity android:name=".Home"></activity>
     </application>
 
 </manifest>
