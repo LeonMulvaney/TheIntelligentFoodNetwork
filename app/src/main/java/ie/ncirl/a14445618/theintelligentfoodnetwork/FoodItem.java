@@ -9,23 +9,54 @@ import java.util.Date;
  */
 
 public class FoodItem {
-    public String category;
+    public String foodType;
+    public String expiryDate;
     public String calories;
     public String protein;
-    public String expiryDate;
+
 
     public FoodItem(){
 
     }
 
-    public FoodItem(String category, String calories, String protein,String expiryDate){
-        this.category = category;
+    public FoodItem(String foodType,String expiryDate, String calories, String protein) {
+        this.foodType = foodType;
+        this.expiryDate = expiryDate;
         this.calories = calories;
         this.protein = protein;
+    }
+
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(String expiryDate) {
         this.expiryDate = expiryDate;
     }
 
+    public String getCalories() {
+        return calories;
+    }
 
+    public String getFoodType() {
+        return foodType;
+    }
+
+    public void setFoodType(String foodType) {
+        this.foodType = foodType;
+    }
+
+    public void setCalories(String calories) {
+        this.calories = calories;
+    }
+
+    public String getProtein() {
+        return protein;
+    }
+
+    public void setProtein(String protein) {
+        this.protein = protein;
+    }
 }
 
 

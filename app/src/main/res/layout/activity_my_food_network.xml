@@ -8,14 +8,6 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/dbAddButton"
-        android:layout_marginTop="40dp"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:text="Add to DB"
-        />
-
-    <Button
         android:id="@+id/dbViewButton"
         android:layout_marginTop="40dp"
         android:layout_width="fill_parent"
@@ -23,10 +15,17 @@
         android:text="View DB"
         />
 
-    <TextView
-        android:id="@+id/dbDisplayTv"
+    <Button
+        android:id="@+id/dbAddButton"
         android:layout_marginTop="40dp"
         android:layout_width="fill_parent"
-        android:layout_height="200dp"/>
+        android:layout_height="50dp"
+        android:text="Add to DB" />
+
+    <ListView
+        android:id="@+id/foodList"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
 
 </LinearLayout>
