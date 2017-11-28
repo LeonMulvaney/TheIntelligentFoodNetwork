@@ -7,25 +7,24 @@
     tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.MyFoodNetwork"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/dbViewButton"
-        android:layout_marginTop="40dp"
+    <TextView
+        android:id="@+id/showDbTv"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:text="View DB"
+        android:layout_height="300dp"
+        android:textSize="25dp"
         />
 
     <Button
-        android:id="@+id/dbAddButton"
-        android:layout_marginTop="40dp"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:text="Add to DB" />
+        android:id="@+id/showDbBtn"
+        android:layout_width="325dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:text="Whats in my Fridge?"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"/>
 
-    <ListView
-        android:id="@+id/foodList"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+
 
 
 </LinearLayout>

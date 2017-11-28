@@ -8,6 +8,7 @@ import java.util.Date;
  * Created by Leon on 08/11/2017.
  */
 
+//Source Ideas From: https://firebase.google.com/docs/database/android/read-and-write
 public class FoodItem {
     public String foodType;
     public String expiryDate;
