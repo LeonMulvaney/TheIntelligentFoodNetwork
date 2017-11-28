@@ -5,4 +5,8 @@
     <string name="shopping">Shopping</string>
     <string name="recipes">Recipes</string>
     <string name="account">Account</string>
+
+    <!--Action Bar Strings-->
+    <string name="my_food_network_action_bar_string">My Food Network</string>
+    <string name="add_food_item_action_bar_string">Add Item</string>
 </resources>

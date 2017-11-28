@@ -5,6 +5,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -31,6 +32,8 @@ public class MyFoodNetwork extends AppCompatActivity {
     //--------------------------------------------------------------------
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    DatabaseReference keyRef;
+
 
     Button readButton;
     TextView databaseTextview;
@@ -44,28 +47,34 @@ public class MyFoodNetwork extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_food_network);
 
-        //myListView =(ListView) findViewById(R.id.foodList);
+        //Change Action Bar Title From: https://stackoverflow.com/questions/3438276/how-to-change-the-text-on-the-action-bar
+        setTitle(R.string.my_food_network_action_bar_string);
 
+        //Add Back Button to Action Bar - From https://stackoverflow.com/questions/12070744/add-back-button-to-action-bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-        databaseTextview = findViewById(R.id.showDbTv);
-        readButton = findViewById(R.id.showDbBtn);
-
+        //Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReferenceFromUrl("https://theintelligentfoodnetwork.firebaseio.com/");
-        //key = databaseReference.child("FridgeItems").push().getKey();
+        keyRef = databaseReference.child("FridgeItems");
+
+        //Views
+        databaseTextview = findViewById(R.id.showDbTv);
+        databaseTextview.setMovementMethod(new ScrollingMovementMethod()); // Allow the TextView to Scroll instead of using ScrollView From: https://stackoverflow.com/questions/1748977/making-textview-scrollable-on-android
+        readButton = findViewById(R.id.showDbBtn);
+
+
+
 
         //Target Button and Declare OnClickListener - Encapsulating Method
-
-//Get contents from Firebase into String From : https://www.youtube.com/watch?v=WDGmpvKpHyw
+        //Get contents from Firebase into String From : https://www.youtube.com/watch?v=WDGmpvKpHyw
         readButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 databaseTextview.setText("");
-
-                DatabaseReference keyRef = databaseReference.child("FridgeItems");
+                readButton.setText("Refresh"); //When button is clicked once, change the text to Refreshed so the user knows the must click refresh
 
                 //-------------------------------------------------------
-                keyRef.addValueEventListener(new ValueEventListener() {
+                keyRef.addListenerForSingleValueEvent(new ValueEventListener() { //SingleValueEvent Listener to prevend the append method causing duplicate entries
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         //String value = dataSnapshot.getKey();
@@ -80,19 +89,19 @@ public class MyFoodNetwork extends AppCompatActivity {
                             String calories = ds.child("calories").getValue().toString();
                             String protein = ds.child("protein").getValue().toString();
 
+
                             ArrayList<FoodItem> foodList = new ArrayList<>();
-                            FoodItem newItem = new FoodItem(type,expDate,calories,protein);
+                            FoodItem newItem = new FoodItem(type, expDate, calories, protein);
                             foodList.add(newItem);
 
 
-                            for(int i=0;i<foodList.size();i++){
-                                int index = i;
-                                //System.out.println(foodList.get(i).getFoodType());
+                            for (int i = 0; i < foodList.size(); i++) {
                                 String foodItem = (foodList.get(i).getFoodType());
-                                databaseTextview.append("Item No " + Integer.toString(index) + " : " + foodItem);
+                                databaseTextview.append(foodItem);
                                 databaseTextview.append("\n");
-
                             }
+
+
 
                             //System.out.println(foodList);
                             //databaseTextview.setText(foodList.toString());
@@ -112,19 +121,21 @@ public class MyFoodNetwork extends AppCompatActivity {
 
     }
 
+    //Function to return to home when back button is pressed From --> Same link as "Add Back Button" above
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
+
+    public void viewAddFoodItem(View view){
+        Intent intent = new Intent(this,AddFoodItem.class);
+        startActivity(intent);
+    }
 
 
 
-//Adding Items to Database From: https://www.androidhive.info/2016/10/android-working-with-firebase-realtime-database/
-    /*public void addItem(){
-        String userId = myDatabase.push().getKey();
-
-        FoodItem foodItem = new FoodItem("Yop","30/11/2017","70","10");
-
-        myDatabase.child(userId).setValue(foodItem);
-    }*/
-
-
+    //From other tutorial----------------------------------------------
     /*public void getContents(DataSnapshot dataSnapshot){
         for(DataSnapshot ds :dataSnapshot.getChildren()){
 

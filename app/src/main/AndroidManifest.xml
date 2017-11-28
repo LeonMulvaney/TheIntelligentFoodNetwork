@@ -20,6 +20,7 @@
         </activity>
         <activity android:name=".MyFoodNetwork" />
         <activity android:name=".Home" />
+        <activity android:name=".AddFoodItem"></activity>
     </application>
 
 </manifest>
