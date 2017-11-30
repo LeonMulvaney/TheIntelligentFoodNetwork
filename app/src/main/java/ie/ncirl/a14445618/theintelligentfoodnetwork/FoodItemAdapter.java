@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -32,12 +33,14 @@ public class FoodItemAdapter extends ArrayAdapter<FoodItem> {
         TextView tvExpDate = convertView.findViewById(R.id.tvExpDate);
         TextView tvCalories = convertView.findViewById(R.id.tvCalories);
         TextView tvProtein = convertView.findViewById(R.id.tvProtein);
+        ImageView ivFood = convertView.findViewById(R.id.foodImage);
 
         // Populate the data into the template view using the data object
         tvFoodType.setText(foodItem.foodType);
         tvExpDate.setText("Expiry Date: " + foodItem.expiryDate);
         tvCalories.setText("Calories: " + foodItem.calories + " kcal");
         tvProtein.setText("Protein: " + foodItem.protein + "g");
+
         // Return the completed view to render on screen
         return convertView;
     }
