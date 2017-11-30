@@ -42,7 +42,7 @@
             android:layout_gravity="center">
 
             <ImageButton
-                android:id="@+id/fridgeHomeBtn"
+                android:id="@+id/foodNetworkHomeBtn"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:src="@drawable/fridge"
@@ -113,7 +113,7 @@
             android:layout_gravity="center">
 
             <ImageButton
-                android:id="@+id/RepairQuoteHomeBtn"
+                android:id="@+id/recipesHomeBtn"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:src="@drawable/recipes"
@@ -131,7 +131,7 @@
             android:layout_weight="1">
 
             <ImageButton
-                android:id="@+id/DepCalculatorHomeBtn"
+                android:id="@+id/accountHomeBtn"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:src="@drawable/spatula"

@@ -13,25 +13,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/showDbTv"
-                android:layout_width="fill_parent"
-                android:layout_height="300dp"
-                android:textSize="25dp"
-                android:maxLines="500"
-                android:scrollbars="vertical"/>
-
-
-
             <Button
-                android:id="@+id/showDbBtn"
+                android:id="@+id/viewFoodContentsBtn"
                 android:layout_width="325dp"
                 android:layout_height="55dp"
                 android:layout_gravity="center"
                 android:text="Whats in my Fridge?"
                 android:layout_marginTop="20dp"
                 android:background="@color/colorPrimary"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF"
+                android:onClick="viewFoodContents"/>
 
             <Button
                 android:id="@+id/addItemBtn"

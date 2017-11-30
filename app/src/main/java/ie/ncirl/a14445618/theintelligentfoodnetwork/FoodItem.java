@@ -58,6 +58,19 @@ public class FoodItem {
     public void setProtein(String protein) {
         this.protein = protein;
     }
+
+
+    //Allow ListView to get elements from Array of Objects into String From: https://stackoverflow.com/questions/16937347/populating-listview-with-arraylistobject
+    //This method now redundant as Custom Adapter is implemented
+   /* public String toString(){
+        String string = this.foodType + "\n" +
+                     "Expiry Date: " + this.expiryDate+ "\n" +
+                     "Calories: " + this.calories+ "\n" +
+                     "Protein(grams): " + this.protein;
+        return string;
+    }*/
+
+
 }
 
 
