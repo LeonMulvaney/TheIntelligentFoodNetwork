@@ -78,9 +78,10 @@ public class AddFoodItem extends AppCompatActivity {
         caloriesFromEt= calories.getText().toString();
         proteinFromEt = protein.getText().toString();
 
-        FoodItem foodItem = new FoodItem(foodTypeFromEt,expDateFromEt,caloriesFromEt,proteinFromEt);
 
-        keyRef.child(itemId).setValue(foodItem);
+        //FoodItem foodItem = new FoodItem(foodTypeFromEt,expDateFromEt,caloriesFromEt,proteinFromEt);
+
+        //keyRef.child(itemId).setValue(foodItem);
 
         Intent intent = new Intent(this,MyFoodNetwork.class);
         startActivity(intent);

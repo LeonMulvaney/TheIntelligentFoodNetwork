@@ -10,4 +10,14 @@
     <string name="my_food_network_action_bar_string">My Food Network</string>
     <string name="add_food_item_action_bar_string">Add Item</string>
     <string name="recipes_action_bar_string">My Fridge</string>
+
+    <!--Food Contents Spinner -->
+    <string-array name="food_contents_spinner_array">
+        <item>All Items</item>
+        <item>Poultry</item>
+        <item>Fruit and Veg</item>
+        <item>Dairy</item>
+        <item>Misc.</item>
+    </string-array>
+
 </resources>

@@ -16,8 +16,9 @@ import java.util.ArrayList;
 //Custom Adapter  From: https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView
 
 public class FoodItemAdapter extends ArrayAdapter<FoodItem> {
-    public FoodItemAdapter(Context context, ArrayList<FoodItem> users) {
-        super(context, 0, users);
+
+    public FoodItemAdapter(Context context, ArrayList<FoodItem> item) {
+        super(context, 0, item);
     }
 
     @Override
@@ -33,15 +34,20 @@ public class FoodItemAdapter extends ArrayAdapter<FoodItem> {
         TextView tvExpDate = convertView.findViewById(R.id.tvExpDate);
         TextView tvCalories = convertView.findViewById(R.id.tvCalories);
         TextView tvProtein = convertView.findViewById(R.id.tvProtein);
-        ImageView ivFood = convertView.findViewById(R.id.foodImage);
+        TextView tvCategory = convertView.findViewById(R.id.tvCategory);
+        //ImageView ivFood = convertView.findViewById(R.id.foodImage);
 
         // Populate the data into the template view using the data object
         tvFoodType.setText(foodItem.foodType);
         tvExpDate.setText("Expiry Date: " + foodItem.expiryDate);
         tvCalories.setText("Calories: " + foodItem.calories + " kcal");
         tvProtein.setText("Protein: " + foodItem.protein + "g");
+        tvCategory.setText("Category: " + foodItem.category);
+
 
         // Return the completed view to render on screen
         return convertView;
     }
+
+
 }

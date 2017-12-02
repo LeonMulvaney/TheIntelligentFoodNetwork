@@ -8,4 +8,5 @@
         android:icon="@drawable/ic_refresh"
         android:title="Refresh"
         app:showAsAction="always"/>
+
 </menu>

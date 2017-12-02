@@ -14,17 +14,27 @@ public class FoodItem {
     public String expiryDate;
     public String calories;
     public String protein;
+    public String category;
 
 
     public FoodItem(){
 
     }
 
-    public FoodItem(String foodType,String expiryDate, String calories, String protein) {
+    public FoodItem(String foodType,String expiryDate, String calories, String protein,String category) {
         this.foodType = foodType;
         this.expiryDate = expiryDate;
         this.calories = calories;
         this.protein = protein;
+        this.category = category;
+    }
+
+    public String getFoodType() {
+        return foodType;
+    }
+
+    public void setFoodType(String foodType) {
+        this.foodType = foodType;
     }
 
     public String getExpiryDate() {
@@ -39,14 +49,6 @@ public class FoodItem {
         return calories;
     }
 
-    public String getFoodType() {
-        return foodType;
-    }
-
-    public void setFoodType(String foodType) {
-        this.foodType = foodType;
-    }
-
     public void setCalories(String calories) {
         this.calories = calories;
     }
@@ -59,8 +61,15 @@ public class FoodItem {
         this.protein = protein;
     }
 
+    public String getCategory() {
+        return category;
+    }
 
-    //Allow ListView to get elements from Array of Objects into String From: https://stackoverflow.com/questions/16937347/populating-listview-with-arraylistobject
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+//Allow ListView to get elements from Array of Objects into String From: https://stackoverflow.com/questions/16937347/populating-listview-with-arraylistobject
     //This method now redundant as Custom Adapter is implemented
    /* public String toString(){
         String string = this.foodType + "\n" +

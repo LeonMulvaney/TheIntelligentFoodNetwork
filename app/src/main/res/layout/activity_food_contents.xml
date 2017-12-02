@@ -7,6 +7,23 @@
     tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.FoodContents"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/filterTitle"
+        android:layout_marginTop="15dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Filter By:"
+        android:textSize="16sp"></TextView>
+
+    <Spinner
+        android:id="@+id/filterByCategorySpinner"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"></Spinner>
+
     <ListView
         android:id="@+id/recipesListView"
         android:layout_width="fill_parent"
