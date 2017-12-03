@@ -100,6 +100,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                 //refreshList();
                 Spinner spinnerInstance =  findViewById(R.id.filterByCategorySpinner);
                 spinnerInstance.setSelection(0);
+                getContents();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -108,6 +109,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
     public void getContents() {
         //Get contents from Firebase into String From : https://www.youtube.com/watch?v=WDGmpvKpHyw
         keyRef.addValueEventListener(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
+
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
                 foodList.clear(); //Clear foodlist before adding items again
@@ -144,7 +146,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
     //5. Re-populate the adapter with the new, updated foodlist array
     public void refreshList(){
 
-        keyRef.addListenerForSingleValueEvent(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
+        keyRef.addValueEventListener(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 foodList.clear(); //Remove items from arraylist

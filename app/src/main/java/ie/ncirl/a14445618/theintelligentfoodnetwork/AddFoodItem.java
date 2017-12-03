@@ -21,11 +21,13 @@ public class AddFoodItem extends AppCompatActivity {
     EditText expDate;
     EditText calories;
     EditText protein;
+    EditText category;
 
     String foodTypeFromEt;
     String expDateFromEt;
     String caloriesFromEt;
     String proteinFromEt;
+    String categoryFromEt;
 
     Button addButton;
 
@@ -49,6 +51,7 @@ public class AddFoodItem extends AppCompatActivity {
         expDate = findViewById(R.id.expDateEt);
         calories = findViewById(R.id.caloriesEt);
         protein = findViewById(R.id.proteinEt);
+        category = findViewById(R.id.categoryEt);
 
         addButton = findViewById(R.id.addToDbButton);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -77,11 +80,12 @@ public class AddFoodItem extends AppCompatActivity {
         expDateFromEt = expDate.getText().toString();
         caloriesFromEt= calories.getText().toString();
         proteinFromEt = protein.getText().toString();
+        categoryFromEt = protein.getText().toString();
 
 
-        //FoodItem foodItem = new FoodItem(foodTypeFromEt,expDateFromEt,caloriesFromEt,proteinFromEt);
+        FoodItem foodItem = new FoodItem(foodTypeFromEt,expDateFromEt,caloriesFromEt,proteinFromEt,categoryFromEt);
 
-        //keyRef.child(itemId).setValue(foodItem);
+        keyRef.child(itemId).setValue(foodItem);
 
         Intent intent = new Intent(this,MyFoodNetwork.class);
         startActivity(intent);
