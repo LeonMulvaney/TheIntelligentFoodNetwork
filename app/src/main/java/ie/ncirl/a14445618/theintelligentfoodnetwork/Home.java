@@ -16,4 +16,9 @@ public class Home extends AppCompatActivity {
         Intent intent = new Intent(this,MyFoodNetwork.class);
         startActivity(intent);
     }
+
+    public void openFoodSearch(View view){
+        Intent intent = new Intent(this,FoodSearch.class);
+        startActivity(intent);
+    }
 }
