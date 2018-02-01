@@ -34,5 +34,6 @@ dependencies {
 
     //Add Apache Commons Library - Allow to check for whitespace or if a string is empty From: https://stackoverflow.com/questions/32835143/how-to-add-org-apache-commons-lang3-to-androidstudio-with-gradle
     compile 'org.apache.commons:commons-lang3:3.6'
+    compile 'com.android.volley:volley:1.0.0'
 }
 apply plugin: 'com.google.gms.google-services'

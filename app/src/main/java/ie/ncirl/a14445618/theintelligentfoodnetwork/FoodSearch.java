@@ -1,47 +1,51 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.rapidapi.rapidconnect.Argument;
 import com.rapidapi.rapidconnect.RapidApiConnect;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.Console;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
 
 //RapidAPI Documentation From: https://docs.rapidapi.com/docs/java-android
-public class FoodSearch extends AppCompatActivity {
-
-    RapidApiConnect connect = new RapidApiConnect("leonrapidapi_5a6ddd31e4b04737db92df77", "dd0794ae-5f4e-408d-a19e-cae245e00273");
-    Map<String, Argument> body = new HashMap<>();
+public class FoodSearch extends AppCompatActivity{
+    private static final String TAG = "";
     String searchString;
-
     EditText searchEditText;
     Button searchButton;
-    TextView searchResult;
+    TextView searchResultTv;
+    Map<String, Object> response;
+    String responseToString = "null";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_search);
 
-        body.put("applicationSecret", new Argument("data", "ca779495f21bc56c5feb950103517992"));
-        body.put("applicationId", new Argument("data", "8e2110d7"));
-        body.put("foodDescription", new Argument("data", "Chicken"));
-
 
         searchEditText = findViewById(R.id.searchET);
         searchButton = findViewById(R.id.searchBtn);
-        searchResult = findViewById(R.id.searchResultTV);
+        searchResultTv = findViewById(R.id.searchResultTV);
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -52,31 +56,62 @@ public class FoodSearch extends AppCompatActivity {
 
     public void searchUsingAPI(){
         searchString = searchEditText.getText().toString();
+        Thread thread;
 
-        //How to check if is empty or whitespace - Using Apache Commons Library From: https://stackoverflow.com/questions/3247067/how-do-i-check-that-a-java-string-is-not-all-whitespaces
-        if(StringUtils.isBlank(searchString)){
+        if(StringUtils.isBlank(searchString)){         //How to check if is empty or whitespace - Using Apache Commons Library From: https://stackoverflow.com/questions/3247067/how-do-i-check-that-a-java-string-is-not-all-whitespaces
             Toast.makeText(this,"Please enter a search parameter",Toast.LENGTH_SHORT).show();
         }
-
         else{
-            try {
-                Map<String, Object> response = connect.call("Nutritionix", "getFoodsNutrients", body);
-                if(response.get("success") != null) { //If Success is not null (Not
-                    System.out.println("Successful API Call--------------------");
+            //Solving Android Thread Issues From: https://stackoverflow.com/questions/6343166/how-do-i-fix-android-os-networkonmainthreadexception
+                thread = new Thread(new Runnable() { //Instead of using Async Task --> Open another thread
+                @Override
+                public void run() {
+                    try  {
+                        try {
+                            RapidApiConnect connect = new RapidApiConnect("leonrapidapi_5a6ddd31e4b04737db92df77", "dd0794ae-5f4e-408d-a19e-cae245e00273");
+                            Map<String, Argument> body = new HashMap<>();
 
-                } else{ //If success is anything but null
-                    System.out.println("Else Statement--------------------");
+                            body.put("applicationSecret", new Argument("data", "ca779495f21bc56c5feb950103517992"));
+                            body.put("applicationId", new Argument("data", "8e2110d7"));
+                            body.put("foodDescription", new Argument("data", searchString));
 
+                            response = connect.call("Nutritionix", "getFoodsNutrients", body);
+                            if(response.get("success") != null) { //If Success is not null (Not
+                                System.out.println("Successful API Call--------------------");
+                                System.out.println(response);
+                                //setData();// This sub thread cannot alter the main threads views - to combat this, it simply calls another method called setData()
+                                responseToString = response.toString();
+
+
+                            } else{ //If success is anything but null
+                                System.out.println("Else Statement--------------------");
+
+                            }
+                        } catch(Exception e){ //Catch Clause
+                            System.out.println("Catch Clause--------------------");
+                            Log.d(TAG, "searchUsingAPI: " + e);
+
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            } catch(Exception e){ //Catch Clause
-                System.out.println("Catch Clause--------------------");
-
-
+            });
+            thread.start();
+            while(thread.isAlive()){
             }
 
-            Toast.makeText(this,"You Searched for: " + searchString, Toast.LENGTH_SHORT).show();
+            setData();
         }
+
     }
+
+
+
+    public void setData(){
+        searchResultTv.setText(response.toString());
+    }
+
 
 
 

@@ -7,38 +7,51 @@
     tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.FoodSearch"
     android:orientation="vertical">
 
-    <TextView
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Search for Foods below"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"/>
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/searchET"
-        android:layout_marginTop="40dp"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center">
-    </EditText>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/searchBtn"
-        android:layout_marginTop="20dp"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:text="Search"
-        android:background="@color/colorPrimary"
-        android:textColor="#ffffff"
-        android:layout_gravity="center" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Search for Foods below"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/searchResultTV"
-        android:layout_width="fill_parent"
-        android:layout_height="400dp" />
+            <EditText
+                android:id="@+id/searchET"
+                android:layout_marginTop="40dp"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center">
+            </EditText>
+
+            <Button
+                android:id="@+id/searchBtn"
+                android:layout_marginTop="20dp"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:text="Search"
+                android:background="@color/colorPrimary"
+                android:textColor="#ffffff"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/searchResultTV"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>
