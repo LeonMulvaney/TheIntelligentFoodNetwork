@@ -36,8 +36,6 @@ public class FoodSearch extends AppCompatActivity{
     private static final String TAG = "";
     String searchString;
     EditText searchEditText;
-    Button searchButton;
-    TextView searchResultTv;
     Map<String, Object> response;
 
     Button aSyncTaskBtn;
@@ -55,7 +53,6 @@ public class FoodSearch extends AppCompatActivity{
         aSyncTaskBtn = findViewById(R.id.aSyncSearchBtn);
 
         searchEditText = findViewById(R.id.searchET);
-        searchButton = findViewById(R.id.searchBtn);
         foodSearchIv = findViewById(R.id.foodSearchImage);
 
         resultListView = findViewById(R.id.resultListView);
@@ -80,11 +77,6 @@ public class FoodSearch extends AppCompatActivity{
             }
         });
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //searchUsingAPI();
-            }
-        });
     }
 
     /*public void searchUsingAPI(){
