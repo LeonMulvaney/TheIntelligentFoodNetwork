@@ -44,17 +44,29 @@
                 android:background="@color/colorPrimary"
                 android:textColor="#ffffff"
                 android:layout_gravity="center" />
-            
+
+            <Button
+                android:id="@+id/aSyncSearchBtn"
+                android:layout_marginTop="20dp"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:text="A Sync Search"
+                android:background="@color/colorAccent"
+                android:textColor="#ffffff"
+                android:layout_gravity="center" />
+
             <ImageView
-                android:id="@+id/foodItemImage"
-                android:layout_marginTop="25dp"
+                android:id="@+id/foodSearchImage"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                />
 
-            <TextView
 
-                android:id="@+id/searchResultTV"
+
+            <ListView
+                android:id="@+id/resultListView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"/>

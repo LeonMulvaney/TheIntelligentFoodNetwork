@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Custom Adapter Layout From: https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView -->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvFoodName"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:text="Food Name"
+            android:textSize="22dp"
+            android:gravity="center"
+            android:textColor="@color/colorAccent" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#DCDCDC"
+            />
+
+        <TextView
+            android:id="@+id/tvServingQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Serving Quantity"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:layout_below="@id/tvFoodName" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#DCDCDC"
+            />
+
+
+        <TextView
+            android:id="@+id/tvServingUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Serving Unit"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:layout_below="@id/tvServingQuantity"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#DCDCDC"
+            />
+
+        <TextView
+            android:id="@+id/tvServingWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Serving Weight"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:layout_below="@id/tvServingUnit"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#DCDCDC"
+            />
+
+        <TextView
+            android:id="@+id/tvCalories"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Calories"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:layout_below="@id/tvServingWeight"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#DCDCDC"
+            />
+
+        <TextView
+            android:id="@+id/tvTotalFat"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Total Fat"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:layout_below="@id/tvCalories"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#DCDCDC"
+            />
+
+        <TextView
+            android:id="@+id/tvSaturatedFat"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Saturated Fat"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:layout_below="@id/tvTotalFat"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#DCDCDC"
+            />
+        <TextView
+            android:id="@+id/tvCholesterol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cholesterol"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:layout_toRightOf="@id/foodImage"
+            android:layout_below="@id/tvSaturatedFat"/>
+        <TextView
+            android:id="@+id/tvSodium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sodium"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:layout_toRightOf="@id/foodImage"
+            android:layout_below="@id/tvCholesterol"/>
+        <TextView
+            android:id="@+id/tvCarbohydtrate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Carbohydrate"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:layout_toRightOf="@id/foodImage"
+            android:layout_below="@id/tvSodium"/>
+        <TextView
+            android:id="@+id/tvFibre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fibre"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:layout_toRightOf="@id/foodImage"
+            android:layout_below="@id/tvCarbohydtrate"/>
+        <TextView
+            android:id="@+id/tvSugars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sugars"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:layout_toRightOf="@id/foodImage"
+            android:layout_below="@id/tvFibre"/>
+        <TextView
+            android:id="@+id/tvProtein"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Protein"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:layout_toRightOf="@id/foodImage"
+            android:layout_below="@id/tvSugars"/>
+        <TextView
+            android:id="@+id/tvPotassium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Potassium"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:layout_toRightOf="@id/foodImage"
+            android:layout_below="@id/tvProtein"/>
+
+    </LinearLayout>
+
+</LinearLayout>

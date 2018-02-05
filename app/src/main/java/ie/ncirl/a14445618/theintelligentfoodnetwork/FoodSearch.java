@@ -1,31 +1,34 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
-import android.os.AsyncTask;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.rapidapi.rapidconnect.Argument;
 import com.rapidapi.rapidconnect.RapidApiConnect;
+import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.io.Console;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutionException;
 
 
 //RapidAPI Documentation From: https://docs.rapidapi.com/docs/java-android
@@ -36,26 +39,55 @@ public class FoodSearch extends AppCompatActivity{
     Button searchButton;
     TextView searchResultTv;
     Map<String, Object> response;
-    String responseToString = "null";
+
+    Button aSyncTaskBtn;
+    ListView resultListView;
+    FoodSearchAdapter adapter;
+    ArrayList<FoodSearchItem> searchResultList;
+    ImageView foodSearchIv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_search);
 
+        aSyncTaskBtn = findViewById(R.id.aSyncSearchBtn);
 
         searchEditText = findViewById(R.id.searchET);
         searchButton = findViewById(R.id.searchBtn);
-        searchResultTv = findViewById(R.id.searchResultTV);
+        foodSearchIv = findViewById(R.id.foodSearchImage);
+
+        resultListView = findViewById(R.id.resultListView);
+        searchResultList = new ArrayList<>();
+        adapter = new FoodSearchAdapter(this,searchResultList);
+
+
+
+        aSyncTaskBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                searchString = searchEditText.getText().toString();
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
+                try {
+                    response = new CallFoodSearchApi().execute(searchString).get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                setData();
+            }
+        });
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                searchUsingAPI();
+                //searchUsingAPI();
             }
         });
     }
 
-    public void searchUsingAPI(){
+    /*public void searchUsingAPI(){
         searchString = searchEditText.getText().toString();
         Thread thread;
 
@@ -81,7 +113,7 @@ public class FoodSearch extends AppCompatActivity{
                                 System.out.println("Successful API Call--------------------");
                                 System.out.println(response);
                                 //setData();// This sub thread cannot alter the main threads views - to combat this, it simply calls another method called setData()
-                                responseToString = response.toString();
+
 
 
                             } else{ //If success is anything but null
@@ -106,8 +138,7 @@ public class FoodSearch extends AppCompatActivity{
             setData();
         }
 
-    }
-
+    }*/
 
 
     public void setData(){
@@ -115,6 +146,10 @@ public class FoodSearch extends AppCompatActivity{
         Map<Object,Object> contents = (Map<Object, Object>) foods.get(0);
         ArrayList<Object> item = (ArrayList<Object>) contents.get("foods");
         Map<Object,Object> foodItem = (Map<Object, Object>) item.get(0);
+
+        Map<Object,String> imageUrlObj = (Map<Object, String>) foodItem.get("photo");
+        String imageUrl = imageUrlObj.get("thumb");
+
         String food_name = (String) foodItem.get("food_name");
         double serving_qty = (Double) foodItem.get("serving_qty");
         String serving_unit= (String) foodItem.get("serving_unit");
@@ -123,30 +158,38 @@ public class FoodSearch extends AppCompatActivity{
         double total_fat = (Double) foodItem.get("nf_total_fat");
         double saturated_fat = (Double) foodItem.get("nf_saturated_fat");
         double cholesterol = (Double) foodItem.get("nf_cholesterol");
+        double sodium = (Double) foodItem.get("nf_sodium");
+        double total_carbohydrate = (Double) foodItem.get("nf_total_carbohydrate");
+        double fibre = (Double) foodItem.get("nf_dietary_fiber");
+        double sugars = (Double) foodItem.get("nf_sugars");
+        double protein = (Double) foodItem.get("nf_protein");
+        double potassium = (Double) foodItem.get("nf_potassium");
+
+        //Loading an image from a URL From: https://stackoverflow.com/questions/2471935/how-to-load-an-imageview-by-url-in-android
+        Picasso.with(FoodSearch.this).load(imageUrl).into(foodSearchIv);
+
+
+        FoodSearchItem foodSearchItem = new FoodSearchItem(food_name,serving_qty,serving_unit,serving_weight_grams,
+        calories,total_fat,saturated_fat,cholesterol,sodium,total_carbohydrate,fibre,sugars,protein,potassium);
+        searchResultList.clear();
+        searchResultList.add(foodSearchItem);
+        resultListView.setAdapter(null);
+        resultListView.setAdapter(adapter);
 
 
 
 
-        // Map<Object,Object>contents = (Map<Object, Object>) foods.get("foods");
-
-
-        //searchResultTv.setText(response.toString());
-       //System.out.println("Foods in the array are::::: " + contents.toString());
-       searchResultTv.setText(food_name + ":\n" +
+       /*searchResultTv.setText(food_name + ":\n" +
                                 "Serving Quantity: " + serving_qty + "\n" +
                                 "Serving Unit: " + serving_unit + "\n" +
                                 "Serving Weight (g): " + serving_weight_grams + "\n" +
                                 "Calories: " + calories + "\n" +
                                 "Total Fat: " + total_fat + "\n" +
                                 "Saturated Fat: " + saturated_fat + "\n" +
-                                "Cholesterol: " + cholesterol + "\n");
+                                "Cholesterol: " + cholesterol + "\n");*/
 
 
     }
-
-
-
-
 
 
 
