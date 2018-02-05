@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.Console;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -99,6 +100,7 @@ public class FoodSearch extends AppCompatActivity{
             });
             thread.start();
             while(thread.isAlive()){
+
             }
 
             setData();
@@ -109,7 +111,37 @@ public class FoodSearch extends AppCompatActivity{
 
 
     public void setData(){
-        searchResultTv.setText(response.toString());
+        ArrayList<Object> foods = (ArrayList<Object>) response.get("success");
+        Map<Object,Object> contents = (Map<Object, Object>) foods.get(0);
+        ArrayList<Object> item = (ArrayList<Object>) contents.get("foods");
+        Map<Object,Object> foodItem = (Map<Object, Object>) item.get(0);
+        String food_name = (String) foodItem.get("food_name");
+        double serving_qty = (Double) foodItem.get("serving_qty");
+        String serving_unit= (String) foodItem.get("serving_unit");
+        double serving_weight_grams = (Double) foodItem.get("serving_weight_grams");
+        double calories = (Double) foodItem.get("nf_calories");
+        double total_fat = (Double) foodItem.get("nf_total_fat");
+        double saturated_fat = (Double) foodItem.get("nf_saturated_fat");
+        double cholesterol = (Double) foodItem.get("nf_cholesterol");
+
+
+
+
+        // Map<Object,Object>contents = (Map<Object, Object>) foods.get("foods");
+
+
+        //searchResultTv.setText(response.toString());
+       //System.out.println("Foods in the array are::::: " + contents.toString());
+       searchResultTv.setText(food_name + ":\n" +
+                                "Serving Quantity: " + serving_qty + "\n" +
+                                "Serving Unit: " + serving_unit + "\n" +
+                                "Serving Weight (g): " + serving_weight_grams + "\n" +
+                                "Calories: " + calories + "\n" +
+                                "Total Fat: " + total_fat + "\n" +
+                                "Saturated Fat: " + saturated_fat + "\n" +
+                                "Cholesterol: " + cholesterol + "\n");
+
+
     }
 
 

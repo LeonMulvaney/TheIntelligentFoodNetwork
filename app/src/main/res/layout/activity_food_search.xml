@@ -44,11 +44,20 @@
                 android:background="@color/colorPrimary"
                 android:textColor="#ffffff"
                 android:layout_gravity="center" />
+            
+            <ImageView
+                android:id="@+id/foodItemImage"
+                android:layout_marginTop="25dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"/>
 
             <TextView
+
                 android:id="@+id/searchResultTV"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"/>
 
         </LinearLayout>
     </ScrollView>
