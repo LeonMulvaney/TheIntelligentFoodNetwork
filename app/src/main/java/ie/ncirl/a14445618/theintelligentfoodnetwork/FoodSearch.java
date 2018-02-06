@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,10 @@ public class FoodSearch extends AppCompatActivity{
     FoodSearchAdapter adapter;
     ArrayList<FoodSearchItem> searchResultList;
     ImageView foodSearchIv;
+    ScrollView scrollView;
+    int[] location = new int[2];
+    int x;
+    int y;
 
 
     @Override
@@ -58,6 +63,12 @@ public class FoodSearch extends AppCompatActivity{
         resultListView = findViewById(R.id.resultListView);
         searchResultList = new ArrayList<>();
         adapter = new FoodSearchAdapter(this,searchResultList);
+        scrollView = findViewById(R.id.foodSearchScrollView);
+
+        //Android Scroll to Location From: https://stackoverflow.com/questions/2224844/how-to-get-the-absolute-coordinates-of-a-view
+
+
+
 
 
 

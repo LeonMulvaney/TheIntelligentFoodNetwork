@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <!-- Custom Adapter Layout From: https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView -->
     <LinearLayout
@@ -19,185 +20,397 @@
             android:gravity="center"
             android:textColor="@color/colorAccent" />
 
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="#DCDCDC"
-            />
 
-        <TextView
-            android:id="@+id/tvServingQuantity"
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Serving Quantity"
-            android:textColor="#000000"
-            android:gravity="center_vertical"
-            android:background="#DCDCDC"
-            android:textAllCaps="true"
-            android:layout_below="@id/tvFoodName" />
+            android:layout_height="30dp">
 
-        <View
+            <TextView
+                android:id="@+id/tvServingQuantity"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Serving Quantity"
+                android:textColor="#000000"
+                android:gravity="center_vertical"
+                android:background="#DCDCDC"
+                android:textAllCaps="true"
+                android:layout_below="@id/tvFoodName"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/valueServingQuantity"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Serving Quantity Value"
+                android:textColor="#000000"
+                android:background="#DCDCDC"
+                android:textAllCaps="true"
+                android:layout_below="@id/tvFoodName"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="#DCDCDC"
-            />
+            android:layout_height="30dp">
+
+            <TextView
+                android:id="@+id/tvServingUnit"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Serving Unit"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:gravity="center_vertical"
+                android:layout_below="@id/tvServingQuantity"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/valueServingUnit"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Serving Unit Value"
+                android:textColor="#000000"
+                android:textAllCaps="true"
+                android:layout_below="@id/tvFoodName"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"/>
+
+        </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/tvServingUnit"
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Serving Unit"
-            android:textAllCaps="true"
-            android:textColor="#000000"
-            android:gravity="center_vertical"
-            android:layout_below="@id/tvServingQuantity"/>
+            android:layout_height="30dp">
 
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="#DCDCDC"
-            />
+            <TextView
+                android:id="@+id/tvServingWeight"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Serving Weight"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:gravity="center_vertical"
+                android:background="#DCDCDC"
+                android:layout_below="@id/tvServingUnit"
+                android:layout_weight="1"/>
 
-        <TextView
-            android:id="@+id/tvServingWeight"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Serving Weight"
-            android:textAllCaps="true"
-            android:textColor="#000000"
-            android:gravity="center_vertical"
-            android:background="#DCDCDC"
-            android:layout_below="@id/tvServingUnit"/>
+            <TextView
+                android:id="@+id/valueServingWeight"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Serving Weight Value"
+                android:textColor="#000000"
+                android:background="#DCDCDC"
+                android:textAllCaps="true"
+                android:layout_below="@id/tvFoodName"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"/>
 
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="#DCDCDC"
-            />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvCalories"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Calories"
-            android:textAllCaps="true"
-            android:textColor="#000000"
-            android:gravity="center_vertical"
-            android:layout_below="@id/tvServingWeight"/>
 
-        <View
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="#DCDCDC"
-            />
+            android:layout_height="30dp">
 
-        <TextView
-            android:id="@+id/tvTotalFat"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Total Fat"
-            android:textAllCaps="true"
-            android:textColor="#000000"
-            android:gravity="center_vertical"
-            android:background="#DCDCDC"
-            android:layout_below="@id/tvCalories"/>
+            <TextView
+                android:id="@+id/tvCalories"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Calories"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:gravity="center_vertical"
+                android:layout_below="@id/tvServingWeight"
+                android:layout_weight="1"/>
 
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="#DCDCDC"
-            />
+            <TextView
+                android:id="@+id/valueCalories"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Calories Value"
+                android:textColor="#000000"
+                android:textAllCaps="true"
+                android:layout_below="@id/tvFoodName"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"/>
 
-        <TextView
-            android:id="@+id/tvSaturatedFat"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Saturated Fat"
-            android:textAllCaps="true"
-            android:textColor="#000000"
-            android:gravity="center_vertical"
-            android:layout_below="@id/tvTotalFat"/>
+        </LinearLayout>
 
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="#DCDCDC"
-            />
 
-        <TextView
-            android:id="@+id/tvCholesterol"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Cholesterol"
-            android:textAllCaps="true"
-            android:textColor="#000000"
-            android:gravity="center_vertical"
-            android:background="#DCDCDC"
-            android:layout_below="@id/tvSaturatedFat"/>
 
-        <TextView
-            android:id="@+id/tvSodium"
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Sodium"
-            android:textAllCaps="true"
-            android:textColor="#000000"
-            android:gravity="center_vertical"
-            android:layout_below="@id/tvCholesterol"/>
+            android:layout_height="30dp">
 
-        <TextView
-            android:id="@+id/tvCarbohydtrate"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Carbohydrate"
-            android:textAllCaps="true"
-            android:textColor="#000000"
-            android:gravity="center_vertical"
-            android:background="#DCDCDC"
-            android:layout_below="@id/tvSodium"/>
+            <TextView
+                android:id="@+id/tvTotalFat"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Total Fat"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:gravity="center_vertical"
+                android:background="#DCDCDC"
+                android:layout_below="@id/tvCalories"
+                android:layout_weight="1"/>
 
-        <TextView
-            android:id="@+id/tvFibre"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Fibre"
-            android:textAllCaps="true"
-            android:textColor="#000000"
-            android:gravity="center_vertical"
-            android:layout_below="@id/tvCarbohydtrate"/>
-        <TextView
+            <TextView
+                android:id="@+id/valueTotalFat"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Total Fat Value"
+                android:textColor="#000000"
+                android:background="#DCDCDC"
+                android:textAllCaps="true"
+                android:layout_below="@id/tvFoodName"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"/>
 
-            android:id="@+id/tvSugars"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Sugars"
-            android:textAllCaps="true"
-            android:textColor="#000000"
-            android:gravity="center_vertical"
-            android:background="#DCDCDC"
-            android:layout_below="@id/tvFibre"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvProtein"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Protein"
-            android:textAllCaps="true"
-            android:textColor="#000000"
-            android:gravity="center_vertical"
-            android:layout_below="@id/tvSugars"/>
 
-        <TextView
-            android:id="@+id/tvPotassium"
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Potassium"
-            android:textAllCaps="true"
-            android:textColor="#000000"
-            android:gravity="center_vertical"
-            android:background="#DCDCDC"
-            android:layout_below="@id/tvProtein"/>
+            android:layout_height="30dp">
+
+            <TextView
+                android:id="@+id/tvSaturatedFat"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Saturated Fat"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:gravity="center_vertical"
+                android:layout_below="@id/tvTotalFat"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/valueSaturatedFat"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Saturated Fat Value"
+                android:textColor="#000000"
+                android:textAllCaps="true"
+                android:layout_below="@id/tvFoodName"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30dp">
+
+            <TextView
+                android:id="@+id/tvCholesterol"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Cholesterol"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:gravity="center_vertical"
+                android:background="#DCDCDC"
+                android:layout_below="@id/tvSaturatedFat"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/valueCholesterol"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Cholesterol Value"
+                android:textColor="#000000"
+                android:background="#DCDCDC"
+                android:textAllCaps="true"
+                android:layout_below="@id/tvFoodName"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30dp">
+
+            <TextView
+                android:id="@+id/tvSodium"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Sodium"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:gravity="center_vertical"
+                android:layout_below="@id/tvCholesterol"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/valueSodium"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Sodium Value"
+                android:textColor="#000000"
+                android:textAllCaps="true"
+                android:layout_below="@id/tvFoodName"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30dp">
+
+            <TextView
+                android:id="@+id/tvCarbohydrate"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Carbohydrate"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:gravity="center_vertical"
+                android:background="#DCDCDC"
+                android:layout_below="@id/tvSodium"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/valueCarbohydrate"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Carbohydrate Value"
+                android:textColor="#000000"
+                android:background="#DCDCDC"
+                android:textAllCaps="true"
+                android:layout_below="@id/tvFoodName"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30dp">
+
+            <TextView
+                android:id="@+id/tvFibre"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Fibre"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:gravity="center_vertical"
+                android:layout_below="@id/tvCarbohydrate"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/valueFibre"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Fibre Value"
+                android:textColor="#000000"
+                android:textAllCaps="true"
+                android:layout_below="@id/tvFoodName"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30dp">
+
+            <TextView
+
+                android:id="@+id/tvSugars"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Sugars"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:gravity="center_vertical"
+                android:background="#DCDCDC"
+                android:layout_below="@id/tvFibre"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/valueSugars"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Sugars Value"
+                android:textColor="#000000"
+                android:background="#DCDCDC"
+                android:textAllCaps="true"
+                android:layout_below="@id/tvFoodName"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30dp">
+
+            <TextView
+                android:id="@+id/tvProtein"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Protein"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:gravity="center_vertical"
+                android:layout_below="@id/tvSugars"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/valueProtein"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Protein Value"
+                android:textColor="#000000"
+                android:textAllCaps="true"
+                android:layout_below="@id/tvFoodName"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30dp">
+
+            <TextView
+                android:id="@+id/tvPotassium"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Potassium"
+                android:textAllCaps="true"
+                android:textColor="#000000"
+                android:gravity="center_vertical"
+                android:background="#DCDCDC"
+                android:layout_below="@id/tvProtein"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/valuePotassium"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Potassium Value"
+                android:textColor="#000000"
+                android:background="#DCDCDC"
+                android:textAllCaps="true"
+                android:layout_below="@id/tvFoodName"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
