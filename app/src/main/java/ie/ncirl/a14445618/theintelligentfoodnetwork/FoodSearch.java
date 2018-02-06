@@ -91,7 +91,7 @@ public class FoodSearch extends AppCompatActivity{
     }
 
     /*public void searchUsingAPI(){
-        searchString = searchEditText.getText().toString();
+       // searchString = searchEditText.getText().toString();
         Thread thread;
 
         if(StringUtils.isBlank(searchString)){         //How to check if is empty or whitespace - Using Apache Commons Library From: https://stackoverflow.com/questions/3247067/how-do-i-check-that-a-java-string-is-not-all-whitespaces
