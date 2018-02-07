@@ -37,7 +37,8 @@
                 android:layout_marginTop="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:gravity="center">
+                android:gravity="center"
+                >
 
                 <ImageView
                     android:id="@+id/searchIcon"
@@ -72,7 +73,8 @@
                 android:id="@+id/resultListView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="15dp"
+                android:elevation="10dp"/>
 
         </LinearLayout>
     </ScrollView>

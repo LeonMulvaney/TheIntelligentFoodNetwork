@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 
 /**
@@ -28,6 +30,7 @@ public class FoodSearchAdapter extends ArrayAdapter<FoodSearchItem>{
         }
         // Lookup view for data population
         TextView tvFoodName = convertView.findViewById(R.id.tvFoodName);
+        TextView tvServingAmount = convertView.findViewById(R.id.tvServingAmount);
         TextView tvServingQuantity = convertView.findViewById(R.id.valueServingQuantity);
         TextView tvServingUnit = convertView.findViewById(R.id.valueServingUnit);
         TextView tvServingWeight = convertView.findViewById(R.id.valueServingWeight);
@@ -61,20 +64,21 @@ public class FoodSearchAdapter extends ArrayAdapter<FoodSearchItem>{
         tvProtein.setText("Protein: " + foodSearchItem.getProtein());
         tvPotassium.setText("Potassium: " + foodSearchItem.getPotassium());*/
 
-        tvFoodName.setText(foodSearchItem.getFood_name());
+        tvFoodName.setText(StringUtils.capitalize(foodSearchItem.getFood_name())); //First Letter Capital From: https://stackoverflow.com/questions/3904579/how-to-capitalize-the-first-letter-of-a-string-in-java
+        tvServingAmount.setText("" + foodSearchItem.getServing_qty() + " " + foodSearchItem.getServing_unit() + " - " + foodSearchItem.getServing_weight_grams() + " g" );
         tvServingQuantity.setText("" + foodSearchItem.getServing_qty());
         tvServingUnit.setText("" + foodSearchItem.getServing_unit());
-        tvServingWeight.setText("" + foodSearchItem.getServing_weight_grams());
-        tvCalories.setText("" + foodSearchItem.getCalories());
-        tvTotalFat.setText("" + foodSearchItem.getTotal_fat());
-        tvSaturatedFat.setText("" + foodSearchItem.getSaturated_fat());
-        tvCholesterol.setText("" + foodSearchItem.getCholesterol());
-        tvSodium.setText("" + foodSearchItem.getSodium());
-        tvCarbohydtrate.setText("" + foodSearchItem.getTotal_carbohydrate());
-        tvFibre.setText("" + foodSearchItem.getFibre());
-        tvSugars.setText("" + foodSearchItem.getSugars());
-        tvProtein.setText("" + foodSearchItem.getProtein());
-        tvPotassium.setText("" + foodSearchItem.getPotassium());
+        tvServingWeight.setText("" + foodSearchItem.getServing_weight_grams() +" g");
+        tvCalories.setText("" + foodSearchItem.getCalories() + " kcal");
+        tvTotalFat.setText("" + foodSearchItem.getTotal_fat() + " g");
+        tvSaturatedFat.setText("" + foodSearchItem.getSaturated_fat() + " g");
+        tvCholesterol.setText("" + foodSearchItem.getCholesterol() + " mg");
+        tvSodium.setText("" + foodSearchItem.getSodium() + " mg");
+        tvCarbohydtrate.setText("" + foodSearchItem.getTotal_carbohydrate() + " g");
+        tvFibre.setText("" + foodSearchItem.getFibre() +" g");
+        tvSugars.setText("" + foodSearchItem.getSugars() + " g");
+        tvProtein.setText("" + foodSearchItem.getProtein() + " g");
+        tvPotassium.setText("" + foodSearchItem.getPotassium() + " mg");
 
 
         // Return the completed view to render on screen
