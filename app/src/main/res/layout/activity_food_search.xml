@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.FoodSearch"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
+
 
     <ScrollView
         android:id="@+id/foodSearchScrollView"
@@ -28,25 +31,33 @@
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"/>
 
-            <EditText
-                android:id="@+id/searchET"
-                android:layout_marginTop="40dp"
-                android:layout_width="300dp"
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="50dp"
-                android:layout_gravity="center">
-            </EditText>
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:gravity="center">
 
+                <ImageView
+                    android:id="@+id/searchIcon"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_toLeftOf="@id/searchET"
+                    android:src="@drawable/android_search_icon"
+                    android:layout_gravity="center"/>
 
-            <Button
-                android:id="@+id/aSyncSearchBtn"
-                android:layout_marginTop="20dp"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:text="A Sync Search"
-                android:background="@color/colorAccent"
-                android:textColor="#ffffff"
-                android:layout_gravity="center"
-                android:textAllCaps="false"/>
+                <EditText
+                    android:id="@+id/searchET"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:hint="Search..."
+                    android:inputType="text"
+                    android:imeOptions="actionSearch">
+                </EditText>
+
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/foodSearchImage"

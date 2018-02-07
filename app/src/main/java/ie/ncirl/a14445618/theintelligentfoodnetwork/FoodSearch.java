@@ -5,8 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,6 +20,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.arlib.floatingsearchview.FloatingSearchView;
 import com.rapidapi.rapidconnect.Argument;
 import com.rapidapi.rapidconnect.RapidApiConnect;
 import com.squareup.picasso.Picasso;
@@ -39,23 +43,21 @@ public class FoodSearch extends AppCompatActivity{
     EditText searchEditText;
     Map<String, Object> response;
 
-    Button aSyncTaskBtn;
     ListView resultListView;
     FoodSearchAdapter adapter;
     ArrayList<FoodSearchItem> searchResultList;
     ImageView foodSearchIv;
     ScrollView scrollView;
-    int[] location = new int[2];
-    int x;
-    int y;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_search);
+        //Add Back Button to Action Bar - From https://stackoverflow.com/questions/12070744/add-back-button-to-action-bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        aSyncTaskBtn = findViewById(R.id.aSyncSearchBtn);
+
 
         searchEditText = findViewById(R.id.searchET);
         foodSearchIv = findViewById(R.id.foodSearchImage);
@@ -65,14 +67,30 @@ public class FoodSearch extends AppCompatActivity{
         adapter = new FoodSearchAdapter(this,searchResultList);
         scrollView = findViewById(R.id.foodSearchScrollView);
 
-        //Android Scroll to Location From: https://stackoverflow.com/questions/2224844/how-to-get-the-absolute-coordinates-of-a-view
+        searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    searchString = searchEditText.getText().toString();
+                    searchEditText.setText("");
+                    searchEditText.clearFocus(); //Clear Focus From: https://stackoverflow.com/questions/5056734/android-force-edittext-to-remove-focus
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
+                    try {
+                        response = new CallFoodSearchApi().execute(searchString).get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                    setData();
+                    return true;
+                }
+                return false;
+            }
+        });
 
-
-
-
-
-
-        aSyncTaskBtn.setOnClickListener(new View.OnClickListener() {
+        /*aSyncTaskBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 searchString = searchEditText.getText().toString();
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -86,8 +104,15 @@ public class FoodSearch extends AppCompatActivity{
                 }
                 setData();
             }
-        });
+        });*/
 
+    }
+
+    //Function to return to home when back button is pressed From --> Same link as "Add Back Button" above
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 
     /*public void searchUsingAPI(){
