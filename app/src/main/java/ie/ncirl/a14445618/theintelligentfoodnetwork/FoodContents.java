@@ -1,8 +1,12 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
+import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -41,6 +45,8 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
 
     Spinner spinner;
 
+    String foodType;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +71,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
         foodListView = findViewById(R.id.recipesListView);
 
 
+
         //Spinner From: https://developer.android.com/guide/topics/ui/controls/spinner.html
         Spinner spinner =  findViewById(R.id.filterByCategorySpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -75,13 +82,48 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
              spinner.setAdapter(adapter);
 
         spinner.setOnItemSelectedListener(this);
-
-
-
-
         getContents(); //Call the GetContents Method which pulls data from Firebase and populates it within the ListView
 
+        registerForContextMenu(foodListView);
+
+        foodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() { // Wait to see what element the user clicks on in the ListView
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    FoodItem item = foodList.get(position); //Use original list as not filtered
+                    foodType = item.getFoodType().toString();
+                    //toast();
+                //Alert Dialog From: http://rajeshvijayakumar.blogspot.ie/2013/04/alert-dialog-dialog-with-item-list.html
+                final CharSequence[] items = {
+                        "View Recpies", "View Nutritional Info"
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(FoodContents.this);
+                builder.setTitle("Make your selection");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        // Do something with the selection
+                        String value;
+                        if(item ==0){
+                             value = "Recipes!";
+                            toast(value);
+                        }
+                        else{
+                            value = "Nutritional Info!";
+                            toast(value);
+                        }
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
+            }
+        }); //End of listView onClickListener
+
+
     } //End of OnCreate
+
+    public void toast(String value){
+        Toast.makeText(this,value,Toast.LENGTH_SHORT).show();
+    }
 
     // Add Buttons to Action Bar From: http://android.xsoftlab.net/training/basics/actionbar/adding-buttons.html
     @Override
@@ -136,7 +178,22 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
         });
         Toast.makeText(this,"All Items Loaded!",Toast.LENGTH_SHORT).show();//Send the user confirmation that they have refreshed the List
     }
+    
 
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.viewRecipes:
+                Toast.makeText(this,"View Recipes!",Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.viewNutritionalInfo:
+                Toast.makeText(this,"View Nutritional Info!",Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
 
 
     //1. Refresh the List - Take a new Snapshot of Firebase
@@ -256,7 +313,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-        Toast.makeText(this,"Filtered by Fruit and Ved!",Toast.LENGTH_SHORT).show();//Send the user confirmation that they have refreshed the List
+        Toast.makeText(this,"Filtered by Fruit and Veg!",Toast.LENGTH_SHORT).show();//Send the user confirmation that they have refreshed the List
 
     }
 
@@ -372,4 +429,8 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
     }
+
+
+
+
 }

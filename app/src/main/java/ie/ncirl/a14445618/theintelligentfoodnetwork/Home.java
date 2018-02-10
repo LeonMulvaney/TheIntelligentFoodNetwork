@@ -1,5 +1,6 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,4 +22,7 @@ public class Home extends AppCompatActivity {
         Intent intent = new Intent(this,FoodSearch.class);
         startActivity(intent);
     }
+
+
+
 }

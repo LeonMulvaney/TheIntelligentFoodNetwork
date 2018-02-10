@@ -22,4 +22,10 @@
         <item>Misc.</item>
     </string-array>
 
+    <!--Food Click Dialog String Array -->
+    <string-array name="food_dialog_string_array">
+        <item>View Recipes</item>
+        <item>View Nutritional Info</item>
+    </string-array>
+
 </resources>
