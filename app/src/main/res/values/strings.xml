@@ -12,6 +12,7 @@
     <string name="add_food_item_action_bar_string">Add Item</string>
     <string name="recipes_action_bar_string">My Fridge</string>
     <string name="food_search_action_bar_string">Nutritional Values</string>
+    <string name="recipes_from_food_contents_action_bar_string">Recipes based on</string>
 
     <!--Food Contents Spinner -->
     <string-array name="food_contents_spinner_array">

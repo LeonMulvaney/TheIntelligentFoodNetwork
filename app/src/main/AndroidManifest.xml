@@ -22,7 +22,9 @@
         <activity android:name=".Home" />
         <activity android:name=".AddFoodItem" />
         <activity android:name=".FoodContents" />
-        <activity android:name=".FoodSearch"></activity>
+        <activity android:name=".FoodSearch" />
+        <activity android:name=".RecipesFromFoodContents" />
+        <activity android:name=".NutrientsResult"></activity>
     </application>
 
 </manifest>

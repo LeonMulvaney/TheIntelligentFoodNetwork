@@ -1,6 +1,7 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
@@ -88,7 +89,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
 
         foodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() { // Wait to see what element the user clicks on in the ListView
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                     FoodItem item = foodList.get(position); //Use original list as not filtered
                     foodType = item.getFoodType().toString();
                     //toast();
@@ -97,18 +98,16 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                         "View Recpies", "View Nutritional Info"
                 };
                 AlertDialog.Builder builder = new AlertDialog.Builder(FoodContents.this);
-                builder.setTitle("Make your selection");
+                builder.setTitle("Please choose...");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         // Do something with the selection
-                        String value;
                         if(item ==0){
-                             value = "Recipes!";
-                            toast(value);
+                            //foodType = foodList.get(position).getFoodType().toString();
+                            openRecipesFromFoodContents();
                         }
                         else{
-                            value = "Nutritional Info!";
-                            toast(value);
+                            openNutrientsResult();
                         }
                     }
                 });
@@ -121,9 +120,6 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
 
     } //End of OnCreate
 
-    public void toast(String value){
-        Toast.makeText(this,value,Toast.LENGTH_SHORT).show();
-    }
 
     // Add Buttons to Action Bar From: http://android.xsoftlab.net/training/basics/actionbar/adding-buttons.html
     @Override
@@ -178,22 +174,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
         });
         Toast.makeText(this,"All Items Loaded!",Toast.LENGTH_SHORT).show();//Send the user confirmation that they have refreshed the List
     }
-    
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        switch (item.getItemId()) {
-            case R.id.viewRecipes:
-                Toast.makeText(this,"View Recipes!",Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.viewNutritionalInfo:
-                Toast.makeText(this,"View Nutritional Info!",Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return super.onContextItemSelected(item);
-        }
-    }
 
 
     //1. Refresh the List - Take a new Snapshot of Firebase
@@ -430,6 +411,17 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
         // Another interface callback
     }
 
+    public void openRecipesFromFoodContents(){
+        Intent intent = new Intent(this,RecipesFromFoodContents.class);
+        intent.putExtra("foodType",foodType); //Pass String from one Activity to another From: https://stackoverflow.com/questions/6707900/pass-a-string-from-one-activity-to-another-activity-in-android
+        startActivity(intent);
+    }
+
+    public void openNutrientsResult(){
+        Intent intent = new Intent(this,NutrientsResult.class);
+        intent.putExtra("foodType",foodType); //Pass String from one Activity to another From: https://stackoverflow.com/questions/6707900/pass-a-string-from-one-activity-to-another-activity-in-android
+        startActivity(intent);
+    }
 
 
 
