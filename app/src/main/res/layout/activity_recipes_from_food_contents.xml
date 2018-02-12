@@ -31,6 +31,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp">
             </ListView>
+
+            <TextView
+                android:id="@+id/resultTv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
 

@@ -2,8 +2,8 @@
 
 <!--Material Design Colour Schemes From : https://material.io/color/#!/?view.left=0&view.right=0&primary.color=4CAF50 -->
 <resources>
-    <color name="colorPrimary">#00796b</color>
-    <color name="colorPrimaryDark">#004c40</color>
-    <color name="colorAccent">#79000e</color>
+    <color name="colorPrimary">#159B4A</color>
+    <color name="colorPrimaryDark">#10783a</color>
+    <color name="colorAccent">#535353</color>
     <color name="white">#FFFFFF</color>
 </resources>
