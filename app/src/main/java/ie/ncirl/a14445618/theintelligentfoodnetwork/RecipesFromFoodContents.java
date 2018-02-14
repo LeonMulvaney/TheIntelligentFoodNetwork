@@ -6,10 +6,17 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -21,7 +28,13 @@ public class RecipesFromFoodContents extends AppCompatActivity {
     String myUrl;
     String result;
     String chopped;
+    JSONObject jsonObject;
     HttpGetRequest getRequest = new HttpGetRequest();
+    JSONArray array;
+
+    ArrayList<RecipeFromIngredientModel> recipesList = new ArrayList<>();
+    ListView recipeListView;
+    RecipesByIngredientsAdapter adapter;
 
 
     @Override
@@ -36,11 +49,8 @@ public class RecipesFromFoodContents extends AppCompatActivity {
         //Add Back Button to Action Bar - From https://stackoverflow.com/questions/12070744/add-back-button-to-action-bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        recipesListView = findViewById(R.id.recipeListView);
-        resultTv = findViewById(R.id.resultTv);
-
+        //Get Data From API
         myUrl = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients="+foodType+"&limitLicense=false&number=5&ranking=1";
-
         try {
             result = getRequest.execute(myUrl).get();
         } catch (InterruptedException e) {
@@ -50,8 +60,40 @@ public class RecipesFromFoodContents extends AppCompatActivity {
         }
         //Substring of String From: https://stackoverflow.com/questions/8846173/how-to-remove-first-and-last-character-of-a-string/31896180
         chopped = StringUtils.substringBetween(result,"[","]");
-        resultTv.setText(chopped);
-        
+
+        //Convert String to JSON in Java From: https://stackoverflow.com/questions/35722646/how-to-read-json-string-in-java
+
+        try {
+            array = new JSONArray(result); //Create JSON Array
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        for(int i=0; i<array.length(); i++){
+            try {
+            JSONObject jsonObj;
+                jsonObj = array.getJSONObject(i);
+                int id = (int) jsonObj.get("id");
+                String title = (String) jsonObj.get("title");
+                String imageUrl = (String) jsonObj.get("image");
+                RecipeFromIngredientModel recipe = new RecipeFromIngredientModel(id,title,imageUrl);
+                recipesList.add(recipe);
+                System.out.println("-------------------------------------------");
+                System.out.println(recipe.getId());
+                System.out.println(recipe.getTitle());
+                System.out.println(recipe.getImageUrl());
+                System.out.println("-------------------------------------------");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        //Set Data in View
+        recipeListView = findViewById(R.id.recipeListView);
+        adapter = new RecipesByIngredientsAdapter(this,recipesList);
+        recipeListView.setAdapter(adapter);
+
 
     }
 
