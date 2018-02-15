@@ -21,11 +21,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!--ListView Remove Divider From: https://stackoverflow.com/questions/1914477/how-do-i-remove-lines-between-listviews-on-android -->
             <ListView
                 android:id="@+id/recipeListView"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="15dp"
+                android:divider="@null"
+                android:dividerHeight="0dp">
             </ListView>
 
         </LinearLayout>

@@ -24,7 +24,8 @@
         <activity android:name=".FoodContents" />
         <activity android:name=".FoodSearch" />
         <activity android:name=".RecipesFromFoodContents" />
-        <activity android:name=".NutrientsResult"></activity>
+        <activity android:name=".NutrientsResult" />
+        <activity android:name=".RecipeDetails"></activity>
     </application>
 
 </manifest>

@@ -1,10 +1,15 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -36,6 +41,9 @@ public class RecipesFromFoodContents extends AppCompatActivity {
     ListView recipeListView;
     RecipesByIngredientsAdapter adapter;
 
+    int recipeId;
+    String recipeTitle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +58,7 @@ public class RecipesFromFoodContents extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Get Data From API
-        myUrl = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients="+foodType+"&limitLicense=false&number=5&ranking=1";
+        myUrl = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients="+foodType+"&limitLicense=false&number=10&ranking=1";
         try {
             result = getRequest.execute(myUrl).get();
         } catch (InterruptedException e) {
@@ -78,11 +86,11 @@ public class RecipesFromFoodContents extends AppCompatActivity {
                 String imageUrl = (String) jsonObj.get("image");
                 RecipeFromIngredientModel recipe = new RecipeFromIngredientModel(id,title,imageUrl);
                 recipesList.add(recipe);
-                System.out.println("-------------------------------------------");
+                /*System.out.println("-------------------------------------------");
                 System.out.println(recipe.getId());
                 System.out.println(recipe.getTitle());
                 System.out.println(recipe.getImageUrl());
-                System.out.println("-------------------------------------------");
+                System.out.println("-------------------------------------------");*/
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -94,6 +102,38 @@ public class RecipesFromFoodContents extends AppCompatActivity {
         adapter = new RecipesByIngredientsAdapter(this,recipesList);
         recipeListView.setAdapter(adapter);
 
+        recipeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() { // Wait to see what element the user clicks on in the ListView
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                RecipeFromIngredientModel recipe = recipesList.get(position); //Use original list as not filtered
+                recipeId = recipe.getId();
+                recipeTitle = recipe.getTitle();
+
+
+                //Alert Dialog From: http://rajeshvijayakumar.blogspot.ie/2013/04/alert-dialog-dialog-with-item-list.html
+                final CharSequence[] items = {
+                        "View Details", "Add to Favourites"
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(RecipesFromFoodContents.this);
+                builder.setTitle("Please choose...");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        // Do something with the selection
+                        if(item ==0){
+                            //foodType = foodList.get(position).getFoodType().toString();
+                            openRecipeDetails();
+                        }
+                        else{
+                            showToast(recipeTitle);
+                        }
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
+            }
+        }); //End of listView onClickListener
+
 
     }
 
@@ -102,4 +142,16 @@ public class RecipesFromFoodContents extends AppCompatActivity {
         finish();
         return true;
     }
+
+    public void openRecipeDetails(){
+        Intent intent = new Intent(this,RecipeDetails.class);
+        String id = Integer.toString(recipeId);
+        intent.putExtra("recipeId",id); //Pass String from one Activity to another From: https://stackoverflow.com/questions/6707900/pass-a-string-from-one-activity-to-another-activity-in-android
+        startActivity(intent);
+    }
+
+    public void showToast(String string){
+        Toast.makeText(this, string + " - Added to your favourites!",Toast.LENGTH_SHORT).show();
+    }
+
 }
