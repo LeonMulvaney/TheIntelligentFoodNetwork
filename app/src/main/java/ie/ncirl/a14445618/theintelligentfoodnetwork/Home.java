@@ -23,6 +23,11 @@ public class Home extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openRecipes(View view){
+        Intent intent = new Intent(this,Recipes.class);
+        startActivity(intent);
+    }
+
 
 
 }

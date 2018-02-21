@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,6 +50,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
 
     String foodType;
 
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +120,6 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
             }
         }); //End of listView onClickListener
 
-
     } //End of OnCreate
 
 
@@ -128,6 +130,13 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.refresh_actionbar, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    //Function to return to home when back button is pressed From --> Same link as "Add Back Button" above
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 
     @Override
@@ -422,6 +431,8 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
         intent.putExtra("foodType",foodType); //Pass String from one Activity to another From: https://stackoverflow.com/questions/6707900/pass-a-string-from-one-activity-to-another-activity-in-android
         startActivity(intent);
     }
+
+
 
 
 
