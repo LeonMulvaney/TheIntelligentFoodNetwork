@@ -52,8 +52,8 @@ public class RecipeDetails extends AppCompatActivity {
     IngredientsAdapter adapter;
     NonScrollListView ingredientLv;
 
-    ArrayList<String> instructionsList;
-    ArrayAdapter instructionsAdapter;
+    ArrayList<InstructionModel> instructionsList;
+    InstructionsAdapter instructionsAdapter;
     NonScrollListView instructionsLv;
 
     TextView servingsTv;
@@ -83,7 +83,7 @@ public class RecipeDetails extends AppCompatActivity {
         adapter = new IngredientsAdapter(this, ingredientList);
 
         instructionsList = new ArrayList<>();
-        instructionsAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,instructionsList);
+        instructionsAdapter = new InstructionsAdapter(this,instructionsList);
 
 
         //Get Data From API
@@ -106,8 +106,16 @@ public class RecipeDetails extends AppCompatActivity {
             spoonacularSourceUrl = object.getString("spoonacularSourceUrl");
             servings = object.getString("servings");
             wwSmartPoints = object.getString("weightWatcherSmartPoints");
-            preparation = object.getString("preparationMinutes");
-            cookTime = object.getString("cookingMinutes");
+
+            if(object.has("preparationMinutes") && object.has("cookingMinutes")){ //Error Handling - Some API Responses contain different data - App was not loading...
+                preparation = object.getString("preparationMinutes");                   //...data if it could not find element in JSONObject
+                cookTime = object.getString("cookingMinutes");
+            }
+            else{
+                preparation = object.getString("readyInMinutes");
+                cookTime = "-";
+            }
+
 
 
             //Get Ingredients, Store in Model called IngredientModel, save objects to Arraylist, then parse arraylist to View using ListView Adapter (With custom Layout)
@@ -130,12 +138,10 @@ public class RecipeDetails extends AppCompatActivity {
             JSONArray instructionsObjectArray = (JSONArray) instructionsObject.get("steps");
             for(int i=0;i<instructionsObjectArray.length();i++){
                 JSONObject object = (JSONObject) instructionsObjectArray.get(i);
-                String step = object.getString("step");
-                instructionsList.add(step);
-                //System.out.println("========================================");
-                //System.out.println(step);
-                //System.out.println("========================================");
-
+                String stepNumber = object.getString("number");
+                String instruction = object.getString("step");
+                InstructionModel instructionModel = new InstructionModel(stepNumber,instruction);
+                instructionsList.add(instructionModel);
             }
 
 
@@ -165,14 +171,14 @@ public class RecipeDetails extends AppCompatActivity {
         preparationTv.setText(preparation);
         cookTimeTv.setText(cookTime);
 
-        ingredientLv.setAdapter(adapter);//Re-Populate the list view
+        ingredientLv.setAdapter(adapter);
         instructionsLv.setAdapter(instructionsAdapter);
         Picasso.with(RecipeDetails.this).load(imageUrl).into(recipeImage);
         System.out.println(result);
 
         //Page Scrolling to Centre Fix From: https://stackoverflow.com/questions/4119441/how-to-scroll-to-top-of-long-scrollview-layout
-        ingredientLv.setFocusable(false);
-        instructionsLv.setFocusable(false);
+        //ingredientLv.setFocusable(false);
+        //instructionsLv.setFocusable(false);
 
 
     }

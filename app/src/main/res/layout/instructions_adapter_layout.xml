@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/instructionNumberTv"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="1"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:textAlignment="center"
+        android:gravity="center_vertical"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/instructionTv"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text="Do xyz"
+        android:layout_marginBottom="5dp"
+        android:layout_toRightOf="@id/instructionNumberTv"
+        android:gravity="center_vertical"/>
+</RelativeLayout>

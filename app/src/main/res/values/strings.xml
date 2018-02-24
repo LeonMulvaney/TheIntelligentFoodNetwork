@@ -41,9 +41,8 @@
     <string name="ww_smart_points">Weight Watcher\nSmart Points</string>
     <string name="preparation">Mins\nPreparation</string>
     <string name="cook_time">Mins\nCook Time</string>
-
-
-
+    <string name="ingredients">Ingredients</string>
+    <string name="instructions">Instructions</string>
 
 
 </resources>
