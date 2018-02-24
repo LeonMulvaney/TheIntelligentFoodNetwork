@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:id="@+id/addBtn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_add_to_shopping_icon"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/ingredientTv"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="Ingredient"
+                android:textColor="@color/black"
+                android:layout_toRightOf="@id/addBtn"
+                android:gravity="left|center"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+
+
+
+</LinearLayout>

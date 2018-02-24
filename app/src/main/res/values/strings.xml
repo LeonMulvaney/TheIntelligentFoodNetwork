@@ -36,6 +36,12 @@
     <string name="bottom_nav_recipes">Recipes</string>
     <string name="bottom_nav_account">Account</string>
 
+    <!-- Recipe Details Strings -->
+    <string name="serving">Servings</string>
+    <string name="ww_smart_points">Weight Watcher\nSmart Points</string>
+    <string name="preparation">Mins\nPreparation</string>
+    <string name="cook_time">Mins\nCook Time</string>
+
 
 
 

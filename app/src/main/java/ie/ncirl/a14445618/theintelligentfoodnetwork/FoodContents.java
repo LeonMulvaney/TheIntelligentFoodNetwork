@@ -50,7 +50,6 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
 
     String foodType;
 
-    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
