@@ -109,27 +109,7 @@ public class RecipesFromFoodContents extends AppCompatActivity {
                 recipeId = recipe.getId();
                 recipeTitle = recipe.getTitle();
 
-
-                //Alert Dialog From: http://rajeshvijayakumar.blogspot.ie/2013/04/alert-dialog-dialog-with-item-list.html
-                final CharSequence[] items = {
-                        "View Details", "Add to Favourites"
-                };
-                AlertDialog.Builder builder = new AlertDialog.Builder(RecipesFromFoodContents.this);
-                builder.setTitle("Please choose...");
-                builder.setItems(items, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int item) {
-                        // Do something with the selection
-                        if(item ==0){
-                            //foodType = foodList.get(position).getFoodType().toString();
-                            openRecipeDetails();
-                        }
-                        else{
-                            showToast(recipeTitle);
-                        }
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
+                openRecipeDetails();
 
             }
         }); //End of listView onClickListener
@@ -150,8 +130,5 @@ public class RecipesFromFoodContents extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void showToast(String string){
-        Toast.makeText(this, string + " - Added to your favourites!",Toast.LENGTH_SHORT).show();
-    }
 
 }

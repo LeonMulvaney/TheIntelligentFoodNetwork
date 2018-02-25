@@ -1,9 +1,12 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
 import android.app.ActionBar;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -12,23 +15,36 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class RecipeDetails extends AppCompatActivity {
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    DatabaseReference shoppingListRef;
+    DatabaseReference favouritesRef;
+
     ScrollView recipeDetailsScrollView;
     String myUrl;
     String result;
@@ -60,6 +76,8 @@ public class RecipeDetails extends AppCompatActivity {
     TextView wwSmartPointTv;
     TextView preparationTv;
     TextView cookTimeTv;
+
+    String ingredient;
 
 
 
@@ -161,10 +179,6 @@ public class RecipeDetails extends AppCompatActivity {
         recipeTitleTv = findViewById(R.id.recipeTitle);
         instructionsLv = findViewById(R.id.instructionsLv);
 
-
-
-
-
         recipeTitleTv.setText(title);
         servingsTv.setText(servings);
         wwSmartPointTv.setText(wwSmartPoints);
@@ -180,6 +194,42 @@ public class RecipeDetails extends AppCompatActivity {
         //ingredientLv.setFocusable(false);
         //instructionsLv.setFocusable(false);
 
+        //Firebase
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReferenceFromUrl("https://theintelligentfoodnetwork.firebaseio.com/");
+        shoppingListRef = databaseReference.child("ShoppingList");
+        favouritesRef = databaseReference.child("Favourites");
+
+
+        ingredientLv.setOnItemClickListener(new AdapterView.OnItemClickListener() { // Wait to see what element the user clicks on in the ListView
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                IngredientModel ingredientModel = ingredientList.get(position); //Use original list as not filtered
+                ingredient = StringUtils.capitalize(ingredientModel.getIngredientName().toString());
+
+                //toast();
+                //Alert Dialog From: http://rajeshvijayakumar.blogspot.ie/2013/04/alert-dialog-dialog-with-item-list.html
+                final CharSequence[] items = {
+                        "Add to Shopping List", "View Nutritional Info"
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(RecipeDetails.this);
+                builder.setTitle("Ingredient: " + ingredient);
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        // Do something with the selection
+                        if(item ==0){
+                            addItem();
+                        }
+                        else{
+
+                        }
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
+            }
+        }); //End of listView onClickListener
 
     }
 
@@ -199,7 +249,11 @@ public class RecipeDetails extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.shareRecipe:
-                share();
+                shareRecipe();
+                return true;
+
+            case R.id.favouriteRecipe:
+                addToFavourites();
                 return true;
 
             default:
@@ -207,7 +261,7 @@ public class RecipeDetails extends AppCompatActivity {
         }
     }
 
-    public void share(){
+    public void shareRecipe(){
         //Share Intent From: https://stackoverflow.com/questions/19683297/how-to-send-message-from-android-app-through-viber-message
         Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
         String recipeData = "Hey, check out this cool recipe from The Intelligent Food Network App: " + spoonacularSourceUrl;
@@ -215,4 +269,49 @@ public class RecipeDetails extends AppCompatActivity {
         shareIntent.setType("text/plain");
         startActivity(Intent.createChooser(shareIntent, "Please choose an application to share your recipe on..."));
     }
+
+    //Android Snackbar From: https://spin.atomicobject.com/2017/07/10/android-snackbar-tutorial/
+    public void showSnackbar(View view, String message, int duration)
+    {
+        Snackbar.make(view, message, duration).show();
+
+    }
+
+    public void addItem(){
+        //Pushing Data to Firebase From: https://firebase.google.com/docs/database/admin/save-data
+        String itemId = shoppingListRef.push().getKey();
+        Map<String,String> ingredientHmap = new HashMap<>();
+        ingredientHmap.put("title",ingredient);
+
+        shoppingListRef.child(itemId).setValue(ingredientHmap);
+
+        View view = findViewById(R.id.recipeDetailsScrollView);
+        String message = ingredient + " added to Shopping List!"; //Capitalize Using StringUtils From: https://stackoverflow.com/questions/5725892/how-to-capitalize-the-first-letter-of-word-in-a-string-using-java
+        int duration = Snackbar.LENGTH_SHORT;
+
+        showSnackbar(view, message, duration);
+
+        //Toast.makeText(this,ingredient + " added to Shopping List!  ",Toast.LENGTH_LONG).show();
+    }
+
+    public void addToFavourites(){
+        //Pushing Data to Firebase From: https://firebase.google.com/docs/database/admin/save-data
+
+        String itemId = favouritesRef.push().getKey();
+        Map<String,String> ingredientHmap = new HashMap<>();
+        ingredientHmap.put("recipeId",recipeId);
+        ingredientHmap.put("recipeTitle",title);
+
+        favouritesRef.child(itemId).setValue(ingredientHmap);
+
+        View view = findViewById(R.id.recipeDetailsScrollView);
+        String message = title + " added to your favourites!"; //Capitalize Using StringUtils From: https://stackoverflow.com/questions/5725892/how-to-capitalize-the-first-letter-of-word-in-a-string-using-java
+        int duration = Snackbar.LENGTH_SHORT;
+
+
+        showSnackbar(view, message, duration);
+
+        //Toast.makeText(this,ingredient + " added to Shopping List!  ",Toast.LENGTH_LONG).show();
+    }
+
 }

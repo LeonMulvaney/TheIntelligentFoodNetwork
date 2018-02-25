@@ -26,7 +26,8 @@
         <activity android:name=".RecipesFromFoodContents" />
         <activity android:name=".NutrientsResult" />
         <activity android:name=".RecipeDetails" />
-        <activity android:name=".Recipes"></activity>
+        <activity android:name=".Recipes" />
+        <activity android:name=".Shopping"></activity>
     </application>
 
 </manifest>

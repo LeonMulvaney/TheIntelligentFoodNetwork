@@ -4,26 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.Recipes"
+    tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.Shopping"
     android:orientation="vertical">
+
+
 
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="200dp"
-        android:src="@drawable/food_heart"
+        android:src="@drawable/shopping_cart"
         android:layout_gravity="center"
         android:scaleType="fitXY"/>
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="40dp"
-        android:text="Favourite Recipes"
+        android:text="Shopping List"
         android:layout_gravity="center_vertical"
         android:gravity="center"
         android:textColor="@color/black"/>
 
     <ListView
-        android:id="@+id/favouriteRecipesLv"
+        android:id="@+id/shoppingLv"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
     </ListView>

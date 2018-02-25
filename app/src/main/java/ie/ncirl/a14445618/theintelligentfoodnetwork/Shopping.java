@@ -1,11 +1,7 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -18,13 +14,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class Recipes extends AppCompatActivity {
+public class Shopping extends AppCompatActivity {
+
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     DatabaseReference keyRef;
 
-    ListView favouriteRecipesListView;
-    ArrayList<String> favouriteRecipesList;
+    ListView shoppingListView;
+    ArrayList<String> shoppingList;
     ArrayAdapter<String> adapter;
 
 
@@ -32,22 +29,21 @@ public class Recipes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Change Action Bar Title From: https://stackoverflow.com/questions/3438276/how-to-change-the-text-on-the-action-bar
-        setTitle(R.string.recipes);
+        setTitle(R.string.shopping);
         //Add Back Button to Action Bar - From https://stackoverflow.com/questions/12070744/add-back-button-to-action-bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_recipes);
+        setContentView(R.layout.activity_shopping);
 
         //Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReferenceFromUrl("https://theintelligentfoodnetwork.firebaseio.com/");
-        keyRef = databaseReference.child("Favourites");
+        keyRef = databaseReference.child("ShoppingList");
 
-        favouriteRecipesList = new ArrayList<>();
-        favouriteRecipesListView = findViewById(R.id.favouriteRecipesLv);
-        adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,favouriteRecipesList);
+        shoppingList = new ArrayList<>();
+        shoppingListView = findViewById(R.id.shoppingLv);
+        adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,shoppingList);
 
         getContents();
-
 
     }
 
@@ -64,15 +60,15 @@ public class Recipes extends AppCompatActivity {
 
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
-                favouriteRecipesList.clear(); //Clear foodlist before adding items again
+                shoppingList.clear(); //Clear foodlist before adding items again
                 //Get ID From: https://stackoverflow.com/questions/43975734/get-parent-firebase-android
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String item = ds.child("recipeTitle").getValue().toString();
-                    favouriteRecipesList.add(item);
+                    String item = ds.child("title").getValue().toString();
+                    shoppingList.add(item);
                 }
 
-                favouriteRecipesListView.setAdapter(null); //Clear adapter so the information is not duplicated
-                favouriteRecipesListView.setAdapter(adapter);
+                shoppingListView.setAdapter(null); //Clear adapter so the information is not duplicated
+                shoppingListView.setAdapter(adapter);
             }
 
             @Override
@@ -80,10 +76,6 @@ public class Recipes extends AppCompatActivity {
 
             }
         });
-        Toast.makeText(this,"All Favourite Recipes Loaded!",Toast.LENGTH_SHORT).show();//Send the user confirmation that they have refreshed the List
+        Toast.makeText(this,"All shopping list items laded!",Toast.LENGTH_SHORT).show();//Send the user confirmation that they have refreshed the List
     }
-
-
-
-
 }

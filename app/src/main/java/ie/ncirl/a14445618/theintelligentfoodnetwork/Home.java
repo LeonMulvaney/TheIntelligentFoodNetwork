@@ -14,7 +14,17 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
     }
     public void openMyFoodNetwork(View view){
-        Intent intent = new Intent(this,MyFoodNetwork.class);
+        Intent intent = new Intent(this,FoodContents.class);
+        startActivity(intent);
+    }
+
+    public void openShopping(View view){
+        Intent intent = new Intent(this,Shopping.class);
+        startActivity(intent);
+    }
+
+    public void openRecipes(View view){
+        Intent intent = new Intent(this,Recipes.class);
         startActivity(intent);
     }
 
@@ -23,10 +33,7 @@ public class Home extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openRecipes(View view){
-        Intent intent = new Intent(this,Recipes.class);
-        startActivity(intent);
-    }
+
 
 
 
