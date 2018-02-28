@@ -1,13 +1,18 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +33,7 @@ public class FavouriteRecipes extends AppCompatActivity {
     ArrayList<ModelFavouriteRecipe> favouriteRecipesList;
 
     String recipeId;
+    String recipeTitle;
 
     //GridView From: https://www.raywenderlich.com/127544/android-gridview-getting-started
 
@@ -50,18 +56,58 @@ public class FavouriteRecipes extends AppCompatActivity {
         adapterFavouriteRecipe = new AdapterFavouriteRecipe(this,favouriteRecipesList);
 
         //GridView OnClickListener From: https://stackoverflow.com/questions/14675695/how-to-use-onclicklistener-for-grid-view
-        favouriteRecipesGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        favouriteRecipesGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() { // Wait to see what element the user clicks on in the ListView
             @Override
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                ModelFavouriteRecipe modelFavouriteRecipe = favouriteRecipesList.get(position);
-                recipeId = modelFavouriteRecipe.getRecipeId();
-                openRecipeDetails();
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                ModelFavouriteRecipe modelFavouriteRecipe = favouriteRecipesList.get(position); //Use original list as not filtered
+                recipeId = modelFavouriteRecipe.getRecipeId().toString();
+                recipeTitle = modelFavouriteRecipe.getRecipeTitle().toString();
+
+                //Alert Dialog From: http://rajeshvijayakumar.blogspot.ie/2013/04/alert-dialog-dialog-with-item-list.html
+                final CharSequence[] items = {
+                        "View", "Remove"
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(FavouriteRecipes.this);
+                builder.setTitle(recipeTitle);
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        // Do something with the selection
+                        if(item ==0){
+                            //foodType = foodList.get(position).getFoodType().toString();
+                            openRecipeDetails();
+                        }
+                        else{
+                            //Firebase Remove Files From: https://firebase.google.com/docs/storage/android/delete-files
+                            keyRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                        String firebaseId = ds.child("recipeId").getValue().toString();
+                                        String recipeTitle = ds.child("recipeTitle").getValue().toString();
+                                        if(firebaseId.equals(recipeId)){
+                                            String key = ds.getKey().toString();
+                                            keyRef.child(key).removeValue();
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
 
             }
-        });
+        }); //End of listView onClickListener
+
+
 
         getContents();
-
 
     }
 
@@ -108,6 +154,8 @@ public class FavouriteRecipes extends AppCompatActivity {
         intent.putExtra("recipeId",id); //Pass String from one Activity to another From: https://stackoverflow.com/questions/6707900/pass-a-string-from-one-activity-to-another-activity-in-android
         startActivity(intent);
     }
+
+
 
 
 

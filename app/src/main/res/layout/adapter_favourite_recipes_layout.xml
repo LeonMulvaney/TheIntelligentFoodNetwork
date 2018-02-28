@@ -16,9 +16,9 @@
         android:layout_height="55dp"
         android:background="@color/black"
         android:alpha="0.4"
-        android:layout_alignBottom="@id/favouriteRecipeImg">
+        android:layout_alignBottom="@id/favouriteRecipeImg"
+        android:id="@+id/view">
     </View>
-
 
     <TextView
         android:id="@+id/favouriteRecipeTitleTv"
@@ -29,6 +29,5 @@
         android:layout_alignBottom="@id/favouriteRecipeImg"
         android:gravity="center_vertical"
         android:paddingLeft="5dp" />
-
 
 </RelativeLayout>

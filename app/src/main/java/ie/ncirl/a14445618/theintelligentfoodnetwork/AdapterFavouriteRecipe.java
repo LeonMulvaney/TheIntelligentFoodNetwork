@@ -1,13 +1,18 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.media.Image;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -50,13 +55,13 @@ public class AdapterFavouriteRecipe extends BaseAdapter {
         view = inflter.inflate(R.layout.adapter_favourite_recipes_layout, null);
 
         // Lookup view for data population
-        TextView tvFavouriteRecipeTitle = view.findViewById(R.id.favouriteRecipeTitleTv);
+        final TextView tvFavouriteRecipeTitle = view.findViewById(R.id.favouriteRecipeTitleTv);
         ImageView imgFavouriteRecipe = view.findViewById(R.id.favouriteRecipeImg);
-
 
         // Populate the data into the template view using the data object
         tvFavouriteRecipeTitle.setText(favouriteRecipeList.get(i).getRecipeTitle());
         Picasso.with(context).load(favouriteRecipeList.get(i).getRecipeImgUrl()).into(imgFavouriteRecipe);
+
 
         return view;
     }
