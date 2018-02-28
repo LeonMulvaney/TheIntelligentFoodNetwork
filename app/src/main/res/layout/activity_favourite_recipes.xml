@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.FavouriteRecipes"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/favouriteRecipesLinearLayout">
 
     <TextView
         android:layout_width="fill_parent"

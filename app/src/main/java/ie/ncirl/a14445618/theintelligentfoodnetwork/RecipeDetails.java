@@ -282,7 +282,6 @@ public class RecipeDetails extends AppCompatActivity {
     public void showSnackbar(View view, String message, int duration)
     {
         Snackbar.make(view, message, duration).show();
-
     }
 
     public void addItem(){

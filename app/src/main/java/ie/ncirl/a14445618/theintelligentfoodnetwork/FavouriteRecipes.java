@@ -2,6 +2,7 @@ package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -55,6 +57,8 @@ public class FavouriteRecipes extends AppCompatActivity {
         favouriteRecipesGridView = findViewById(R.id.favouriteRecipesGrid);
         adapterFavouriteRecipe = new AdapterFavouriteRecipe(this,favouriteRecipesList);
 
+
+
         //GridView OnClickListener From: https://stackoverflow.com/questions/14675695/how-to-use-onclicklistener-for-grid-view
         favouriteRecipesGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() { // Wait to see what element the user clicks on in the ListView
             @Override
@@ -97,6 +101,10 @@ public class FavouriteRecipes extends AppCompatActivity {
                                 }
                             });
                         }
+                        View view = findViewById(R.id.favouriteRecipesLinearLayout);
+                        String message = recipeTitle + " removed from favourites."; //Capitalize Using StringUtils From: https://stackoverflow.com/questions/5725892/how-to-capitalize-the-first-letter-of-word-in-a-string-using-java
+                        int duration = Snackbar.LENGTH_SHORT;
+                        showSnackbar(view, message, duration);
                     }
                 });
                 AlertDialog alert = builder.create();
@@ -153,6 +161,12 @@ public class FavouriteRecipes extends AppCompatActivity {
         String id = recipeId;
         intent.putExtra("recipeId",id); //Pass String from one Activity to another From: https://stackoverflow.com/questions/6707900/pass-a-string-from-one-activity-to-another-activity-in-android
         startActivity(intent);
+    }
+
+    //Android Snackbar From: https://spin.atomicobject.com/2017/07/10/android-snackbar-tutorial/
+    public void showSnackbar(View view, String message, int duration)
+    {
+        Snackbar.make(view, message, duration).show();
     }
 
 
