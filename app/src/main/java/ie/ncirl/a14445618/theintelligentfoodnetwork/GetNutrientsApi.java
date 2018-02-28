@@ -15,7 +15,7 @@ import java.util.Map;
  */
 //AsyncTask Code From: https://stackoverflow.com/questions/9671546/asynctask-android-example
 //What each element of AsyncTask Does From: https://stackoverflow.com/questions/6053602/what-arguments-are-passed-into-asynctaskarg1-arg2-arg3
-public class CallFoodSearchApi extends AsyncTask<String, Void, Map<String, Object>> {
+public class GetNutrientsApi extends AsyncTask<String, Void, Map<String, Object>> {
     Map<String, Object> response;
     public static final String TAG = "";
 

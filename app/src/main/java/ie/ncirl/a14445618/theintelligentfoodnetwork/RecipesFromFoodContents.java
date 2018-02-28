@@ -1,18 +1,12 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -20,9 +14,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 //Http Request From: https://medium.com/@JasonCromer/android-asynctask-http-request-tutorial-6b429d833e28
@@ -34,12 +25,12 @@ public class RecipesFromFoodContents extends AppCompatActivity {
     String result;
     String chopped;
     JSONObject jsonObject;
-    HttpGetRequest getRequest = new HttpGetRequest();
+    GetRecipesByIngredientApi getRequest = new GetRecipesByIngredientApi();
     JSONArray array;
 
-    ArrayList<RecipeFromIngredientModel> recipesList = new ArrayList<>();
+    ArrayList<ModelRecipeFromIngredient> recipesList = new ArrayList<>();
     ListView recipeListView;
-    RecipesByIngredientsAdapter adapter;
+    AdapterRecipesByIngredients adapter;
 
     int recipeId;
     String recipeTitle;
@@ -84,13 +75,9 @@ public class RecipesFromFoodContents extends AppCompatActivity {
                 int id = (int) jsonObj.get("id");
                 String title = (String) jsonObj.get("title");
                 String imageUrl = (String) jsonObj.get("image");
-                RecipeFromIngredientModel recipe = new RecipeFromIngredientModel(id,title,imageUrl);
+                ModelRecipeFromIngredient recipe = new ModelRecipeFromIngredient(id,title,imageUrl);
                 recipesList.add(recipe);
-                /*System.out.println("-------------------------------------------");
-                System.out.println(recipe.getId());
-                System.out.println(recipe.getTitle());
-                System.out.println(recipe.getImageUrl());
-                System.out.println("-------------------------------------------");*/
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -99,13 +86,13 @@ public class RecipesFromFoodContents extends AppCompatActivity {
 
         //Set Data in View
         recipeListView = findViewById(R.id.recipeListView);
-        adapter = new RecipesByIngredientsAdapter(this,recipesList);
+        adapter = new AdapterRecipesByIngredients(this,recipesList);
         recipeListView.setAdapter(adapter);
 
         recipeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() { // Wait to see what element the user clicks on in the ListView
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                RecipeFromIngredientModel recipe = recipesList.get(position); //Use original list as not filtered
+                ModelRecipeFromIngredient recipe = recipesList.get(position); //Use original list as not filtered
                 recipeId = recipe.getId();
                 recipeTitle = recipe.getTitle();
 

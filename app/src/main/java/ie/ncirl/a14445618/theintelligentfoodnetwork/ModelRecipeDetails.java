@@ -4,16 +4,16 @@ package ie.ncirl.a14445618.theintelligentfoodnetwork;
  * Created by leonm on 15/02/2018.
  */
 
-public class RecipeDetailsModel {
+public class ModelRecipeDetails {
     public String title;
     public String instructions;
     public String imageUrl;
     public String spoonacularSourceUrl;
 
-    public RecipeDetailsModel() {
+    public ModelRecipeDetails() {
     }
 
-    public RecipeDetailsModel(String title, String instructions, String imageUrl,String spoonacularSourceUrl) {
+    public ModelRecipeDetails(String title, String instructions, String imageUrl, String spoonacularSourceUrl) {
         this.title = title;
         this.instructions = instructions;
         this.imageUrl = imageUrl;

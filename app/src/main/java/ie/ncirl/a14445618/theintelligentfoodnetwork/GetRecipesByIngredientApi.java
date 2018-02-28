@@ -1,18 +1,29 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
 import android.os.AsyncTask;
+import android.util.Log;
+
+import com.rapidapi.rapidconnect.Argument;
+import com.rapidapi.rapidconnect.RapidApiConnect;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Created by leonm on 15/02/2018.
+ * Created by Leon on 12/02/2018.
  */
+    //Making GET Requests in Android From: https://medium.com/@JasonCromer/android-asynctask-http-request-tutorial-6b429d833e28
+    //Getting new information
 
-public class RecipeFromIdApi  extends AsyncTask<String, Void, String> {
+
+public class GetRecipesByIngredientApi extends AsyncTask<String, Void, String> {
     public static final String REQUEST_METHOD = "GET";
     public static final int READ_TIMEOUT = 15000;
     public static final int CONNECTION_TIMEOUT = 15000;
@@ -31,9 +42,8 @@ public class RecipeFromIdApi  extends AsyncTask<String, Void, String> {
             connection.setRequestMethod(REQUEST_METHOD);
             connection.setReadTimeout(READ_TIMEOUT);
             connection.setConnectTimeout(CONNECTION_TIMEOUT);
-            connection.setRequestProperty("X-Mashape-Key", "LYIxrMuhpImshTjg48XHhWx7sVcgp1Sw99rjsn8iU4eX7l1J3R");
-            connection.setRequestProperty("X-Mashape-Host", "spoonacular-recipe-food-nutrition-v1.p.mashape.com");
-            //connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestProperty("X-Mashape-Key", "Qm8iJ7jAq7mshee2CvoJ3if8A80tp1UdRd0jsn3XUwjFf2zycC");
+            connection.setRequestProperty("Accept", "application/json");
 
             //Connect to our url
             connection.connect();

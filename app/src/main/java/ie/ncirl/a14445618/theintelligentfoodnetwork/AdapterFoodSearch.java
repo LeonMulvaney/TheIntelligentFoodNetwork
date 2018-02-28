@@ -15,8 +15,8 @@ import java.util.ArrayList;
  * Created by Leon on 05/02/2018.
  */
 
-public class FoodSearchAdapter extends ArrayAdapter<FoodSearchItem>{
-    public FoodSearchAdapter(Context context, ArrayList<FoodSearchItem> item) {
+public class AdapterFoodSearch extends ArrayAdapter<FoodSearchItem>{
+    public AdapterFoodSearch(Context context, ArrayList<FoodSearchItem> item) {
         super(context, 0, item);
     }
 
@@ -26,7 +26,7 @@ public class FoodSearchAdapter extends ArrayAdapter<FoodSearchItem>{
         FoodSearchItem foodSearchItem = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.food_search_item_adapter_layout, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_food_search_item_layout, parent, false);
         }
         // Lookup view for data population
         TextView tvFoodName = convertView.findViewById(R.id.tvFoodName);

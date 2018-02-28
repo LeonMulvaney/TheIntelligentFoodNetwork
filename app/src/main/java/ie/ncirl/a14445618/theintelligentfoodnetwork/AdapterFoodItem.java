@@ -5,7 +5,6 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,12 +16,12 @@ import java.util.ArrayList;
  */
 //Custom Adapter  From: https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView
 //Custom BaseAdapter From: http://abhiandroid.com/ui/baseadapter-tutorial-example.html
-public class FoodItemAdapter extends BaseAdapter {
+public class AdapterFoodItem extends BaseAdapter {
     Context context;
-    ArrayList<FoodItem> foodList;
+    ArrayList<ModelFoodItem> foodList;
     LayoutInflater inflter;
 
-    public FoodItemAdapter(Context applicationContext, ArrayList<FoodItem> foodList) {
+    public AdapterFoodItem(Context applicationContext, ArrayList<ModelFoodItem> foodList) {
         this.context = applicationContext;
         this.foodList = foodList;
         inflter = (LayoutInflater.from(applicationContext));
@@ -45,7 +44,7 @@ public class FoodItemAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflter.inflate(R.layout.food_item_adapter_layout, null);
+        view = inflter.inflate(R.layout.adapter_food_item_layout, null);
 
         // Lookup view for data population
         TextView tvFoodType = view.findViewById(R.id.tvFoodType);

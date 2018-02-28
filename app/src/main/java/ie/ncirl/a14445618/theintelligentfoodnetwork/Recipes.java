@@ -1,12 +1,18 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -19,14 +25,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class Recipes extends AppCompatActivity {
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-    DatabaseReference keyRef;
-
-    ListView favouriteRecipesListView;
-    ArrayList<String> favouriteRecipesList;
-    ArrayAdapter<String> adapter;
-
+    Button favourtieRecipesBtn;
+    Button searchRecipesBtn;
+    String recipeSearchString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,18 +38,38 @@ public class Recipes extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_recipes);
 
-        //Firebase
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReferenceFromUrl("https://theintelligentfoodnetwork.firebaseio.com/");
-        keyRef = databaseReference.child("Favourites");
+        favourtieRecipesBtn = findViewById(R.id.favouriteRecipesBtn);
+        searchRecipesBtn = findViewById(R.id.searchRecipesBtn);
 
-        favouriteRecipesList = new ArrayList<>();
-        favouriteRecipesListView = findViewById(R.id.favouriteRecipesLv);
-        adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,favouriteRecipesList);
+        //Android Alertbox with EditText From: https://stackoverflow.com/questions/18799216/how-to-make-a-edittext-box-in-a-dialog
+        searchRecipesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(Recipes.this);
+                //AlertDialog.Builder alert = new AlertDialog.Builder(Recipes.this, R.style.AlertDialogCustom); //Custom AlertDialog Theme From: https://stackoverflow.com/questions/2422562/how-to-change-theme-for-alertdialog
 
-        getContents();
+                final EditText searchEt = new EditText(Recipes.this);
+                alert.setMessage("Enter an ingredient...");
+                alert.setTitle("Recipes Search");
 
+                alert.setView(searchEt);
 
+                alert.setPositiveButton("Search", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //What ever you want to do with the value
+                         recipeSearchString = searchEt.getText().toString();
+                         openRecipesFromFoodContents();
+                    }
+                });
+
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+                });
+
+                alert.show();
+            }
+        });
     }
 
     //Function to return when back button is pressed From --> Same link as "Add Back Button" above
@@ -58,30 +79,17 @@ public class Recipes extends AppCompatActivity {
         return true;
     }
 
-    public void getContents() {
-        //Get contents from Firebase into String From : https://www.youtube.com/watch?v=WDGmpvKpHyw
-        keyRef.addValueEventListener(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
-
-            @Override
-            public void onDataChange (DataSnapshot dataSnapshot){
-                favouriteRecipesList.clear(); //Clear foodlist before adding items again
-                //Get ID From: https://stackoverflow.com/questions/43975734/get-parent-firebase-android
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String item = ds.child("recipeTitle").getValue().toString();
-                    favouriteRecipesList.add(item);
-                }
-
-                favouriteRecipesListView.setAdapter(null); //Clear adapter so the information is not duplicated
-                favouriteRecipesListView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled (DatabaseError databaseError){
-
-            }
-        });
-        Toast.makeText(this,"All Favourite Recipes Loaded!",Toast.LENGTH_SHORT).show();//Send the user confirmation that they have refreshed the List
+    public void openFavouriteRecipes(View view){
+        Intent intent = new Intent(this,FavouriteRecipes.class);
+        startActivity(intent);
     }
+
+    public void openRecipesFromFoodContents(){
+        Intent intent = new Intent(this,RecipesFromFoodContents.class);
+        intent.putExtra("foodType",recipeSearchString); //Pass String from one Activity to another From: https://stackoverflow.com/questions/6707900/pass-a-string-from-one-activity-to-another-activity-in-android
+        startActivity(intent);
+    }
+
 
 
 

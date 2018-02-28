@@ -4,14 +4,14 @@ package ie.ncirl.a14445618.theintelligentfoodnetwork;
  * Created by Leon on 24/02/2018.
  */
 
-public class InstructionModel {
+public class ModelInstruction {
     private String stepNumber;
     private String instruction;
 
-    public InstructionModel() {
+    public ModelInstruction() {
     }
 
-    public InstructionModel(String stepNumber, String instruction) {
+    public ModelInstruction(String stepNumber, String instruction) {
         this.stepNumber = stepNumber;
         this.instruction = instruction;
     }

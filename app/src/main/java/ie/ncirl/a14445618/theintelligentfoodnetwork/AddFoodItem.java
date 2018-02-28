@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -83,7 +82,7 @@ public class AddFoodItem extends AppCompatActivity {
         categoryFromEt = protein.getText().toString();
 
 
-        FoodItem foodItem = new FoodItem(foodTypeFromEt,expDateFromEt,caloriesFromEt,proteinFromEt,categoryFromEt);
+        ModelFoodItem foodItem = new ModelFoodItem(foodTypeFromEt,expDateFromEt,caloriesFromEt,proteinFromEt,categoryFromEt);
 
         keyRef.child(itemId).setValue(foodItem);
 

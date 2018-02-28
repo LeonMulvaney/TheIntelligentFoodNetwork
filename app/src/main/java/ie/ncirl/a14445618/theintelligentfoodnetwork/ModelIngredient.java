@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by Leon on 24/02/2018.
  */
 
-public class IngredientModel {
+public class ModelIngredient {
     private String originalString;
     private double amount;
     private String unit;
@@ -14,10 +14,10 @@ public class IngredientModel {
 
 
 
-    public IngredientModel() {
+    public ModelIngredient() {
     }
 
-    public IngredientModel(String originalString, double amount, String unit, String ingredientName) {
+    public ModelIngredient(String originalString, double amount, String unit, String ingredientName) {
         this.originalString = originalString;
         this.amount = amount;
         this.unit = unit;

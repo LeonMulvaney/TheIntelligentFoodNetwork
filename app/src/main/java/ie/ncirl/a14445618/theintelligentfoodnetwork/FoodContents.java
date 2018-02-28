@@ -2,14 +2,9 @@ package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,11 +35,11 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
     ListView foodListView;
 
     // Android Populating ListView using ArrayAdapter From: https://stackoverflow.com/questions/5070830/populating-a-listview-using-an-arraylist
-    ArrayAdapter<FoodItem> myArrayAdapter;
-    FoodItemAdapter adapter;
+    ArrayAdapter<ModelFoodItem> myArrayAdapter;
+    AdapterFoodItem adapter;
 
     //Variables
-    ArrayList<FoodItem> foodList;
+    ArrayList<ModelFoodItem> foodList;
 
     Spinner spinner;
 
@@ -63,7 +58,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
 
         foodList = new ArrayList<>();
         //myArrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,foodList);
-        adapter = new FoodItemAdapter(this, foodList);
+        adapter = new AdapterFoodItem(this, foodList);
 
         //Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -92,7 +87,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
         foodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() { // Wait to see what element the user clicks on in the ListView
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                    FoodItem item = foodList.get(position); //Use original list as not filtered
+                    ModelFoodItem item = foodList.get(position); //Use original list as not filtered
                     foodType = item.getFoodType().toString();
                     //toast();
                 //Alert Dialog From: http://rajeshvijayakumar.blogspot.ie/2013/04/alert-dialog-dialog-with-item-list.html
@@ -167,7 +162,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                     String protein = ds.child("protein").getValue().toString();
                     String category = ds.child("category").getValue().toString();
 
-                    FoodItem newItem = new FoodItem(type, expDate, calories, protein,category);
+                    ModelFoodItem newItem = new ModelFoodItem(type, expDate, calories, protein,category);
                     foodList.add(newItem);
                 }
                 //foodListView.setAdapter(myArrayAdapter);
@@ -204,7 +199,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                     String protein = ds.child("protein").getValue().toString();
                     String category = ds.child("category").getValue().toString();
 
-                    FoodItem newItem = new FoodItem(type, expDate, calories, protein,category);
+                    ModelFoodItem newItem = new ModelFoodItem(type, expDate, calories, protein,category);
                     foodList.add(newItem);//Add objects to arraylist
                 }
                 //foodListView.setAdapter(myArrayAdapter);
@@ -236,7 +231,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                     String protein = ds.child("protein").getValue().toString();
                     String category = ds.child("category").getValue().toString();
 
-                        FoodItem newItem = new FoodItem(type, expDate, calories, protein,category);
+                        ModelFoodItem newItem = new ModelFoodItem(type, expDate, calories, protein,category);
                         foodList.add(newItem);//Add objects to arraylist
 
                     for(int i =0;i<foodList.size();i++){
@@ -278,7 +273,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                     String protein = ds.child("protein").getValue().toString();
                     String category = ds.child("category").getValue().toString();
 
-                    FoodItem newItem = new FoodItem(type, expDate, calories, protein,category);
+                    ModelFoodItem newItem = new ModelFoodItem(type, expDate, calories, protein,category);
                     foodList.add(newItem);//Add objects to arraylist
 
                     for(int i =0;i<foodList.size();i++){
@@ -320,7 +315,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                     String protein = ds.child("protein").getValue().toString();
                     String category = ds.child("category").getValue().toString();
 
-                    FoodItem newItem = new FoodItem(type, expDate, calories, protein,category);
+                    ModelFoodItem newItem = new ModelFoodItem(type, expDate, calories, protein,category);
                     foodList.add(newItem);//Add objects to arraylist
 
                     for(int i =0;i<foodList.size();i++){
@@ -362,7 +357,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                     String protein = ds.child("protein").getValue().toString();
                     String category = ds.child("category").getValue().toString();
 
-                    FoodItem newItem = new FoodItem(type, expDate, calories, protein,category);
+                    ModelFoodItem newItem = new ModelFoodItem(type, expDate, calories, protein,category);
                     foodList.add(newItem);//Add objects to arraylist
 
                     for(int i =0;i<foodList.size();i++){

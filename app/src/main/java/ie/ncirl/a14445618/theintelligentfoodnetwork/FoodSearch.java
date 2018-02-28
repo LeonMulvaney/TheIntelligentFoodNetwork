@@ -1,37 +1,20 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.arlib.floatingsearchview.FloatingSearchView;
-import com.rapidapi.rapidconnect.Argument;
-import com.rapidapi.rapidconnect.RapidApiConnect;
 import com.squareup.picasso.Picasso;
 
-import org.apache.commons.lang3.StringUtils;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -44,7 +27,7 @@ public class FoodSearch extends AppCompatActivity{
     Map<String, Object> response;
 
     ListView resultListView;
-    FoodSearchAdapter adapter;
+    AdapterFoodSearch adapter;
     ArrayList<FoodSearchItem> searchResultList;
     ImageView foodSearchIv;
     ScrollView scrollView;
@@ -65,7 +48,7 @@ public class FoodSearch extends AppCompatActivity{
 
         resultListView = findViewById(R.id.resultListView);
         searchResultList = new ArrayList<>();
-        adapter = new FoodSearchAdapter(this,searchResultList);
+        adapter = new AdapterFoodSearch(this,searchResultList);
         scrollView = findViewById(R.id.foodSearchScrollView);
 
         searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -78,7 +61,7 @@ public class FoodSearch extends AppCompatActivity{
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
                     try {
-                        response = new CallFoodSearchApi().execute(searchString).get();
+                        response = new GetNutrientsApi().execute(searchString).get();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (ExecutionException e) {
@@ -97,7 +80,7 @@ public class FoodSearch extends AppCompatActivity{
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
                 try {
-                    response = new CallFoodSearchApi().execute(searchString).get();
+                    response = new GetNutrientsApi().execute(searchString).get();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {

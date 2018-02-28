@@ -1,16 +1,11 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -23,7 +18,7 @@ public class NutrientsResult extends AppCompatActivity {
     Map<String, Object> response;
     ImageView foodSearchImage;
     ListView resultListView;
-    FoodSearchAdapter adapter;
+    AdapterFoodSearch adapter;
     ArrayList<FoodSearchItem> searchResultList;
     ScrollView scrollView;
 
@@ -44,11 +39,11 @@ public class NutrientsResult extends AppCompatActivity {
         foodSearchImage = findViewById(R.id.foodSearchImage);
         resultListView = findViewById(R.id.resultListView);
         searchResultList = new ArrayList<>();
-        adapter = new FoodSearchAdapter(this, searchResultList);
+        adapter = new AdapterFoodSearch(this, searchResultList);
         scrollView = findViewById(R.id.foodSearchScrollView);
 
         try {
-            response = new CallFoodSearchApi().execute(foodType).get();
+            response = new GetNutrientsApi().execute(foodType).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

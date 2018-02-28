@@ -13,20 +13,22 @@ import java.util.ArrayList;
  * Created by Leon on 24/02/2018.
  */
 
-public class InstructionsAdapter extends BaseAdapter {
+//Custom Adapter  From: https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView
+//Custom BaseAdapter From: http://abhiandroid.com/ui/baseadapter-tutorial-example.html
+public class AdapterIngredients extends BaseAdapter {
     Context context;
-    ArrayList<InstructionModel> instructionList;
+    ArrayList<ModelIngredient> ingredientList;
     LayoutInflater inflter;
 
-    public InstructionsAdapter(Context applicationContext, ArrayList<InstructionModel> instructionList) {
+    public AdapterIngredients(Context applicationContext, ArrayList<ModelIngredient> ingredientList) {
         this.context = applicationContext;
-        this.instructionList = instructionList;
+        this.ingredientList = ingredientList;
         inflter = (LayoutInflater.from(applicationContext));
     }
 
     @Override
     public int getCount() {
-        return instructionList.size();
+        return ingredientList.size();
     }
 
     @Override
@@ -41,16 +43,15 @@ public class InstructionsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflter.inflate(R.layout.instructions_adapter_layout, null);
+        view = inflter.inflate(R.layout.adapter_ingredients_layout, null);
 
         // Lookup view for data population
-        TextView tvInstructionNumber = view.findViewById(R.id.instructionNumberTv);
-        TextView tvInstruction = view.findViewById(R.id.instructionTv);
+        TextView tvIngredient = view.findViewById(R.id.ingredientTv);
 
 
         // Populate the data into the template view using the data object
-        tvInstructionNumber.setText(instructionList.get(i).getStepNumber());
-        tvInstruction.setText(instructionList.get(i).getInstruction());
+        //tvIngredient.setText("" + ingredientList.get(i).getAmount() + " " + ingredientList.get(i).getUnit() + " " + ingredientList.get(i).getIngredientName());
+        tvIngredient.setText(ingredientList.get(i).getOriginalString());
 
         return view;
     }

@@ -7,25 +7,17 @@
     tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.Recipes"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/food_heart"
-        android:layout_gravity="center"
-        android:scaleType="fitXY"/>
+<Button
+    android:id="@+id/favouriteRecipesBtn"
+    android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:text="Favourite Recipes"
+    android:onClick="openFavouriteRecipes"/>
 
-    <TextView
+    <Button
+        android:id="@+id/searchRecipesBtn"
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:text="Favourite Recipes"
-        android:layout_gravity="center_vertical"
-        android:gravity="center"
-        android:textColor="@color/black"/>
-
-    <ListView
-        android:id="@+id/favouriteRecipesLv"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-    </ListView>
+        android:layout_height="50dp"
+        android:text="Search Recipes" />
 
 </LinearLayout>

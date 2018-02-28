@@ -1,31 +1,24 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
-import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringUtils;
@@ -49,7 +42,7 @@ public class RecipeDetails extends AppCompatActivity {
     String myUrl;
     String result;
     String recipeId;
-    RecipeFromIdApi getRequest = new RecipeFromIdApi();
+    GetRecipeFromIdApi getRequest = new GetRecipeFromIdApi();
     JSONObject object;
 
     String title;
@@ -64,12 +57,12 @@ public class RecipeDetails extends AppCompatActivity {
     TextView recipeTitleTv;
     String spoonacularSourceUrl;
 
-    ArrayList<IngredientModel> ingredientList;
-    IngredientsAdapter adapter;
+    ArrayList<ModelIngredient> ingredientList;
+    AdapterIngredients adapter;
     NonScrollListView ingredientLv;
 
-    ArrayList<InstructionModel> instructionsList;
-    InstructionsAdapter instructionsAdapter;
+    ArrayList<ModelInstruction> instructionsList;
+    AdapterInstructions instructionsAdapter;
     NonScrollListView instructionsLv;
 
     TextView servingsTv;
@@ -78,9 +71,7 @@ public class RecipeDetails extends AppCompatActivity {
     TextView cookTimeTv;
 
     String ingredient;
-
-
-
+    ArrayList<String> favouritesList;
 
 
     @Override
@@ -98,10 +89,10 @@ public class RecipeDetails extends AppCompatActivity {
 
         ingredientLv = findViewById(R.id.ingredientLv);
         ingredientList = new ArrayList();
-        adapter = new IngredientsAdapter(this, ingredientList);
+        adapter = new AdapterIngredients(this, ingredientList);
 
         instructionsList = new ArrayList<>();
-        instructionsAdapter = new InstructionsAdapter(this,instructionsList);
+        instructionsAdapter = new AdapterInstructions(this,instructionsList);
 
 
         //Get Data From API
@@ -136,7 +127,7 @@ public class RecipeDetails extends AppCompatActivity {
 
 
 
-            //Get Ingredients, Store in Model called IngredientModel, save objects to Arraylist, then parse arraylist to View using ListView Adapter (With custom Layout)
+            //Get Ingredients, Store in Model called ModelIngredient, save objects to Arraylist, then parse arraylist to View using ListView Adapter (With custom Layout)
             JSONArray extendedIngredientsArray = object.getJSONArray("extendedIngredients");
 
             for(int i=0;i<extendedIngredientsArray.length();i++){
@@ -146,7 +137,7 @@ public class RecipeDetails extends AppCompatActivity {
                 String unit = object.getString("unit");
                 String name = object.getString("name");
 
-                IngredientModel ingredientModel = new IngredientModel(originalString,amount,unit,name);
+                ModelIngredient ingredientModel = new ModelIngredient(originalString,amount,unit,name);
                 ingredientList.add(ingredientModel);
             }
 
@@ -158,7 +149,7 @@ public class RecipeDetails extends AppCompatActivity {
                 JSONObject object = (JSONObject) instructionsObjectArray.get(i);
                 String stepNumber = object.getString("number");
                 String instruction = object.getString("step");
-                InstructionModel instructionModel = new InstructionModel(stepNumber,instruction);
+                ModelInstruction instructionModel = new ModelInstruction(stepNumber,instruction);
                 instructionsList.add(instructionModel);
             }
 
@@ -194,17 +185,34 @@ public class RecipeDetails extends AppCompatActivity {
         //ingredientLv.setFocusable(false);
         //instructionsLv.setFocusable(false);
 
+
         //Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReferenceFromUrl("https://theintelligentfoodnetwork.firebaseio.com/");
         shoppingListRef = databaseReference.child("ShoppingList");
         favouritesRef = databaseReference.child("Favourites");
 
+        //Grab Favourites from Firebase and save in ArrayList - This prevents the user adding duplicate favourites
+        favouritesList = new ArrayList<>();
+        favouritesRef.addValueEventListener(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
+            @Override
+            public void onDataChange (DataSnapshot dataSnapshot){
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String firebaseRecipeId = ds.child("recipeId").getValue().toString();
+                    favouritesList.add(firebaseRecipeId);
+                }
+            }
+
+            @Override
+            public void onCancelled (DatabaseError databaseError){
+            }
+        });
+
 
         ingredientLv.setOnItemClickListener(new AdapterView.OnItemClickListener() { // Wait to see what element the user clicks on in the ListView
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                IngredientModel ingredientModel = ingredientList.get(position); //Use original list as not filtered
+                ModelIngredient ingredientModel = ingredientList.get(position); //Use original list as not filtered
                 ingredient = StringUtils.capitalize(ingredientModel.getIngredientName().toString());
 
                 //toast();
@@ -296,22 +304,46 @@ public class RecipeDetails extends AppCompatActivity {
 
     public void addToFavourites(){
         //Pushing Data to Firebase From: https://firebase.google.com/docs/database/admin/save-data
+        String addRecipeToFavourites = "true";
 
-        String itemId = favouritesRef.push().getKey();
-        Map<String,String> ingredientHmap = new HashMap<>();
-        ingredientHmap.put("recipeId",recipeId);
-        ingredientHmap.put("recipeTitle",title);
+        for(int i=0;i<favouritesList.size();i++){
+            if(favouritesList.get(i).toString().equals(recipeId)){
+                addRecipeToFavourites = "false";
+                System.out.println("____________________________________");
+                System.out.println("i is : " + i);
+            }
+            else{
+                //Do nothing
+            }
+        }
 
-        favouritesRef.child(itemId).setValue(ingredientHmap);
+        System.out.println("____________________________________");
+        System.out.println(addRecipeToFavourites);
 
-        View view = findViewById(R.id.recipeDetailsScrollView);
-        String message = title + " added to your favourites!"; //Capitalize Using StringUtils From: https://stackoverflow.com/questions/5725892/how-to-capitalize-the-first-letter-of-word-in-a-string-using-java
-        int duration = Snackbar.LENGTH_SHORT;
+        if(addRecipeToFavourites.equals("true")){
+            String itemId = favouritesRef.push().getKey();
+            Map<String,String> ingredientHmap = new HashMap<>();
+            ingredientHmap.put("recipeId",recipeId);
+            ingredientHmap.put("recipeTitle",title);
+            ingredientHmap.put("recipeImgUrl",imageUrl);
+
+            favouritesRef.child(itemId).setValue(ingredientHmap);
+
+            View view = findViewById(R.id.recipeDetailsScrollView);
+            String message = title + " added to your favourites."; //Capitalize Using StringUtils From: https://stackoverflow.com/questions/5725892/how-to-capitalize-the-first-letter-of-word-in-a-string-using-java
+            int duration = Snackbar.LENGTH_SHORT;
 
 
-        showSnackbar(view, message, duration);
+            showSnackbar(view, message, duration);
+        }
 
-        //Toast.makeText(this,ingredient + " added to Shopping List!  ",Toast.LENGTH_LONG).show();
+        else{
+            View view = findViewById(R.id.recipeDetailsScrollView);
+            String message = title + " is already in your favourites."; //Capitalize Using StringUtils From: https://stackoverflow.com/questions/5725892/how-to-capitalize-the-first-letter-of-word-in-a-string-using-java
+            int duration = Snackbar.LENGTH_SHORT;
+            showSnackbar(view, message, duration);
+        }
+
     }
 
 }

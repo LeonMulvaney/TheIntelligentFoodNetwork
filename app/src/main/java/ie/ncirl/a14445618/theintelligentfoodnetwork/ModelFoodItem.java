@@ -9,7 +9,7 @@ import java.util.Date;
  */
 
 //Source Ideas From: https://firebase.google.com/docs/database/android/read-and-write
-public class FoodItem {
+public class ModelFoodItem {
     public String foodType;
     public String expiryDate;
     public String calories;
@@ -17,11 +17,11 @@ public class FoodItem {
     public String category;
 
 
-    public FoodItem(){
+    public ModelFoodItem(){
 
     }
 
-    public FoodItem(String foodType,String expiryDate, String calories, String protein,String category) {
+    public ModelFoodItem(String foodType, String expiryDate, String calories, String protein, String category) {
         this.foodType = foodType;
         this.expiryDate = expiryDate;
         this.calories = calories;
