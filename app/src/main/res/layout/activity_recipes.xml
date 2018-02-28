@@ -7,17 +7,94 @@
     tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.Recipes"
     android:orientation="vertical">
 
+    <android.support.v7.widget.CardView
+        android:id="@+id/recommendationCv"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="5dp">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/recommendationImg"
+                android:layout_width="fill_parent"
+                android:layout_height="140dp"
+                android:scaleType="fitXY"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="25dp"
+                android:text="We recommend:"
+                android:textColor="@color/black"
+                android:padding="5dp"/>
+
+
+            <TextView
+                android:id="@+id/recommendationTitleTv"
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:text="Title"
+                android:layout_alignBottom="@id/recommendationImg"
+                android:gravity="center_vertical"
+                android:padding="5dp"/>
+
+            <View
+                android:layout_width="200dp"
+                android:layout_height="1dp"
+                android:background="@color/light_gray"
+                android:id="@+id/view"
+                android:layout_gravity="center">
+            </View>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Because you liked:"
+                    android:textColor="@color/black"
+                    android:padding="5dp" />
+
+
+                <TextView
+                    android:id="@+id/recipeBasedOnTv"
+                    android:layout_width="fill_parent"
+                    android:layout_height="55dp"
+                    android:textColor="@color/colorPrimary"
+                    android:padding="5dp"
+                    android:textStyle="bold"/>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="10dp"/>
+
+
 <Button
     android:id="@+id/favouriteRecipesBtn"
     android:layout_width="fill_parent"
-    android:layout_height="50dp"
+    android:layout_height="75dp"
     android:text="Favourite Recipes"
-    android:onClick="openFavouriteRecipes"/>
+    android:onClick="openFavouriteRecipes"
+    android:background="@color/colorPrimary"
+    android:textColor="@color/white"
+    android:textAllCaps="false"
+    android:layout_margin="10dp" />
 
     <Button
         android:id="@+id/searchRecipesBtn"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:text="Search Recipes" />
+        android:layout_height="75dp"
+        android:text="Search Recipes"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:layout_margin="10dp" />
 
 </LinearLayout>

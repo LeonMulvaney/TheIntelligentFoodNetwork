@@ -39,6 +39,7 @@ dependencies {
     compile 'com.github.arimorty:floatingsearchview:2.1.1'
     compile 'com.android.support:cardview-v7:26.1.0' //Add CardView Dependency
     compile 'com.android.support:design:26.1.0' //Add
+    compile 'com.android.support:recyclerview-v7:26.1.0' //Add Recycler View
 
 }
 apply plugin: 'com.google.gms.google-services'
