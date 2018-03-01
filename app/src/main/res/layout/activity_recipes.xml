@@ -23,7 +23,7 @@
             <ImageView
                 android:id="@+id/recommendationImg"
                 android:layout_width="fill_parent"
-                android:layout_height="140dp"
+                android:layout_height="170dp"
                 android:scaleType="fitXY"/>
 
             <TextView
@@ -38,10 +38,11 @@
                 android:id="@+id/recommendationTitleTv"
                 android:layout_width="fill_parent"
                 android:layout_height="55dp"
-                android:text="Title"
                 android:layout_alignBottom="@id/recommendationImg"
                 android:gravity="center_vertical"
-                android:padding="5dp"/>
+                android:padding="5dp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"/>
 
             <View
                 android:layout_width="200dp"
@@ -63,9 +64,7 @@
                     android:id="@+id/recipeBasedOnTv"
                     android:layout_width="fill_parent"
                     android:layout_height="55dp"
-                    android:textColor="@color/colorPrimary"
-                    android:padding="5dp"
-                    android:textStyle="bold"/>
+                    android:padding="5dp" />
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

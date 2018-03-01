@@ -37,8 +37,7 @@
                 android:layout_marginTop="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:gravity="center"
-                >
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/searchIcon"
@@ -59,15 +58,6 @@
                 </EditText>
 
             </LinearLayout>
-
-            <ImageView
-                android:id="@+id/foodSearchImage"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                />
-
 
             <ListView
                 android:id="@+id/resultListView"

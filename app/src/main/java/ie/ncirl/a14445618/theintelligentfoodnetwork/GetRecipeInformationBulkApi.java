@@ -12,7 +12,7 @@ import java.net.URL;
  * Created by Leon on 27/02/2018.
  */
 
-public class GetRecipeInformationBulk extends AsyncTask<String, Void, String> {
+public class GetRecipeInformationBulkApi extends AsyncTask<String, Void, String> {
     public static final String REQUEST_METHOD = "GET";
     public static final int READ_TIMEOUT = 15000;
     public static final int CONNECTION_TIMEOUT = 15000;

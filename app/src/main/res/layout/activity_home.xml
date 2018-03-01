@@ -133,16 +133,17 @@
             android:layout_weight="1">
 
             <ImageButton
-                android:id="@+id/accountHomeBtn"
+                android:id="@+id/searchHomeBtn"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/spatula"
+                android:src="@drawable/search"
                 android:background="@android:color/transparent"
                 android:layout_weight="1"
                 android:layout_marginRight="30dp"
                 android:layout_marginLeft="30dp"
                 android:adjustViewBounds="true"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitCenter"
+                android:onClick="openFoodSearch"/>
 
         </LinearLayout>
 
@@ -165,7 +166,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:text="@string/account"
+            android:text="@string/food_search"
             android:layout_weight="1"
             android:textAlignment="center"/>
 
@@ -203,17 +204,16 @@
             android:layout_weight="1">
 
             <ImageButton
-                android:id="@+id/searchHomeBtn"
+                android:id="@+id/accountHomeBtn"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/search"
+                android:src="@drawable/spatula"
                 android:background="@android:color/transparent"
                 android:layout_weight="1"
                 android:layout_marginRight="30dp"
                 android:layout_marginLeft="30dp"
                 android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:onClick="openFoodSearch"/>
+                android:scaleType="fitCenter" />
 
         </LinearLayout>
 
@@ -236,7 +236,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:text="@string/food_search"
+            android:text="@string/account"
             android:layout_weight="1"
             android:textAlignment="center"/>
 

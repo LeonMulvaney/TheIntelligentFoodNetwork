@@ -1,7 +1,9 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -16,14 +18,6 @@ import java.util.ArrayList;
 
 public class Shopping extends AppCompatActivity {
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-    DatabaseReference keyRef;
-
-    ListView shoppingListView;
-    ArrayList<String> shoppingList;
-    ArrayAdapter<String> adapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,17 +28,6 @@ public class Shopping extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_shopping);
 
-        //Firebase
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReferenceFromUrl("https://theintelligentfoodnetwork.firebaseio.com/");
-        keyRef = databaseReference.child("ShoppingList");
-
-        shoppingList = new ArrayList<>();
-        shoppingListView = findViewById(R.id.shoppingLv);
-        adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,shoppingList);
-
-        getContents();
-
     }
 
     //Function to return when back button is pressed From --> Same link as "Add Back Button" above
@@ -54,28 +37,8 @@ public class Shopping extends AppCompatActivity {
         return true;
     }
 
-    public void getContents() {
-        //Get contents from Firebase into String From : https://www.youtube.com/watch?v=WDGmpvKpHyw
-        keyRef.addValueEventListener(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
-
-            @Override
-            public void onDataChange (DataSnapshot dataSnapshot){
-                shoppingList.clear(); //Clear foodlist before adding items again
-                //Get ID From: https://stackoverflow.com/questions/43975734/get-parent-firebase-android
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String item = ds.child("title").getValue().toString();
-                    shoppingList.add(item);
-                }
-
-                shoppingListView.setAdapter(null); //Clear adapter so the information is not duplicated
-                shoppingListView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled (DatabaseError databaseError){
-
-            }
-        });
-        Toast.makeText(this,"All shopping list items laded!",Toast.LENGTH_SHORT).show();//Send the user confirmation that they have refreshed the List
+    public void openShoppingList(View view){
+        Intent intent = new Intent(this,ShoppingList.class);
+        startActivity(intent);
     }
 }

@@ -4,26 +4,29 @@ package ie.ncirl.a14445618.theintelligentfoodnetwork;
  * Created by Leon on 05/02/2018.
  */
 
-public class FoodSearchItem {
-    public String food_name;
-    public double serving_qty;
-    public String serving_unit;
-    public double serving_weight_grams;
-    public double calories;
-    public double total_fat;
-    public double saturated_fat;
-    public double cholesterol;
-    public double sodium;
-    public double total_carbohydrate;
-    public double fibre;
-    public double sugars;
-    public double protein;
-    public double potassium;
+public class ModelNutrientsResult {
+    private String imgUrl;
+    private String food_name;
+    private double serving_qty;
+    private String serving_unit;
+    private double serving_weight_grams;
+    private double calories;
+    private double total_fat;
+    private double saturated_fat;
+    private double cholesterol;
+    private double sodium;
+    private double total_carbohydrate;
+    private double fibre;
+    private double sugars;
+    private double protein;
+    private double potassium;
 
-    public FoodSearchItem() {
+    public ModelNutrientsResult() {
     }
 
-    public FoodSearchItem(String food_name, double serving_qty, String serving_unit, double serving_weight_grams, double calories, double total_fat, double saturated_fat, double cholesterol, double sodium, double total_carbohydrate, double fibre, double sugars, double protein, double potassium) {
+
+    public ModelNutrientsResult(String imgUrl,String food_name, double serving_qty, String serving_unit, double serving_weight_grams, double calories, double total_fat, double saturated_fat, double cholesterol, double sodium, double total_carbohydrate, double fibre, double sugars, double protein, double potassium) {
+        this.imgUrl = imgUrl;
         this.food_name = food_name;
         this.serving_qty = serving_qty;
         this.serving_unit = serving_unit;
@@ -31,6 +34,7 @@ public class FoodSearchItem {
         this.calories = calories;
         this.total_fat = total_fat;
         this.saturated_fat = saturated_fat;
+
         this.cholesterol = cholesterol;
         this.sodium = sodium;
         this.total_carbohydrate = total_carbohydrate;
@@ -74,6 +78,14 @@ public class FoodSearchItem {
 
     public double getCalories() {
         return calories;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public void setCalories(double calories) {

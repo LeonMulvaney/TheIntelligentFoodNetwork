@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -72,6 +73,9 @@ public class RecipeDetails extends AppCompatActivity {
 
     String ingredient;
     ArrayList<String> favouritesList;
+    ArrayList<String> shoppingList;
+
+    Button similarRecipesBtn;
 
 
     @Override
@@ -93,6 +97,14 @@ public class RecipeDetails extends AppCompatActivity {
 
         instructionsList = new ArrayList<>();
         instructionsAdapter = new AdapterInstructions(this,instructionsList);
+
+        similarRecipesBtn = findViewById(R.id.similarRecipesBtn);
+        similarRecipesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSimilarRecipe();
+            }
+        });
 
 
         //Get Data From API
@@ -124,8 +136,6 @@ public class RecipeDetails extends AppCompatActivity {
                 preparation = object.getString("readyInMinutes");
                 cookTime = "-";
             }
-
-
 
             //Get Ingredients, Store in Model called ModelIngredient, save objects to Arraylist, then parse arraylist to View using ListView Adapter (With custom Layout)
             JSONArray extendedIngredientsArray = object.getJSONArray("extendedIngredients");
@@ -208,6 +218,22 @@ public class RecipeDetails extends AppCompatActivity {
             }
         });
 
+        //Grab Favourites from Firebase and save in ArrayList - This prevents the user adding duplicate favourites
+        shoppingList = new ArrayList<>();
+        shoppingListRef.addValueEventListener(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
+            @Override
+            public void onDataChange (DataSnapshot dataSnapshot){
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String firebaseShoppingItemtitle = ds.child("title").getValue().toString();
+                    shoppingList.add(firebaseShoppingItemtitle);
+                }
+            }
+
+            @Override
+            public void onCancelled (DatabaseError databaseError){
+            }
+        });
+
 
         ingredientLv.setOnItemClickListener(new AdapterView.OnItemClickListener() { // Wait to see what element the user clicks on in the ListView
             @Override
@@ -226,10 +252,10 @@ public class RecipeDetails extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int item) {
                         // Do something with the selection
                         if(item ==0){
-                            addItem();
+                            addItemToShoppingList();
                         }
                         else{
-
+                            openNutrientsResult();
                         }
                     }
                 });
@@ -284,21 +310,40 @@ public class RecipeDetails extends AppCompatActivity {
         Snackbar.make(view, message, duration).show();
     }
 
-    public void addItem(){
+    public void addItemToShoppingList(){
         //Pushing Data to Firebase From: https://firebase.google.com/docs/database/admin/save-data
-        String itemId = shoppingListRef.push().getKey();
-        Map<String,String> ingredientHmap = new HashMap<>();
-        ingredientHmap.put("title",ingredient);
+        String addItemToShoppingList = "true";
 
-        shoppingListRef.child(itemId).setValue(ingredientHmap);
+        for(int i=0;i<shoppingList.size();i++){
+            if(shoppingList.get(i).toString().equals(ingredient)){
+                addItemToShoppingList = "false";
+                System.out.println("____________________________________");
+                System.out.println("i is : " + i);
+            }
+            else{
+                //Do nothing
+            }
+        }
 
-        View view = findViewById(R.id.recipeDetailsScrollView);
-        String message = ingredient + " added to Shopping List!"; //Capitalize Using StringUtils From: https://stackoverflow.com/questions/5725892/how-to-capitalize-the-first-letter-of-word-in-a-string-using-java
-        int duration = Snackbar.LENGTH_SHORT;
+        if(addItemToShoppingList.equals("true")){
+            String itemId = shoppingListRef.push().getKey();
+            Map<String,String> ingredientHmap = new HashMap<>();
+            ingredientHmap.put("title",ingredient);
+            shoppingListRef.child(itemId).setValue(ingredientHmap);
 
-        showSnackbar(view, message, duration);
+            View view = findViewById(R.id.recipeDetailsScrollView);
+            String message = ingredient + " added to Shopping List."; //Capitalize Using StringUtils From: https://stackoverflow.com/questions/5725892/how-to-capitalize-the-first-letter-of-word-in-a-string-using-java
+            int duration = Snackbar.LENGTH_SHORT;
+            showSnackbar(view, message, duration);
+        }
 
-        //Toast.makeText(this,ingredient + " added to Shopping List!  ",Toast.LENGTH_LONG).show();
+        else{
+            View view = findViewById(R.id.recipeDetailsScrollView);
+            String message = ingredient + " is already in your shopping list."; //Capitalize Using StringUtils From: https://stackoverflow.com/questions/5725892/how-to-capitalize-the-first-letter-of-word-in-a-string-using-java
+            int duration = Snackbar.LENGTH_SHORT;
+            showSnackbar(view, message, duration);
+        }
+
     }
 
     public void addToFavourites(){
@@ -342,7 +387,20 @@ public class RecipeDetails extends AppCompatActivity {
             int duration = Snackbar.LENGTH_SHORT;
             showSnackbar(view, message, duration);
         }
+    }
 
+
+
+    public void openNutrientsResult(){
+        Intent intent = new Intent(this,NutrientsResult.class);
+        intent.putExtra("foodType",ingredient); //Pass String from one Activity to another From: https://stackoverflow.com/questions/6707900/pass-a-string-from-one-activity-to-another-activity-in-android
+        startActivity(intent);
+    }
+
+    public void openSimilarRecipe(){
+        Intent intent = new Intent(this,SimilarRecipe.class);
+        intent.putExtra("similarRecipeId",recipeId); //Pass String from one Activity to another From: https://stackoverflow.com/questions/6707900/pass-a-string-from-one-activity-to-another-activity-in-android
+        startActivity(intent);
     }
 
 }

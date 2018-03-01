@@ -27,9 +27,8 @@ public class FoodSearch extends AppCompatActivity{
     Map<String, Object> response;
 
     ListView resultListView;
-    AdapterFoodSearch adapter;
-    ArrayList<FoodSearchItem> searchResultList;
-    ImageView foodSearchIv;
+    AdapterNutrientsResult adapter;
+    ArrayList<ModelNutrientsResult> searchResultList;
     ScrollView scrollView;
 
 
@@ -42,13 +41,11 @@ public class FoodSearch extends AppCompatActivity{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-
         searchEditText = findViewById(R.id.searchET);
-        foodSearchIv = findViewById(R.id.foodSearchImage);
 
         resultListView = findViewById(R.id.resultListView);
         searchResultList = new ArrayList<>();
-        adapter = new AdapterFoodSearch(this,searchResultList);
+        adapter = new AdapterNutrientsResult(this, searchResultList);
         scrollView = findViewById(R.id.foodSearchScrollView);
 
         searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -58,7 +55,7 @@ public class FoodSearch extends AppCompatActivity{
                     searchString = searchEditText.getText().toString();
                     searchEditText.setText("");
                     searchEditText.clearFocus(); //Clear Focus From: https://stackoverflow.com/questions/5056734/android-force-edittext-to-remove-focus
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
                     try {
                         response = new GetNutrientsApi().execute(searchString).get();
@@ -73,23 +70,6 @@ public class FoodSearch extends AppCompatActivity{
                 return false;
             }
         });
-
-        /*aSyncTaskBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                searchString = searchEditText.getText().toString();
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
-                try {
-                    response = new GetNutrientsApi().execute(searchString).get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-                setData();
-            }
-        });*/
-
     }
 
     //Function to return to home when back button is pressed From --> Same link as "Add Back Button" above
@@ -98,60 +78,6 @@ public class FoodSearch extends AppCompatActivity{
         finish();
         return true;
     }
-
-    /*public void searchUsingAPI(){
-       // searchString = searchEditText.getText().toString();
-        Thread thread;
-
-        if(StringUtils.isBlank(searchString)){         //How to check if is empty or whitespace - Using Apache Commons Library From: https://stackoverflow.com/questions/3247067/how-do-i-check-that-a-java-string-is-not-all-whitespaces
-            Toast.makeText(this,"Please enter a search parameter",Toast.LENGTH_SHORT).show();
-        }
-        else{
-            //Solving Android Thread Issues From: https://stackoverflow.com/questions/6343166/how-do-i-fix-android-os-networkonmainthreadexception
-                thread = new Thread(new Runnable() { //Instead of using Async Task --> Open another thread
-                @Override
-                public void run() {
-                    try  {
-                        try {
-                            RapidApiConnect connect = new RapidApiConnect("leonrapidapi_5a6ddd31e4b04737db92df77", "dd0794ae-5f4e-408d-a19e-cae245e00273");
-                            Map<String, Argument> body = new HashMap<>();
-
-                            body.put("applicationSecret", new Argument("data", "ca779495f21bc56c5feb950103517992"));
-                            body.put("applicationId", new Argument("data", "8e2110d7"));
-                            body.put("foodDescription", new Argument("data", searchString));
-
-                            response = connect.call("Nutritionix", "getFoodsNutrients", body);
-                            if(response.get("success") != null) { //If Success is not null (Not
-                                System.out.println("Successful API Call--------------------");
-                                System.out.println(response);
-                                //setData();// This sub thread cannot alter the main threads views - to combat this, it simply calls another method called setData()
-
-
-
-                            } else{ //If success is anything but null
-                                System.out.println("Else Statement--------------------");
-
-                            }
-                        } catch(Exception e){ //Catch Clause
-                            System.out.println("Catch Clause--------------------");
-                            Log.d(TAG, "searchUsingAPI: " + e);
-
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            thread.start();
-            while(thread.isAlive()){
-
-            }
-
-            setData();
-        }
-
-    }*/
-
 
     public void setData(){
         ArrayList<Object> foods = (ArrayList<Object>) response.get("success");
@@ -177,28 +103,15 @@ public class FoodSearch extends AppCompatActivity{
         double protein = (Double) foodItem.get("nf_protein");
         double potassium = (Double) foodItem.get("nf_potassium");
 
-        //Loading an image from a URL From: https://stackoverflow.com/questions/2471935/how-to-load-an-imageview-by-url-in-android
-        Picasso.with(FoodSearch.this).load(imageUrl).into(foodSearchIv);
-
-
-        FoodSearchItem foodSearchItem = new FoodSearchItem(food_name,serving_qty,serving_unit,serving_weight_grams,
+        ModelNutrientsResult modelNutrientsResult = new ModelNutrientsResult(imageUrl,food_name,serving_qty,serving_unit,serving_weight_grams,
         calories,total_fat,saturated_fat,cholesterol,sodium,total_carbohydrate,fibre,sugars,protein,potassium);
         searchResultList.clear();
-        searchResultList.add(foodSearchItem);
+        searchResultList.add(modelNutrientsResult);
         resultListView.setAdapter(null);
         resultListView.setAdapter(adapter);
 
 
 
-
-       /*searchResultTv.setText(food_name + ":\n" +
-                                "Serving Quantity: " + serving_qty + "\n" +
-                                "Serving Unit: " + serving_unit + "\n" +
-                                "Serving Weight (g): " + serving_weight_grams + "\n" +
-                                "Calories: " + calories + "\n" +
-                                "Total Fat: " + total_fat + "\n" +
-                                "Saturated Fat: " + saturated_fat + "\n" +
-                                "Cholesterol: " + cholesterol + "\n");*/
 
 
     }

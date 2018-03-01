@@ -304,13 +304,14 @@
                 android:layout_height="10dp"/>
 
             <Button
+                android:id="@+id/similarRecipesBtn"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:text="Similar Recipes"
                 android:background="@color/colorPrimary"
                 android:textColor="#FFFFFF"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false" />
 
         </LinearLayout>
 </ScrollView>

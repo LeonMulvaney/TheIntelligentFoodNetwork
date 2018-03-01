@@ -2,56 +2,198 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="15dp">
 
 
         <!-- Custom Adapter Layout From: https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView -->
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvNutritionalFacts"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Nutritional Values"
-                android:textSize="22dp"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:id="@+id/tvFoodName"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Food Name"
-                android:textSize="15dp"
-                android:textColor="@color/colorAccent" />
-
+            app:cardCornerRadius="5dp">
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Amount Per "
-                    android:textStyle="bold"
-                    android:textColor="@color/black"/>
-
-                <TextView
-                    android:id="@+id/tvServingAmount"
+                <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    />
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvNutritionalFacts"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nutritional Values"
+                            android:textSize="22dp"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvFoodName"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Food Name"
+                            android:textSize="15dp"
+                            android:textColor="@color/colorAccent" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imgNutritionalValues"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"/>
 
             </LinearLayout>
 
 
+
+
+        </android.support.v7.widget.CardView>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="10dp"/>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp">
+
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Amount Per "
+                        android:textStyle="bold"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:id="@+id/tvServingAmount"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp">
+
+                    <TextView
+                        android:id="@+id/tvCaloriesTop"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="125"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:textColor="@color/darkRed"
+                        android:textSize="25dp"/>
+
+                    <TextView
+                        android:id="@+id/tvProteinTop"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="50 g"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:textColor="@color/darkBlue"
+                        android:textSize="25dp"/>
+
+                    <TextView
+                        android:id="@+id/tvSugarsTop"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="22 g"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:textColor="@color/darkGreen"
+                        android:textSize="25dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Calories"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Protein"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sugar"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="10dp"/>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="5dp">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
                 android:layout_marginTop="5dp">
 
                 <TextView
@@ -85,7 +227,7 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="30dp">
+                android:layout_height="40dp">
 
                 <TextView
                     android:id="@+id/tvServingUnit"
@@ -118,7 +260,7 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="30dp">
+                android:layout_height="40dp">
 
                 <TextView
                     android:id="@+id/tvServingWeight"
@@ -151,7 +293,7 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="30dp">
+                android:layout_height="40dp">
 
                 <TextView
                     android:id="@+id/tvCalories"
@@ -185,12 +327,12 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="30dp">
+                android:layout_height="40dp">
 
                 <TextView
                     android:id="@+id/tvTotalFat"
                     android:layout_width="fill_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="fill_parent"
                     android:padding="5dp"
                     android:text="Total Fat"
                     android:textAllCaps="true"
@@ -219,12 +361,12 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="30dp">
+                android:layout_height="40dp">
 
                 <TextView
                     android:id="@+id/tvSaturatedFat"
                     android:layout_width="fill_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="fill_parent"
                     android:padding="5dp"
                     android:text="Saturated Fat"
                     android:textAllCaps="true"
@@ -252,12 +394,12 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="30dp">
+                android:layout_height="40dp">
 
                 <TextView
                     android:id="@+id/tvCholesterol"
                     android:layout_width="fill_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="fill_parent"
                     android:padding="5dp"
                     android:text="Cholesterol"
                     android:textAllCaps="true"
@@ -284,12 +426,12 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="30dp">
+                android:layout_height="40dp">
 
                 <TextView
                     android:id="@+id/tvSodium"
                     android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="fill_parent"
                     android:padding="5dp"
                     android:text="Sodium"
                     android:textAllCaps="true"
@@ -317,7 +459,7 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="30dp">
+                android:layout_height="40dp">
 
                 <TextView
                     android:id="@+id/tvCarbohydrate"
@@ -350,7 +492,7 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="30dp">
+                android:layout_height="40dp">
 
                 <TextView
                     android:id="@+id/tvFibre"
@@ -382,7 +524,7 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="30dp">
+                android:layout_height="40dp">
 
                 <TextView
 
@@ -416,7 +558,7 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="30dp">
+                android:layout_height="40dp">
 
                 <TextView
                     android:id="@+id/tvProtein"
@@ -449,7 +591,7 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="30dp">
+                android:layout_height="40dp">
 
                 <TextView
                     android:id="@+id/tvPotassium"
@@ -476,10 +618,8 @@
                     android:layout_below="@id/tvFoodName"
                     android:layout_weight="1"
                     android:gravity="right|center_vertical"/>
-
             </LinearLayout>
-
-        </LinearLayout>
-
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
 </LinearLayout>

@@ -16,10 +16,9 @@ import java.util.concurrent.ExecutionException;
 public class NutrientsResult extends AppCompatActivity {
     String foodType;
     Map<String, Object> response;
-    ImageView foodSearchImage;
     ListView resultListView;
-    AdapterFoodSearch adapter;
-    ArrayList<FoodSearchItem> searchResultList;
+    AdapterNutrientsResult adapter;
+    ArrayList<ModelNutrientsResult> searchResultList;
     ScrollView scrollView;
 
     @Override
@@ -36,10 +35,9 @@ public class NutrientsResult extends AppCompatActivity {
         //Add Back Button to Action Bar - From https://stackoverflow.com/questions/12070744/add-back-button-to-action-bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        foodSearchImage = findViewById(R.id.foodSearchImage);
         resultListView = findViewById(R.id.resultListView);
         searchResultList = new ArrayList<>();
-        adapter = new AdapterFoodSearch(this, searchResultList);
+        adapter = new AdapterNutrientsResult(this, searchResultList);
         scrollView = findViewById(R.id.foodSearchScrollView);
 
         try {
@@ -85,18 +83,12 @@ public class NutrientsResult extends AppCompatActivity {
 
 
 
-        FoodSearchItem foodSearchItem = new FoodSearchItem(food_name,serving_qty,serving_unit,serving_weight_grams,
+        ModelNutrientsResult modelNutrientsResult = new ModelNutrientsResult(imageUrl,food_name,serving_qty,serving_unit,serving_weight_grams,
                 calories,total_fat,saturated_fat,cholesterol,sodium,total_carbohydrate,fibre,sugars,protein,potassium);
         searchResultList.clear();
-        searchResultList.add(foodSearchItem);
+        searchResultList.add(modelNutrientsResult);
         resultListView.setAdapter(null);
         resultListView.setAdapter(adapter);
-
-        //Loading an image from a URL From: https://stackoverflow.com/questions/2471935/how-to-load-an-imageview-by-url-in-android
-        Picasso.with(NutrientsResult.this).load(imageUrl).into(foodSearchImage);
-
-
-
     }
 
 }
