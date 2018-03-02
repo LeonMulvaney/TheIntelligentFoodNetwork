@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +38,10 @@ public class FavouriteRecipes extends AppCompatActivity {
     String recipeId;
     String recipeTitle;
 
+    long favouriteRecipeCount;
+    String favouriteRecipeAmount;
+    TextView favouriteRecipeCountTv;
+
     //GridView From: https://www.raywenderlich.com/127544/android-gridview-getting-started
 
     @Override
@@ -56,6 +61,8 @@ public class FavouriteRecipes extends AppCompatActivity {
         favouriteRecipesList = new ArrayList<>();
         favouriteRecipesGridView = findViewById(R.id.favouriteRecipesGrid);
         adapterFavouriteRecipe = new AdapterFavouriteRecipe(this,favouriteRecipesList);
+
+        favouriteRecipeCountTv = findViewById(R.id.favouriteRecipeCountTv);
 
 
 
@@ -94,6 +101,7 @@ public class FavouriteRecipes extends AppCompatActivity {
                                         }
                                     }
                                 }
+
 
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
@@ -144,9 +152,13 @@ public class FavouriteRecipes extends AppCompatActivity {
                     favouriteRecipesList.add(modelFavouriteRecipe);
                 }
 
+                favouriteRecipeCount = dataSnapshot.getChildrenCount();//Set recipe Count Icon to match the amount of recipes in the users' favourites
+                favouriteRecipeCountTv.setText((int) favouriteRecipeCount + " recipes");
+
                 favouriteRecipesGridView.setAdapter(null); //Clear adapter so the information is not duplicated
                 favouriteRecipesGridView.setAdapter(adapterFavouriteRecipe);
             }
+
 
             @Override
             public void onCancelled (DatabaseError databaseError){

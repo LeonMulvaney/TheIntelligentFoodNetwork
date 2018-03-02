@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -32,7 +33,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
     DatabaseReference keyRef;
 
     //Views
-    ListView foodListView;
+    GridView foodGridView;
 
     // Android Populating ListView using ArrayAdapter From: https://stackoverflow.com/questions/5070830/populating-a-listview-using-an-arraylist
     ArrayAdapter<ModelFoodItem> myArrayAdapter;
@@ -66,7 +67,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
         keyRef = databaseReference.child("FridgeItems");
 
         //Target List View in Activity
-        foodListView = findViewById(R.id.recipesListView);
+        foodGridView = findViewById(R.id.recipesListView);
 
 
 
@@ -82,9 +83,9 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
         spinner.setOnItemSelectedListener(this);
         getContents(); //Call the GetContents Method which pulls data from Firebase and populates it within the ListView
 
-        registerForContextMenu(foodListView);
+        registerForContextMenu(foodGridView);
 
-        foodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() { // Wait to see what element the user clicks on in the ListView
+        foodGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() { // Wait to see what element the user clicks on in the ListView
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                     ModelFoodItem item = foodList.get(position); //Use original list as not filtered
@@ -166,8 +167,8 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                     foodList.add(newItem);
                 }
                 //foodListView.setAdapter(myArrayAdapter);
-                foodListView.setAdapter(null); //Clear adapter so the information is not duplicated
-                foodListView.setAdapter(adapter);
+                foodGridView.setAdapter(null); //Clear adapter so the information is not duplicated
+                foodGridView.setAdapter(adapter);
             }
 
             @Override
@@ -203,8 +204,8 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                     foodList.add(newItem);//Add objects to arraylist
                 }
                 //foodListView.setAdapter(myArrayAdapter);
-                foodListView.setAdapter(null); //Clear the ListView
-                foodListView.setAdapter(adapter);//Re-Populate the list view
+                foodGridView.setAdapter(null); //Clear the ListView
+                foodGridView.setAdapter(adapter);//Re-Populate the list view
             }
 
             @Override
@@ -245,8 +246,8 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
 
                 }
                 //foodListView.setAdapter(myArrayAdapter);
-                foodListView.setAdapter(null); //Clear the ListView
-                foodListView.setAdapter(adapter);//Re-Populate the list view
+                foodGridView.setAdapter(null); //Clear the ListView
+                foodGridView.setAdapter(adapter);//Re-Populate the list view
             }
 
             @Override
@@ -287,8 +288,8 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
 
                 }
                 //foodListView.setAdapter(myArrayAdapter);
-                foodListView.setAdapter(null); //Clear the ListView
-                foodListView.setAdapter(adapter);//Re-Populate the list view
+                foodGridView.setAdapter(null); //Clear the ListView
+                foodGridView.setAdapter(adapter);//Re-Populate the list view
             }
 
             @Override
@@ -329,8 +330,8 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
 
                 }
                 //foodListView.setAdapter(myArrayAdapter);
-                foodListView.setAdapter(null); //Clear the ListView
-                foodListView.setAdapter(adapter);//Re-Populate the list view
+                foodGridView.setAdapter(null); //Clear the ListView
+                foodGridView.setAdapter(adapter);//Re-Populate the list view
             }
 
             @Override
@@ -371,8 +372,8 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
 
                 }
                 //foodListView.setAdapter(myArrayAdapter);
-                foodListView.setAdapter(null); //Clear the ListView
-                foodListView.setAdapter(adapter);//Re-Populate the list view
+                foodGridView.setAdapter(null); //Clear the ListView
+                foodGridView.setAdapter(adapter);//Re-Populate the list view
             }
 
             @Override

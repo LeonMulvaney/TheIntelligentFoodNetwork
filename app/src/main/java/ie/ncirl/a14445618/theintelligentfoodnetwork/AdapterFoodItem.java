@@ -9,6 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 
 /**
@@ -49,17 +53,18 @@ public class AdapterFoodItem extends BaseAdapter {
         // Lookup view for data population
         TextView tvFoodType = view.findViewById(R.id.tvFoodType);
         TextView tvExpDate = view.findViewById(R.id.tvExpDate);
-        TextView tvCalories = view.findViewById(R.id.tvCalories);
-        TextView tvProtein = view.findViewById(R.id.tvProtein);
+        //TextView tvCalories = view.findViewById(R.id.tvCalories);
+        //TextView tvProtein = view.findViewById(R.id.tvProtein);
         TextView tvCategory = view.findViewById(R.id.tvCategory);
         ImageView image = view.findViewById(R.id.foodImage);
 
         // Populate the data into the template view using the data object
         tvFoodType.setText(foodList.get(i).foodType);
-        tvExpDate.setText("Expiry Date: " + foodList.get(i).expiryDate);
-        tvCalories.setText("Calories: " + foodList.get(i).calories + " kcal");
-        tvProtein.setText("Protein: " + foodList.get(i).protein + "g");
+        tvExpDate.setText("Exp Date: " + foodList.get(i).expiryDate);
+        //tvCalories.setText("Calories: " + foodList.get(i).calories + " kcal");
+        //tvProtein.setText("Protein: " + foodList.get(i).protein + "g");
         tvCategory.setText("Category: " + foodList.get(i).category);
+
 
         //Setting an Image Programmatically From : https://stackoverflow.com/questions/16906528/change-image-of-imageview-programmatically-android
         if(foodList.get(i).category.equals("Poultry")){
