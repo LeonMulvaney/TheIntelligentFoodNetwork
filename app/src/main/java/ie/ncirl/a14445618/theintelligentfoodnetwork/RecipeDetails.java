@@ -218,7 +218,7 @@ public class RecipeDetails extends AppCompatActivity {
             }
         });
 
-        //Grab Favourites from Firebase and save in ArrayList - This prevents the user adding duplicate favourites
+        //Grab Shopping List from Firebase and save in ArrayList - This prevents the user adding duplicate Shopping List Items
         shoppingList = new ArrayList<>();
         shoppingListRef.addValueEventListener(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
             @Override
@@ -272,7 +272,7 @@ public class RecipeDetails extends AppCompatActivity {
         finish();
         return true;
     }
-    //Adding Share Button to TitleBar
+    //Adding Share & Favourite Button to TitleBar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.share_and_back, menu);

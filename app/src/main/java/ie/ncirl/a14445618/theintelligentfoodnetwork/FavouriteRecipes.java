@@ -88,26 +88,7 @@ public class FavouriteRecipes extends AppCompatActivity {
                             openRecipeDetails();
                         }
                         else{
-                            //Firebase Remove Files From: https://firebase.google.com/docs/storage/android/delete-files
-                            keyRef.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                        String firebaseId = ds.child("recipeId").getValue().toString();
-                                        String recipeTitle = ds.child("recipeTitle").getValue().toString();
-                                        if(firebaseId.equals(recipeId)){
-                                            String key = ds.getKey().toString();
-                                            keyRef.child(key).removeValue();
-                                        }
-                                    }
-                                }
-
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
+                            removeRecipe();
                         }
                         View view = findViewById(R.id.favouriteRecipesLinearLayout);
                         String message = recipeTitle + " removed from favourites."; //Capitalize Using StringUtils From: https://stackoverflow.com/questions/5725892/how-to-capitalize-the-first-letter-of-word-in-a-string-using-java
@@ -132,6 +113,12 @@ public class FavouriteRecipes extends AppCompatActivity {
     public boolean onSupportNavigateUp(){
         finish();
         return true;
+    }
+
+    //Android Snackbar From: https://spin.atomicobject.com/2017/07/10/android-snackbar-tutorial/
+    public void showSnackbar(View view, String message, int duration)
+    {
+        Snackbar.make(view, message, duration).show();
     }
 
     public void getContents() {
@@ -168,6 +155,27 @@ public class FavouriteRecipes extends AppCompatActivity {
         Toast.makeText(this,"All Favourite Recipes Loaded!",Toast.LENGTH_SHORT).show();//Send the user confirmation that they have refreshed the List
     }
 
+    public void removeRecipe(){
+        //Firebase Remove Files From: https://firebase.google.com/docs/storage/android/delete-files
+        keyRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String firebaseId = ds.child("recipeId").getValue().toString();
+                    String recipeTitle = ds.child("recipeTitle").getValue().toString();
+                    if(firebaseId.equals(recipeId)){
+                        String key = ds.getKey().toString();
+                        keyRef.child(key).removeValue();
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void openRecipeDetails(){
         Intent intent = new Intent(this,RecipeDetails.class);
         String id = recipeId;
@@ -175,11 +183,7 @@ public class FavouriteRecipes extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //Android Snackbar From: https://spin.atomicobject.com/2017/07/10/android-snackbar-tutorial/
-    public void showSnackbar(View view, String message, int duration)
-    {
-        Snackbar.make(view, message, duration).show();
-    }
+
 
 
 

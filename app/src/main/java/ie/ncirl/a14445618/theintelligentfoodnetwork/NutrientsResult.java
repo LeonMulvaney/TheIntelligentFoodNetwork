@@ -42,12 +42,12 @@ public class NutrientsResult extends AppCompatActivity {
 
         try {
             response = new GetNutrientsApi().execute(foodType).get();
+            setData();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        setData();
     }
 
         //Function to return to home when back button is pressed From --> Same link as "Add Back Button" above

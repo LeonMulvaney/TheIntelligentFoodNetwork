@@ -5,17 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.Shopping"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/shoppingActivity">
 
     <Button
-        android:id="@+id/shoppingListBtn"
-        android:layout_width="fill_parent"
-        android:layout_height="75dp"
-        android:text="My Shopping List"
-        android:onClick="openShoppingList"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/white"
-        android:textAllCaps="false"
-        android:layout_margin="10dp" />
+    android:id="@+id/shoppingListBtn"
+    android:layout_width="fill_parent"
+    android:layout_height="75dp"
+    android:text="My Shopping List"
+    android:onClick="openShoppingList"
+    android:background="@color/colorPrimary"
+    android:textColor="@color/white"
+    android:textAllCaps="false"
+    android:layout_margin="10dp" />
 
 </LinearLayout>

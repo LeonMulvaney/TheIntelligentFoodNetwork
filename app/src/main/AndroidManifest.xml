@@ -30,7 +30,8 @@
         <activity android:name=".Shopping" />
         <activity android:name=".FavouriteRecipes" />
         <activity android:name=".ShoppingList" />
-        <activity android:name=".SimilarRecipe"></activity>
+        <activity android:name=".SimilarRecipe" />
+        <activity android:name=".ShoppingListRecommendation"></activity>
     </application>
 
 </manifest>
