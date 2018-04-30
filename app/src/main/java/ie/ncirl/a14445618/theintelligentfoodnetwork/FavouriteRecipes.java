@@ -18,6 +18,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +28,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class FavouriteRecipes extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
+    String userId;
+
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     DatabaseReference keyRef;
@@ -53,10 +58,15 @@ public class FavouriteRecipes extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_favourite_recipes);
 
+        //Get Instance of Firebase Authentication
+        mAuth = FirebaseAuth.getInstance();
+        userId = mAuth.getUid().toString();
+
         //Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReferenceFromUrl("https://theintelligentfoodnetwork.firebaseio.com/");
-        keyRef = databaseReference.child("Favourites");
+        //keyRef = databaseReference.child("Favourites");
+        keyRef = databaseReference.child("Users/"+userId+"/favourites");
 
         favouriteRecipesList = new ArrayList<>();
         favouriteRecipesGridView = findViewById(R.id.favouriteRecipesGrid);
@@ -144,6 +154,7 @@ public class FavouriteRecipes extends AppCompatActivity {
 
                 favouriteRecipesGridView.setAdapter(null); //Clear adapter so the information is not duplicated
                 favouriteRecipesGridView.setAdapter(adapterFavouriteRecipe);
+                isFavouritesListEmpty();
             }
 
 
@@ -153,6 +164,16 @@ public class FavouriteRecipes extends AppCompatActivity {
             }
         });
         Toast.makeText(this,"All Favourite Recipes Loaded!",Toast.LENGTH_SHORT).show();//Send the user confirmation that they have refreshed the List
+    }
+
+    //Check if the Users Favourites List is Empty
+    public void isFavouritesListEmpty(){
+        if(favouriteRecipesList.isEmpty()){
+            View view = findViewById(R.id.favouriteRecipesLinearLayout);
+            String message = "No Favourites - Add Recipes to avail of recommendations!";
+            int duration = Snackbar.LENGTH_SHORT;
+            showSnackbar(view, message, duration);
+        }
     }
 
     public void removeRecipe(){

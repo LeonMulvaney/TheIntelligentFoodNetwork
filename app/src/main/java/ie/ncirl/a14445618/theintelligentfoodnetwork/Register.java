@@ -111,19 +111,15 @@ public class Register extends AppCompatActivity {
                                 Toast.makeText(Register.this, "Successfully Registered. Welcome \n " + email, Toast.LENGTH_SHORT).show();
 
                                 //Pushing Data to Firebase From: https://firebase.google.com/docs/database/admin/save-data
-                                String userId = mAuth.getUid().toString();
-                                ModelUser newUser = new ModelUser(name,weight,email,joined);
+                                String userId = mAuth.getUid().toString(); //Get User ID to string
+                                ModelUser newUser = new ModelUser(name,weight,email,joined);//Create new User Model when new user is created
 
-                                Map<String, ModelUser> newUserDetails = new HashMap<>();
+                                Map<String, ModelUser> newUserDetails = new HashMap<>(); //create new Hashmap of type user model
 
-                                newUserDetails.put("accountDetails", newUser);
-                                usersRef.child(userId).setValue(newUserDetails);
-//                                usersRef.child(userId).setValue("Favourites");
-//                                usersRef.child(userId).setValue("FridgeItems");
-//                                usersRef.child(userId).setValue("ShoppingList");
-
-                                startActivity(new Intent(Register.this, Home.class));
-                                finish();
+                                newUserDetails.put("accountData", newUser); //Define title and values of Hashmap
+                                usersRef.child(userId).child("accountDetails").setValue(newUserDetails); //Push the created Hashmap to the Database (Using the Declared Reference to the Users Table)
+                                startActivity(new Intent(Register.this, Home.class)); //Open the Home Activity (As user has successfully signed in)
+                                finish(); //Finish/Close the Registration Activity
                             }
                         }
                     });

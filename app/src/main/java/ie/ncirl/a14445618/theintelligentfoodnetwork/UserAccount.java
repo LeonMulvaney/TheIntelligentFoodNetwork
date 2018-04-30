@@ -47,7 +47,7 @@ public class UserAccount extends AppCompatActivity {
         //Firebase Database
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReferenceFromUrl("https://theintelligentfoodnetwork.firebaseio.com/");
-        usersRef = databaseReference.child("Users/"+userId);
+        usersRef = databaseReference.child("Users/"+userId+"/accountDetails");
 
         nameTv = findViewById(R.id.nameTv);
         emailTv = findViewById(R.id.emailTv);
@@ -70,6 +70,7 @@ public class UserAccount extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
                      name = ds.child("name").getValue().toString();
                      email = ds.child("email").getValue().toString();
                      weight = ds.child("weight").getValue().toString();

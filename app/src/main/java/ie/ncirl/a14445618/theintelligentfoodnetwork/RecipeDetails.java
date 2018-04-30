@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +34,9 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class RecipeDetails extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
+    String userId;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -90,6 +94,17 @@ public class RecipeDetails extends AppCompatActivity {
         setTitle("Recipe Details");
         //Add Back Button to Action Bar - From https://stackoverflow.com/questions/12070744/add-back-button-to-action-bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Get Instance of Firebase Authentication
+        mAuth = FirebaseAuth.getInstance();
+        userId = mAuth.getUid().toString();
+
+        //Firebase
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReferenceFromUrl("https://theintelligentfoodnetwork.firebaseio.com/");
+        //shoppingListRef = databaseReference.child("shoppingList");
+        shoppingListRef = databaseReference.child("Users/"+userId+"/shoppingList");
+        favouritesRef = databaseReference.child("Users/"+userId+"/favourites");
 
         ingredientLv = findViewById(R.id.ingredientLv);
         ingredientList = new ArrayList();
@@ -191,16 +206,6 @@ public class RecipeDetails extends AppCompatActivity {
         Picasso.with(RecipeDetails.this).load(imageUrl).into(recipeImage);
         System.out.println(result);
 
-        //Page Scrolling to Centre Fix From: https://stackoverflow.com/questions/4119441/how-to-scroll-to-top-of-long-scrollview-layout
-        //ingredientLv.setFocusable(false);
-        //instructionsLv.setFocusable(false);
-
-
-        //Firebase
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReferenceFromUrl("https://theintelligentfoodnetwork.firebaseio.com/");
-        shoppingListRef = databaseReference.child("ShoppingList");
-        favouritesRef = databaseReference.child("Favourites");
 
         //Grab Favourites from Firebase and save in ArrayList - This prevents the user adding duplicate favourites
         favouritesList = new ArrayList<>();

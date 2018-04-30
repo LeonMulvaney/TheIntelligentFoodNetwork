@@ -52,19 +52,19 @@ public class ShoppingList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Change Action Bar Title From: https://stackoverflow.com/questions/3438276/how-to-change-the-text-on-the-action-bar
-        setTitle(R.string.shopping);
+        setTitle(R.string.shopping_list);
         //Add Back Button to Action Bar - From https://stackoverflow.com/questions/12070744/add-back-button-to-action-bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_shopping_list);
 
         //Get Instance of Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
-        userId = mAuth.getCurrentUser().toString();
+        userId = mAuth.getUid().toString();
 
         //Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReferenceFromUrl("https://theintelligentfoodnetwork.firebaseio.com/");
-        shoppingListRef = databaseReference.child("ShoppingList");
+        shoppingListRef = databaseReference.child("Users/"+userId+"/shoppingList");
 
         shoppingList = new ArrayList<>();
         comparisonList = new ArrayList<>();
@@ -100,8 +100,8 @@ public class ShoppingList extends AppCompatActivity {
 
             }
         }); //End of listView onClickListener
-        getContents();
 
+        getContents();
     }
 
     //Function to return when back button is pressed From --> Same link as "Add Back Button" above
@@ -141,6 +141,8 @@ public class ShoppingList extends AppCompatActivity {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                shoppingList.clear();
+                comparisonList.clear();
                 //Get ID From: https://stackoverflow.com/questions/43975734/get-parent-firebase-android
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     String item = ds.child("title").getValue().toString();
@@ -151,6 +153,7 @@ public class ShoppingList extends AppCompatActivity {
 
                 shoppingListGridView.setAdapter(null); //Clear adapter so the information is not duplicated
                 shoppingListGridView.setAdapter(adapter);
+                isShoppingListEmpty();
             }
 
             @Override
@@ -158,7 +161,16 @@ public class ShoppingList extends AppCompatActivity {
 
             }
         });
-        Toast.makeText(this, "All shopping list items loaded!", Toast.LENGTH_SHORT).show();//Send the user confirmation that they have refreshed the List
+
+    }
+
+    public void isShoppingListEmpty(){
+        if(shoppingList.isEmpty()){
+            View view = findViewById(R.id.shoppingListActivity);
+            String message = "No Items in shopping list";
+            int duration = Snackbar.LENGTH_SHORT;
+            showSnackbar(view, message, duration);
+        }
     }
 
     public void enterItem() {

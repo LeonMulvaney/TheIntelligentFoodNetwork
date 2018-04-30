@@ -2,6 +2,7 @@ package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -144,6 +145,11 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
         return true;
     }
 
+    //Android Snackbar From: https://spin.atomicobject.com/2017/07/10/android-snackbar-tutorial/
+    public void showSnackbar(View view, String message, int duration) {
+        Snackbar.make(view, message, duration).show();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
@@ -179,6 +185,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                 //foodListView.setAdapter(myArrayAdapter);
                 foodGridView.setAdapter(null); //Clear adapter so the information is not duplicated
                 foodGridView.setAdapter(adapter);
+                isFoodListEmpty();
             }
 
             @Override
@@ -186,12 +193,19 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
 
             }
         });
-        if(foodList.isEmpty()){
-            Toast.makeText(getApplicationContext(), "No Items In Fridge!", Toast.LENGTH_LONG).show();
-        }
+
+
     }
 
-
+    //If foodList is empty, notify the user (Call Snackbar)
+    public void isFoodListEmpty(){
+        if(foodList.isEmpty()){
+            View view = findViewById(R.id.foodContentsActivity);
+            String message = "No Items present";
+            int duration = Snackbar.LENGTH_SHORT;
+            showSnackbar(view, message, duration);
+        }
+    }
 
     //1. Refresh the List - Take a new Snapshot of Firebase
     //2. Clear the original foodlist array so it doesn't re-enter the same contents

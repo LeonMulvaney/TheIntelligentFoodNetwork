@@ -16,6 +16,7 @@
     <string name="food_search_action_bar_string">Nutritional Values</string>
     <string name="recipes_from_food_contents_action_bar_string">Recipes based on</string>
     <string name="shopping_action_bar_string">Shopping</string>
+    <string name="shopping_list">Shopping List</string>
     <string name="account_action_bar_string">My Account</string>
 
 

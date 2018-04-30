@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +40,10 @@ import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 public class Recipes extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
+    String userId;
+
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     DatabaseReference keyRef;
@@ -66,8 +71,8 @@ public class Recipes extends AppCompatActivity {
     CardView recommendationCv;
     int recommendationId;
 
-    //ListView recipeRecommendationGv;
-    //AdapterRecipeRecommendations adapter;
+    //Declare Recommendation Linear Layout so it can be targeted and set as un-clickable (If the user has no Favourite Recipes)
+    View recommendationLinearLayout;
 
 
     @Override
@@ -79,10 +84,17 @@ public class Recipes extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_recipes);
 
+        //Get Instance of Firebase Authentication
+        mAuth = FirebaseAuth.getInstance();
+        userId = mAuth.getUid().toString();
+
         //Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReferenceFromUrl("https://theintelligentfoodnetwork.firebaseio.com/");
-        keyRef = databaseReference.child("Favourites");
+        //keyRef = databaseReference.child("Favourites");
+        keyRef = databaseReference.child("Users/"+userId+"/favourites");
+
+        recommendationLinearLayout = findViewById(R.id.recommendationLinearLayout);
 
         favourtieRecipesBtn = findViewById(R.id.favouriteRecipesBtn);
         searchRecipesBtn = findViewById(R.id.searchRecipesBtn);
@@ -131,7 +143,6 @@ public class Recipes extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                     }
                 });
-
                 alert.show();
             }
         });
@@ -172,60 +183,73 @@ public class Recipes extends AppCompatActivity {
                     ModelFavouriteRecipe modelFavouriteRecipe = new ModelFavouriteRecipe(title,id,img);
                     favouriteRecipesList.add(modelFavouriteRecipe);
                 }
-                listSize = dataSnapshot.getChildrenCount();//Firebase Get Children Count From: https://stackoverflow.com/questions/43606235/android-firebase-get-childrens-count
-                rand = new Random();
-                System.out.println("_____________________________");
-                System.out.println("List Size ----------> " + listSize);
-                randomRecipeFromFavourites = rand.nextInt((int) listSize)+0;
-                System.out.println("Random Recipe Number ---------->" + randomRecipeFromFavourites);
-                System.out.println("_____________________________");
-                String idForSimilarRecipeApi = favouriteRecipesList.get(randomRecipeFromFavourites).getRecipeId();
-                String titleForSimilarRecipeApi = favouriteRecipesList.get(randomRecipeFromFavourites).getRecipeTitle();
 
-
-                //Get Data From API
-                myUrl = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/"+idForSimilarRecipeApi+ "/similar";
-                try {
-                    result = getRequest.execute(myUrl).get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-                //Substring of String From: https://stackoverflow.com/questions/8846173/how-to-remove-first-and-last-character-of-a-string/31896180
-                chopped = StringUtils.substringBetween(result,"[","]");
-
-                //Convert String to JSON in Java From: https://stackoverflow.com/questions/35722646/how-to-read-json-string-in-java
-
-                try {
-                    array = new JSONArray(result); //Create JSON Array
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                //Check if the user has recipes in their Favourites - If they don't the recipe recommendations cannot work, thus notify the user
+                if(favouriteRecipesList.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"No Favourite Recipes - Cannot generate a recommendation",Toast.LENGTH_LONG).show();
+                    recommendationTitleTv.setText("Please add a recipe to favourites to avail of our customised recommendations");
+                    basedOnTv.setText("Please add a recipe to favourites to avail of our customised recommendations");
+                    //Set the Linear Layout as Un-clickable if the user has no Favourite Recipes
                 }
 
-                for(int i=0; i<array.length(); i++){
+                else{
+                    listSize = dataSnapshot.getChildrenCount();//Firebase Get Children Count From: https://stackoverflow.com/questions/43606235/android-firebase-get-childrens-count
+                    rand = new Random();
+                    System.out.println("_____________________________");
+                    System.out.println("List Size ----------> " + listSize);
+                    randomRecipeFromFavourites = rand.nextInt((int) listSize)+0;
+                    System.out.println("Random Recipe Number ---------->" + randomRecipeFromFavourites);
+                    System.out.println("_____________________________");
+                    String idForSimilarRecipeApi = favouriteRecipesList.get(randomRecipeFromFavourites).getRecipeId();
+                    String titleForSimilarRecipeApi = favouriteRecipesList.get(randomRecipeFromFavourites).getRecipeTitle();
+
+
+                    //Get Data From API
+                    myUrl = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/"+idForSimilarRecipeApi+ "/similar";
                     try {
-                        JSONObject jsonObj;
-                        jsonObj = array.getJSONObject(i);
-                        int id = (int) jsonObj.get("id");
-                        String title = (String) jsonObj.get("title");
-                        System.out.println("_____________________________");
-                        System.out.println(title);
-                        String imageUrl = "https://spoonacular.com/recipeImages/" + (String) jsonObj.get("image");
-                        ModelRecipeFromIngredient recipe = new ModelRecipeFromIngredient(id,title,imageUrl);
-                        recipesList.add(recipe);
+                        result = getRequest.execute(myUrl).get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                    //Substring of String From: https://stackoverflow.com/questions/8846173/how-to-remove-first-and-last-character-of-a-string/31896180
+                    chopped = StringUtils.substringBetween(result,"[","]");
 
+                    //Convert String to JSON in Java From: https://stackoverflow.com/questions/35722646/how-to-read-json-string-in-java
+
+                    try {
+                        array = new JSONArray(result); //Create JSON Array
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
+                    for(int i=0; i<array.length(); i++){
+                        try {
+                            JSONObject jsonObj;
+                            jsonObj = array.getJSONObject(i);
+                            int id = (int) jsonObj.get("id");
+                            String title = (String) jsonObj.get("title");
+                            System.out.println("_____________________________");
+                            System.out.println(title);
+                            String imageUrl = "https://spoonacular.com/recipeImages/" + (String) jsonObj.get("image");
+                            ModelRecipeFromIngredient recipe = new ModelRecipeFromIngredient(id,title,imageUrl);
+                            recipesList.add(recipe);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    randomRecipeFromSimilar = rand.nextInt(recipesList.size())+0;
+                    recommendationId = recipesList.get(randomRecipeFromSimilar).getId();
+                    String similarRecipeImageUrl = recipesList.get(randomRecipeFromSimilar).getImageUrl();
+                    String similarRecipeTitle = recipesList.get(randomRecipeFromSimilar).getTitle();
+                    Picasso.with(Recipes.this).load(similarRecipeImageUrl).into(recommendationImg); //Use picasso library to load images instead of setImageResource
+                    recommendationTitleTv.setText(similarRecipeTitle);
+                    basedOnTv.setText(titleForSimilarRecipeApi);
+                    //Set the Linear Layout as Clickable if a Favourite Recipe has loaded
                 }
-                 randomRecipeFromSimilar = rand.nextInt(recipesList.size())+0;
-                 recommendationId = recipesList.get(randomRecipeFromSimilar).getId();
-                String similarRecipeImageUrl = recipesList.get(randomRecipeFromSimilar).getImageUrl();
-                String similarRecipeTitle = recipesList.get(randomRecipeFromSimilar).getTitle();
-                Picasso.with(Recipes.this).load(similarRecipeImageUrl).into(recommendationImg); //Use picasso library to load images instead of setImageResource
-                recommendationTitleTv.setText(similarRecipeTitle);
-                basedOnTv.setText(titleForSimilarRecipeApi);
+
             }
 
             @Override
