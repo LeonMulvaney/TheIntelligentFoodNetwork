@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -158,6 +159,11 @@ public class Recipes extends AppCompatActivity {
         return true;
     }
 
+    //Android Snackbar From: https://spin.atomicobject.com/2017/07/10/android-snackbar-tutorial/
+    public void showSnackbar(View view, String message, int duration) {
+        Snackbar.make(view, message, duration).show();
+    }
+
     public void openFavouriteRecipes(View view){
         Intent intent = new Intent(this,FavouriteRecipes.class);
         startActivity(intent);
@@ -182,11 +188,23 @@ public class Recipes extends AppCompatActivity {
 
                     ModelFavouriteRecipe modelFavouriteRecipe = new ModelFavouriteRecipe(title,id,img);
                     favouriteRecipesList.add(modelFavouriteRecipe);
+
+                    //Check if the user has any Favourite Recipes - if they do not, make sure they cannot click the linear layout
+                    if(favouriteRecipesList.isEmpty()){
+                        recommendationLinearLayout.setClickable(false);
+                    }
+                    else{
+                        recommendationLinearLayout.setClickable(true);
+                    }
                 }
 
                 //Check if the user has recipes in their Favourites - If they don't the recipe recommendations cannot work, thus notify the user
+                //Check applied here as well as above so the Snackbar does not display a message each time Firebase table is updated
                 if(favouriteRecipesList.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"No Favourite Recipes - Cannot generate a recommendation",Toast.LENGTH_LONG).show();
+                    View view = findViewById(R.id.recipesAcitivty);
+                    String message = "No Favourite Recipes - Cannot generate Recommendation";
+                    int duration = Snackbar.LENGTH_SHORT;
+                    showSnackbar(view, message, duration);
                     recommendationTitleTv.setText("Please add a recipe to favourites to avail of our customised recommendations");
                     basedOnTv.setText("Please add a recipe to favourites to avail of our customised recommendations");
                     //Set the Linear Layout as Un-clickable if the user has no Favourite Recipes
