@@ -142,7 +142,7 @@ public class RecipeDetails extends AppCompatActivity {
 
             for(int i=0;i<extendedIngredientsArray.length();i++){
                 JSONObject object = (JSONObject) extendedIngredientsArray.get(i);
-                String originalString = object.getString("originalString");
+                String originalString = object.getString("original");
                 double amount = object.getDouble("amount");
                 String unit = object.getString("unit");
                 String name = object.getString("name");

@@ -16,6 +16,7 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +30,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ShoppingList extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
+    String userId;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -52,6 +56,10 @@ public class ShoppingList extends AppCompatActivity {
         //Add Back Button to Action Bar - From https://stackoverflow.com/questions/12070744/add-back-button-to-action-bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_shopping_list);
+
+        //Get Instance of Firebase Authentication
+        mAuth = FirebaseAuth.getInstance();
+        userId = mAuth.getCurrentUser().toString();
 
         //Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -129,7 +137,7 @@ public class ShoppingList extends AppCompatActivity {
 
     public void getContents() {
         //Get contents from Firebase into String From : https://www.youtube.com/watch?v=WDGmpvKpHyw
-        shoppingListRef.addValueEventListener(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
+        shoppingListRef.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

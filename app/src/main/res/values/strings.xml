@@ -4,8 +4,10 @@
     <string name="my_food_network">My Food Network</string>
     <string name="shopping">Shopping</string>
     <string name="recipes">Recipes</string>
-    <string name="account">Account</string>
+    <string name="account">My Account</string>
     <string name="food_search">Nutrients Search</string>
+    <string name="log_out">Logout</string>
+
 
     <!--Action Bar Strings-->
     <string name="my_food_network_action_bar_string">My Food Network</string>
@@ -14,6 +16,7 @@
     <string name="food_search_action_bar_string">Nutritional Values</string>
     <string name="recipes_from_food_contents_action_bar_string">Recipes based on</string>
     <string name="shopping_action_bar_string">Shopping</string>
+    <string name="account_action_bar_string">My Account</string>
 
 
     <!--Food Contents Spinner -->
@@ -51,6 +54,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!--Login Page -->
+    <string name="register_string">Not a Member? Register Here.</string>
+    <string name="login_string">Already Registered? Login Here.</string>
 
 
 </resources>

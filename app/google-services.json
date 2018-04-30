@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "182454534003-9ki7lingo99ooviq0thpgsn4i8k8jbuk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ie.ncirl.a14445618.theintelligentfoodnetwork",
+            "certificate_hash": "4d9e2fccfbd209a121c7c37e334aa431abea4e1e"
+          }
+        },
+        {
+          "client_id": "182454534003-66646c9e0r5m5kl41giqge76qmv69lgq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ie.ncirl.a14445618.theintelligentfoodnetwork",
+            "certificate_hash": "5249861cff5c693e75a2bd2dae7421f8f1ad49ab"
+          }
+        },
+        {
           "client_id": "182454534003-k13o6118re5vtcrro01ek925hlkg532b.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

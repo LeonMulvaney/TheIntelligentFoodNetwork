@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.Register"
+    android:orientation="vertical"
+    android:background="@color/colorAccent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="50dp">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/raspberry"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:text="@string/home_logo_info"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:layout_marginBottom="20dp"
+                    android:textColor="@color/white"/>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/nameEt"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                android:padding="5dp"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/weightEt"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:hint="Weight KG (Optional)"
+                android:inputType="number"
+                android:padding="5dp"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/emailEt"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:padding="5dp"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/passwordEt"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="5dp"
+                android:layout_marginBottom="20dp"/>
+
+            <Button
+                android:id="@+id/loginBtn"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:text="Sign Up"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginBottom="30dp"
+                android:onClick="register"/>
+
+            <TextView
+                android:id="@+id/LoginTv"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:text="@string/login_string"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:textAllCaps="false"
+                android:onClick="viewLogin"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

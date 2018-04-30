@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +29,10 @@ import java.util.ArrayList;
 //https://stackoverflow.com/questions/39800547/read-data-from-firebase-database
 
 public class FoodContents extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+
+    private FirebaseAuth mAuth;
+    String userId;
+
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     DatabaseReference keyRef;
@@ -61,10 +66,15 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
         //myArrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,foodList);
         adapter = new AdapterFoodItem(this, foodList);
 
+
+        //Get Instance of Firebase Authentication
+        mAuth = FirebaseAuth.getInstance();
+        userId = mAuth.getUid().toString();
+
         //Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReferenceFromUrl("https://theintelligentfoodnetwork.firebaseio.com/");
-        keyRef = databaseReference.child("FridgeItems");
+        keyRef = databaseReference.child("Users/"+userId+"/fridgeItems");
 
         //Target List View in Activity
         foodGridView = findViewById(R.id.recipesListView);
@@ -159,8 +169,8 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     String type = ds.child("foodType").getValue().toString();
                     String expDate = ds.child("expiryDate").getValue().toString();
-                    String calories = ds.child("calories").getValue().toString();
-                    String protein = ds.child("protein").getValue().toString();
+                    String calories = "50";
+                    String protein = "22";
                     String category = ds.child("category").getValue().toString();
 
                     ModelFoodItem newItem = new ModelFoodItem(type, expDate, calories, protein,category);
@@ -176,7 +186,9 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
 
             }
         });
-        Toast.makeText(this,"All Items Loaded!",Toast.LENGTH_SHORT).show();//Send the user confirmation that they have refreshed the List
+        if(foodList.isEmpty()){
+            Toast.makeText(getApplicationContext(), "No Items In Fridge!", Toast.LENGTH_LONG).show();
+        }
     }
 
 
