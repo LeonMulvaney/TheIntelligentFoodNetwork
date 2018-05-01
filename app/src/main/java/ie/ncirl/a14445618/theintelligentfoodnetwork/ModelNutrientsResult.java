@@ -7,25 +7,24 @@ package ie.ncirl.a14445618.theintelligentfoodnetwork;
 public class ModelNutrientsResult {
     private String imgUrl;
     private String food_name;
-    private double serving_qty;
+    private String serving_qty;
     private String serving_unit;
-    private double serving_weight_grams;
-    private double calories;
-    private double total_fat;
-    private double saturated_fat;
-    private double cholesterol;
-    private double sodium;
-    private double total_carbohydrate;
-    private double fibre;
-    private double sugars;
-    private double protein;
-    private double potassium;
+    private String serving_weight_grams;
+    private String calories;
+    private String total_fat;
+    private String saturated_fat;
+    private String cholesterol;
+    private String sodium;
+    private String total_carbohydrate;
+    private String fibre;
+    private String sugars;
+    private String protein;
+    private String potassium;
 
     public ModelNutrientsResult() {
     }
 
-
-    public ModelNutrientsResult(String imgUrl,String food_name, double serving_qty, String serving_unit, double serving_weight_grams, double calories, double total_fat, double saturated_fat, double cholesterol, double sodium, double total_carbohydrate, double fibre, double sugars, double protein, double potassium) {
+    public ModelNutrientsResult(String imgUrl, String food_name, String serving_qty, String serving_unit, String serving_weight_grams, String calories, String total_fat, String saturated_fat, String cholesterol, String sodium, String total_carbohydrate, String fibre, String sugars, String protein, String potassium) {
         this.imgUrl = imgUrl;
         this.food_name = food_name;
         this.serving_qty = serving_qty;
@@ -34,7 +33,6 @@ public class ModelNutrientsResult {
         this.calories = calories;
         this.total_fat = total_fat;
         this.saturated_fat = saturated_fat;
-
         this.cholesterol = cholesterol;
         this.sodium = sodium;
         this.total_carbohydrate = total_carbohydrate;
@@ -42,6 +40,14 @@ public class ModelNutrientsResult {
         this.sugars = sugars;
         this.protein = protein;
         this.potassium = potassium;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public String getFood_name() {
@@ -52,11 +58,11 @@ public class ModelNutrientsResult {
         this.food_name = food_name;
     }
 
-    public double getServing_qty() {
+    public String getServing_qty() {
         return serving_qty;
     }
 
-    public void setServing_qty(double serving_qty) {
+    public void setServing_qty(String serving_qty) {
         this.serving_qty = serving_qty;
     }
 
@@ -68,99 +74,94 @@ public class ModelNutrientsResult {
         this.serving_unit = serving_unit;
     }
 
-    public double getServing_weight_grams() {
+    public String getServing_weight_grams() {
         return serving_weight_grams;
     }
 
-    public void setServing_weight_grams(double serving_weight_grams) {
+    public void setServing_weight_grams(String serving_weight_grams) {
         this.serving_weight_grams = serving_weight_grams;
     }
 
-    public double getCalories() {
+    public String getCalories() {
         return calories;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public void setCalories(double calories) {
+    public void setCalories(String calories) {
         this.calories = calories;
     }
 
-    public double getTotal_fat() {
+    public String getTotal_fat() {
         return total_fat;
     }
 
-    public void setTotal_fat(double total_fat) {
+    public void setTotal_fat(String total_fat) {
         this.total_fat = total_fat;
     }
 
-    public double getSaturated_fat() {
+    public String getSaturated_fat() {
         return saturated_fat;
     }
 
-    public void setSaturated_fat(double saturated_fat) {
+    public void setSaturated_fat(String saturated_fat) {
         this.saturated_fat = saturated_fat;
     }
 
-    public double getCholesterol() {
+    public String getCholesterol() {
         return cholesterol;
     }
 
-    public void setCholesterol(double cholesterol) {
+    public void setCholesterol(String cholesterol) {
         this.cholesterol = cholesterol;
     }
 
-    public double getSodium() {
+    public String getSodium() {
         return sodium;
     }
 
-    public void setSodium(double sodium) {
+    public void setSodium(String sodium) {
         this.sodium = sodium;
     }
 
-    public double getTotal_carbohydrate() {
+    public String getTotal_carbohydrate() {
         return total_carbohydrate;
     }
 
-    public void setTotal_carbohydrate(double total_carbohydrate) {
+    public void setTotal_carbohydrate(String total_carbohydrate) {
         this.total_carbohydrate = total_carbohydrate;
     }
 
-    public double getFibre() {
+    public String getFibre() {
         return fibre;
     }
 
-    public void setFibre(double fibre) {
+    public void setFibre(String fibre) {
         this.fibre = fibre;
     }
 
-    public double getSugars() {
+    public String getSugars() {
         return sugars;
     }
 
-    public void setSugars(double sugars) {
+    public void setSugars(String sugars) {
         this.sugars = sugars;
     }
 
-    public double getProtein() {
+    public String getProtein() {
         return protein;
     }
 
-    public void setProtein(double protein) {
+    public void setProtein(String protein) {
         this.protein = protein;
     }
 
-    public double getPotassium() {
+    public String getPotassium() {
         return potassium;
     }
 
-    public void setPotassium(double potassium) {
+    public void setPotassium(String potassium) {
         this.potassium = potassium;
     }
 }
+
+
+

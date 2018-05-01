@@ -66,20 +66,20 @@ public class NutrientsResult extends AppCompatActivity {
         Map<Object,String> imageUrlObj = (Map<Object, String>) foodItem.get("photo");
         String imageUrl = imageUrlObj.get("thumb");
 
-        String food_name = (String) foodItem.get("food_name");
-        double serving_qty = (Double) foodItem.get("serving_qty");
-        String serving_unit= (String) foodItem.get("serving_unit");
-        double serving_weight_grams = (Double) foodItem.get("serving_weight_grams");
-        double calories = (Double) foodItem.get("nf_calories");
-        double total_fat = (Double) foodItem.get("nf_total_fat");
-        double saturated_fat = (Double) foodItem.get("nf_saturated_fat");
-        double cholesterol = (Double) foodItem.get("nf_cholesterol");
-        double sodium = (Double) foodItem.get("nf_sodium");
-        double total_carbohydrate = (Double) foodItem.get("nf_total_carbohydrate");
-        double fibre = (Double) foodItem.get("nf_dietary_fiber");
-        double sugars = (Double) foodItem.get("nf_sugars");
-        double protein = (Double) foodItem.get("nf_protein");
-        double potassium = (Double) foodItem.get("nf_potassium");
+        String food_name = foodItem.get("food_name")+"";
+        String serving_qty = foodItem.get("serving_qty")+"";
+        String serving_unit= foodItem.get("serving_unit")+"";
+        String serving_weight_grams = foodItem.get("serving_weight_grams")+"";
+        String calories = foodItem.get("nf_calories")+"";
+        String total_fat = foodItem.get("nf_total_fat")+"";
+        String saturated_fat = foodItem.get("nf_saturated_fat")+"";
+        String cholesterol = foodItem.get("nf_cholesterol")+"";
+        String sodium = foodItem.get("nf_sodium")+"";
+        String total_carbohydrate = foodItem.get("nf_total_carbohydrate")+"";
+        String fibre = foodItem.get("nf_dietary_fiber")+"";
+        String sugars = foodItem.get("nf_sugars") + "";
+        String protein = foodItem.get("nf_protein")+"";
+        String potassium = foodItem.get("nf_potassium")+"";
 
 
 

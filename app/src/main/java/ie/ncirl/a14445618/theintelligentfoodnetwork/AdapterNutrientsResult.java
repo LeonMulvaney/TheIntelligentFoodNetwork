@@ -74,23 +74,23 @@ public class AdapterNutrientsResult extends BaseAdapter {
 
         // Populate the data into the template view using the data object
         tvFoodName.setText(StringUtils.capitalize(nutrientsList.get(i).getFood_name())); //First Letter Capital From: https://stackoverflow.com/questions/3904579/how-to-capitalize-the-first-letter-of-a-string-in-java
-        tvServingAmount.setText("" + (int) nutrientsList.get(i).getServing_qty() + " " + nutrientsList.get(i).getServing_unit() + " - " + (int) nutrientsList.get(i).getServing_weight_grams() + " g" );
-        tvCaloriesTop.setText("" + (int) nutrientsList.get(i).getCalories());
-        tvProteinTop.setText("" + (int) nutrientsList.get(i).getProtein() + " g");
-        tvSugarsTop.setText("" + (int) nutrientsList.get(i).getSugars() + " g");
-        tvServingQuantity.setText("" + (int) nutrientsList.get(i).getServing_qty());
-        tvServingUnit.setText("" + nutrientsList.get(i).getServing_unit());
-        tvServingWeight.setText("" + (int) nutrientsList.get(i).getServing_weight_grams() +" g");
-        tvCalories.setText("" + (int) nutrientsList.get(i).getCalories() + " kcal");
-        tvTotalFat.setText("" + (int) nutrientsList.get(i).getTotal_fat() + " g");
-        tvSaturatedFat.setText("" + (int) nutrientsList.get(i).getSaturated_fat() + " g");
-        tvCholesterol.setText("" + (int) nutrientsList.get(i).getCholesterol() + " mg");
-        tvSodium.setText("" + (int) nutrientsList.get(i).getSodium() + " mg");
-        tvCarbohydtrate.setText("" + (int) nutrientsList.get(i).getTotal_carbohydrate() + " g");
-        tvFibre.setText("" + (int) nutrientsList.get(i).getFibre() +" g");
-        tvSugars.setText("" + (int) nutrientsList.get(i).getSugars() + " g");
-        tvProtein.setText("" + (int) nutrientsList.get(i).getProtein() + " g");
-        tvPotassium.setText("" + (int) nutrientsList.get(i).getPotassium() + " mg");
+        tvServingAmount.setText(nutrientsList.get(i).getServing_qty() + " " + nutrientsList.get(i).getServing_unit() + " - "  + nutrientsList.get(i).getServing_weight_grams() + " g" );
+        tvCaloriesTop.setText (nutrientsList.get(i).getCalories());
+        tvProteinTop.setText(nutrientsList.get(i).getProtein() + " g");
+        tvSugarsTop.setText(nutrientsList.get(i).getSugars() + " g");
+        tvServingQuantity.setText(nutrientsList.get(i).getServing_qty());
+        tvServingUnit.setText(nutrientsList.get(i).getServing_unit());
+        tvServingWeight.setText(nutrientsList.get(i).getServing_weight_grams() +" g");
+        tvCalories.setText(nutrientsList.get(i).getCalories() + " kcal");
+        tvTotalFat.setText(nutrientsList.get(i).getTotal_fat() + " g");
+        tvSaturatedFat.setText(nutrientsList.get(i).getSaturated_fat() + " g");
+        tvCholesterol.setText(nutrientsList.get(i).getCholesterol() + " mg");
+        tvSodium.setText(nutrientsList.get(i).getSodium() + " mg");
+        tvCarbohydtrate.setText(nutrientsList.get(i).getTotal_carbohydrate() + " g");
+        tvFibre.setText(nutrientsList.get(i).getFibre() +" g");
+        tvSugars.setText(nutrientsList.get(i).getSugars() + " g");
+        tvProtein.setText(nutrientsList.get(i).getProtein() + " g");
+        tvPotassium.setText(nutrientsList.get(i).getPotassium() + " mg");
 
         Picasso.with(context).load(nutrientsList.get(i).getImgUrl()).into(imgNutritionalValues);
 
