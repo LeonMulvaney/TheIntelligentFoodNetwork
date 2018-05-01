@@ -56,8 +56,7 @@ public class Recipes extends AppCompatActivity {
     ArrayList<ModelRecipeFromIngredient> recipesList;
     JSONArray array;
 
-    Button favourtieRecipesBtn;
-    Button searchRecipesBtn;
+
     String recipeSearchString;
     ArrayList<ModelFavouriteRecipe> favouriteRecipesList;
     Random rand; //Random Number Java From: https://stackoverflow.com/questions/5887709/getting-random-numbers-in-java
@@ -73,7 +72,7 @@ public class Recipes extends AppCompatActivity {
     int recommendationId;
 
     //Declare Recommendation Linear Layout so it can be targeted and set as un-clickable (If the user has no Favourite Recipes)
-    View recommendationLinearLayout;
+    View searchLinearLayout;
 
 
     @Override
@@ -95,12 +94,10 @@ public class Recipes extends AppCompatActivity {
         //keyRef = databaseReference.child("Favourites");
         keyRef = databaseReference.child("Users/"+userId+"/favourites");
 
-        recommendationLinearLayout = findViewById(R.id.recommendationLinearLayout);
 
-        favourtieRecipesBtn = findViewById(R.id.favouriteRecipesBtn);
-        searchRecipesBtn = findViewById(R.id.searchRecipesBtn);
+        searchLinearLayout = findViewById(R.id.searchLinearLayout);
+
         favouriteRecipesList = new ArrayList<>();
-        //recipeRecommendationGv = findViewById(R.id.recipeRecommendationGv);
         recipesList = new ArrayList<>();
 
         //Views to fill for Recipe Recommendation
@@ -113,14 +110,13 @@ public class Recipes extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openRecipeDetails();
-
             }
         });
 
 
 
         //Android Alertbox with EditText From: https://stackoverflow.com/questions/18799216/how-to-make-a-edittext-box-in-a-dialog
-        searchRecipesBtn.setOnClickListener(new View.OnClickListener() {
+        searchLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(Recipes.this);
@@ -185,18 +181,18 @@ public class Recipes extends AppCompatActivity {
                     String id = ds.child("recipeId").getValue().toString();
                     String img = ds.child("recipeImgUrl").getValue().toString();
 
-
                     ModelFavouriteRecipe modelFavouriteRecipe = new ModelFavouriteRecipe(title,id,img);
                     favouriteRecipesList.add(modelFavouriteRecipe);
 
-                    //Check if the user has any Favourite Recipes - if they do not, make sure they cannot click the linear layout
-                    if(favouriteRecipesList.isEmpty()){
-                        recommendationLinearLayout.setClickable(false);
-                    }
-                    else{
-                        recommendationLinearLayout.setClickable(true);
-                    }
                 }
+
+                //Check if the user has any Favourite Recipes - if they do not, make sure they cannot click the linear layout
+//                if(favouriteRecipesList.isEmpty()){
+//                    recommendationCv.setClickable(false);
+//                }
+//                else{
+//                    recommendationCv.setClickable(true);
+//                }
 
                 //Check if the user has recipes in their Favourites - If they don't the recipe recommendations cannot work, thus notify the user
                 //Check applied here as well as above so the Snackbar does not display a message each time Firebase table is updated
@@ -207,7 +203,7 @@ public class Recipes extends AppCompatActivity {
                     showSnackbar(view, message, duration);
                     recommendationTitleTv.setText("Please add a recipe to favourites to avail of our customised recommendations");
                     basedOnTv.setText("Please add a recipe to favourites to avail of our customised recommendations");
-                    //Set the Linear Layout as Un-clickable if the user has no Favourite Recipes
+                    recommendationCv.setClickable(false);
                 }
 
                 else{
@@ -220,6 +216,7 @@ public class Recipes extends AppCompatActivity {
                     System.out.println("_____________________________");
                     String idForSimilarRecipeApi = favouriteRecipesList.get(randomRecipeFromFavourites).getRecipeId();
                     String titleForSimilarRecipeApi = favouriteRecipesList.get(randomRecipeFromFavourites).getRecipeTitle();
+                    recommendationCv.setClickable(true);
 
 
                     //Get Data From API
@@ -265,7 +262,6 @@ public class Recipes extends AppCompatActivity {
                     Picasso.with(Recipes.this).load(similarRecipeImageUrl).into(recommendationImg); //Use picasso library to load images instead of setImageResource
                     recommendationTitleTv.setText(similarRecipeTitle);
                     basedOnTv.setText(titleForSimilarRecipeApi);
-                    //Set the Linear Layout as Clickable if a Favourite Recipe has loaded
                 }
 
             }
