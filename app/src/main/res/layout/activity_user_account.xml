@@ -29,8 +29,7 @@
             android:layout_marginBottom="10dp"
         android:textColor="@color/white"
         android:textSize="20dp"
-        android:textStyle="bold"
-        android:text="Leon Mulvaney"/>
+        android:textStyle="bold" />
 
         <TextView
         android:id="@+id/emailTv"
@@ -38,8 +37,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:layout_marginBottom="2dp"
-        android:textColor="@color/white"
-        android:text="leonmul96@gmail.com"/>
+        android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/phoneTv"
@@ -47,8 +45,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:layout_marginBottom="15dp"
-            android:textColor="@color/white"
-            android:text="0852262073"/>
+            android:textColor="@color/white" />
 
 
         <View
@@ -191,7 +188,6 @@
             android:id="@+id/joinedTv"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="30/04/2018"
             android:textColor="@color/colorAccent"
             android:textAlignment="center"
             android:layout_weight="1"/>
@@ -228,7 +224,6 @@
             android:id="@+id/weightTv"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="65 Kg"
             android:textColor="@color/colorAccent"
             android:textAlignment="center"
             android:layout_weight="1"/>
@@ -255,7 +250,8 @@
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_edit"
-            android:scaleType="center" />
+            android:scaleType="center"
+            android:onClick="editProfile"/>
 
         <TextView
             android:id="@+id/editProfileTv"
@@ -267,7 +263,8 @@
             android:textAllCaps="true"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorPrimary"
+            android:onClick="editProfile"/>
 
 
 

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -56,6 +57,8 @@ public class EditProfile extends AppCompatActivity {
         nameEt = findViewById(R.id.nameEt);
         phoneEt = findViewById(R.id.phoneEt);
         weightEt = findViewById(R.id.weightEt);
+
+        getUserData();
     }
     //Function to return when back button is pressed From --> Same link as "Add Back Button" above
     @Override
@@ -81,7 +84,7 @@ public class EditProfile extends AppCompatActivity {
 
                 nameEt.setText(name);
                 phoneEt.setText(phone);
-                weightEt.setText(weight + " Kg");
+                weightEt.setText(weight);
             }
 
             @Override
@@ -92,14 +95,18 @@ public class EditProfile extends AppCompatActivity {
     }
     public void updateProfile(View view){
         //Pushing Data to Firebase From: https://firebase.google.com/docs/database/admin/save-data
-        String userId = mAuth.getUid().toString(); //Get User ID to string
-        ModelUser newUser = new ModelUser(name,weight,email,joined,phone);//Create new User Model when new user is created
+        name = nameEt.getText().toString();
+        phone = phoneEt.getText().toString();
+        weight = weightEt.getText().toString();
 
-        Map<String, ModelUser> newUserDetails = new HashMap<>(); //create new Hashmap of type user model
+        ModelUser updatedUser = new ModelUser(name,weight,email,joined,phone);//Create new User Model when new user is created
 
-        newUserDetails.put("accountData", newUser); //Define title and values of Hashmap
-        usersRef.child(userId).child("accountDetails").setValue(newUserDetails); //Push the created Hashmap to the Database (Using the Declared Reference to the Users Table)
+        Map<String, ModelUser> updatedUserDetails = new HashMap<>(); //create new Hashmap of type user model
+
+        updatedUserDetails.put("accountData", updatedUser); //Define title and values of Hashmap
+        usersRef.setValue(updatedUserDetails); //Push the created Hashmap to the Database (Using the Declared Reference to the Users Table)
+        Toast.makeText(getApplicationContext(),"User Account Successfully Updated",Toast.LENGTH_LONG).show();
+        finish(); //Finish/Close the Edit Profile
         startActivity(new Intent(EditProfile.this, UserAccount.class)); //Open the Home Activity (As user has successfully signed in)
-        finish(); //Finish/Close the Registration Activity
     }
 }

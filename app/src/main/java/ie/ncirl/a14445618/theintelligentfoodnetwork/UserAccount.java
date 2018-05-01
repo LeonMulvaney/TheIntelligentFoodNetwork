@@ -86,8 +86,11 @@ public class UserAccount extends AppCompatActivity {
     //Function to return when back button is pressed From --> Same link as "Add Back Button" above
     @Override
     public boolean onSupportNavigateUp(){
+        Intent intent = new Intent(getApplicationContext(),Home.class);
         finish();
+        startActivity(intent);
         return true;
+
     }
 
     public void getUserData() {
@@ -190,6 +193,11 @@ public class UserAccount extends AppCompatActivity {
 
     public void openShoppingList(View view){
         Intent intent = new Intent(this,ShoppingList.class);
+        startActivity(intent);
+    }
+
+    public void editProfile(View view){
+        Intent intent = new Intent(this,EditProfile.class);
         startActivity(intent);
     }
 }

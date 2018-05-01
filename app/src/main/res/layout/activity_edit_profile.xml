@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.EditProfile"
     android:orientation="vertical"
-    android:background="@drawable/blurgrey">
+    android:background="@drawable/blurgrey"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -44,6 +46,17 @@
 
             </LinearLayout>
 
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="2dp"
+                android:textColor="@color/white"
+                android:text="Name"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:textAllCaps="true"/>
+
             <EditText
                 android:id="@+id/nameEt"
                 android:layout_width="300dp"
@@ -55,6 +68,17 @@
                 android:padding="5dp"
                 android:layout_marginBottom="10dp"/>
 
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="2dp"
+                android:textColor="@color/white"
+                android:text="Phone"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:textAllCaps="true"/>
+
             <EditText
                 android:id="@+id/phoneEt"
                 android:layout_width="300dp"
@@ -65,6 +89,17 @@
                 android:inputType="phone"
                 android:padding="5dp"
                 android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="2dp"
+                android:textColor="@color/white"
+                android:text="Weight (Kg)"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:textAllCaps="true"/>
 
             <EditText
                 android:id="@+id/weightEt"
@@ -86,7 +121,8 @@
                 android:textColor="@color/colorPrimary"
                 android:background="@color/white"
                 android:layout_gravity="center"
-                android:layout_marginBottom="30dp" />
+                android:layout_marginBottom="30dp"
+                android:onClick="updateProfile"/>
 
         </LinearLayout>
     </ScrollView>
