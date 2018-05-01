@@ -92,20 +92,20 @@ public class FoodSearch extends AppCompatActivity{
         //Issues - API Returning Null values - Add "" to each variable to cast it to a string
         //From: https://stackoverflow.com/questions/13973233/convert-null-object-to-string
 
-            String food_name = foodItem.get("food_name")+"";
-            String serving_qty = foodItem.get("serving_qty")+"";
-            String serving_unit= foodItem.get("serving_unit")+"";
-            String serving_weight_grams = foodItem.get("serving_weight_grams")+"";
-            String calories = foodItem.get("nf_calories")+"";
-            String total_fat = foodItem.get("nf_total_fat")+"";
-            String saturated_fat = foodItem.get("nf_saturated_fat")+"";
-            String cholesterol = foodItem.get("nf_cholesterol")+"";
-            String sodium = foodItem.get("nf_sodium")+"";
-            String total_carbohydrate = foodItem.get("nf_total_carbohydrate")+"";
-            String fibre = foodItem.get("nf_dietary_fiber")+"";
-            String sugars = foodItem.get("nf_sugars") + "";
-            String protein = foodItem.get("nf_protein")+"";
-            String potassium = foodItem.get("nf_potassium")+"";
+        String food_name = foodItem.get("food_name")+"";
+        String serving_qty = foodItem.get("serving_qty")+"";
+        String serving_unit= foodItem.get("serving_unit")+"";
+        String serving_weight_grams = foodItem.get("serving_weight_grams")+"";
+        String calories = foodItem.get("nf_calories")+"";
+        String total_fat = foodItem.get("nf_total_fat")+"";
+        String saturated_fat = foodItem.get("nf_saturated_fat")+"";
+        String cholesterol = foodItem.get("nf_cholesterol")+"";
+        String sodium = foodItem.get("nf_sodium")+"";
+        String total_carbohydrate = foodItem.get("nf_total_carbohydrate")+"";
+        String fibre = foodItem.get("nf_dietary_fiber")+"";
+        String sugars = foodItem.get("nf_sugars") + "";
+        String protein = foodItem.get("nf_protein")+"";
+        String potassium = foodItem.get("nf_potassium")+"";
 
             ModelNutrientsResult modelNutrientsResult = new ModelNutrientsResult(imageUrl,food_name,serving_qty,serving_unit,serving_weight_grams,
                     calories,total_fat,saturated_fat,cholesterol,sodium,total_carbohydrate,fibre,sugars,protein,potassium);
