@@ -34,7 +34,8 @@
         <activity android:name=".ShoppingListRecommendation" />
         <activity android:name=".Login" />
         <activity android:name=".Register" />
-        <activity android:name=".UserAccount"></activity>
+        <activity android:name=".UserAccount" />
+        <activity android:name=".EditProfile"></activity>
     </application>
 
 </manifest>

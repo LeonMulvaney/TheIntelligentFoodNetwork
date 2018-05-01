@@ -39,11 +39,13 @@ public class Register extends AppCompatActivity {
     String weight;
     String email;
     String joined;
+    String phone;
     String password;
 
     EditText nameEt;
     EditText weightEt;
     EditText emailEt;
+    EditText phoneEt;
     EditText passwordEt;
 
     @Override
@@ -65,6 +67,7 @@ public class Register extends AppCompatActivity {
         nameEt = findViewById(R.id.nameEt);
         weightEt = findViewById(R.id.weightEt);
         emailEt = findViewById(R.id.emailEt);
+        phoneEt = findViewById(R.id.phoneEt);
         passwordEt = findViewById(R.id.passwordEt);
 
         //Java Getting Current Date From: https://www.javatpoint.com/java-get-current-date
@@ -82,9 +85,11 @@ public class Register extends AppCompatActivity {
         name = nameEt.getText().toString().trim();
         weight = weightEt.getText().toString().trim();
         email = emailEt.getText().toString().trim();
+        phone = phoneEt.getText().toString().trim();
         password = passwordEt.getText().toString().trim();
 
-        if(email.equals("") || password.equals("")){
+
+        if(email.equals("") || password.equals("") || phone.equals("")){
             Toast.makeText(this, "Please fill in required fields", Toast.LENGTH_SHORT).show();
         }
 
@@ -112,7 +117,7 @@ public class Register extends AppCompatActivity {
 
                                 //Pushing Data to Firebase From: https://firebase.google.com/docs/database/admin/save-data
                                 String userId = mAuth.getUid().toString(); //Get User ID to string
-                                ModelUser newUser = new ModelUser(name,weight,email,joined);//Create new User Model when new user is created
+                                ModelUser newUser = new ModelUser(name,weight,email,joined,phone);//Create new User Model when new user is created
 
                                 Map<String, ModelUser> newUserDetails = new HashMap<>(); //create new Hashmap of type user model
 

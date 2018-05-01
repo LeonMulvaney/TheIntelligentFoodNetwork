@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="300dp"
+        android:layout_height="320dp"
         android:orientation="vertical"
         android:background="@drawable/blurgrey"
         android:paddingTop="25dp">
@@ -33,13 +33,22 @@
         android:text="Leon Mulvaney"/>
 
         <TextView
-            android:id="@+id/emailTv"
+        android:id="@+id/emailTv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_marginBottom="2dp"
+        android:textColor="@color/white"
+        android:text="leonmul96@gmail.com"/>
+
+        <TextView
+            android:id="@+id/phoneTv"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:layout_marginBottom="15dp"
             android:textColor="@color/white"
-            android:text="leonmul96@gmail.com"/>
+            android:text="0852262073"/>
 
 
         <View

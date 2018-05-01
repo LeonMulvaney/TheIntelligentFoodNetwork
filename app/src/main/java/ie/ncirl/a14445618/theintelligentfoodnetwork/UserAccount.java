@@ -28,11 +28,13 @@ public class UserAccount extends AppCompatActivity {
 
     String name;
     String email;
+    String phone;
     String weight;
     String joined;
 
     TextView nameTv;
     TextView emailTv;
+    TextView phoneTv;
     TextView weightTv;
     TextView joinedTv;
 
@@ -67,6 +69,7 @@ public class UserAccount extends AppCompatActivity {
 
         nameTv = findViewById(R.id.nameTv);
         emailTv = findViewById(R.id.emailTv);
+        phoneTv = findViewById(R.id.phoneTv);
         weightTv = findViewById(R.id.weightTv);
         joinedTv = findViewById(R.id.joinedTv);
 
@@ -97,12 +100,14 @@ public class UserAccount extends AppCompatActivity {
 
                      name = ds.child("name").getValue().toString();
                      email = ds.child("email").getValue().toString();
+                     phone = ds.child("phone").getValue().toString();
                      weight = ds.child("weight").getValue().toString();
                      joined = ds.child("joined").getValue().toString();
                 }
 
                 nameTv.setText(name);
                 emailTv.setText(email);
+                phoneTv.setText(phone);
                 weightTv.setText(weight + " Kg");
                 joinedTv.setText(joined);
             }

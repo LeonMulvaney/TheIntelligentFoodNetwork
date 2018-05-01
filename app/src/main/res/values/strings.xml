@@ -18,6 +18,7 @@
     <string name="shopping_action_bar_string">Shopping</string>
     <string name="shopping_list">Shopping List</string>
     <string name="account_action_bar_string">My Account</string>
+    <string name="edit_profile_action_bar_string">Edit Profile</string>
 
 
     <!--Food Contents Spinner -->

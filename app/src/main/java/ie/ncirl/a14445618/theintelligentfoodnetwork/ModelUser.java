@@ -9,16 +9,18 @@ public class ModelUser {
     String weight;
     String email;
     String joined;
+    String phone;
 
     public ModelUser() {
     }
 
 
-    public ModelUser(String name, String weight, String email, String joined) {
+    public ModelUser(String name, String weight, String email, String joined, String phone) {
         this.name = name;
         this.weight = weight;
         this.email = email;
         this.joined = joined;
+        this.phone = phone;
 
     }
 
@@ -52,5 +54,13 @@ public class ModelUser {
 
     public void setJoined(String joined) {
         this.joined = joined;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
