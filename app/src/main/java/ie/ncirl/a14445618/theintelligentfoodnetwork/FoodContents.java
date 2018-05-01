@@ -75,7 +75,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
         //Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReferenceFromUrl("https://theintelligentfoodnetwork.firebaseio.com/");
-        keyRef = databaseReference.child("Users/"+userId+"/fridgeItems");
+        keyRef = databaseReference.child("Users/"+userId+"/foodItems");
 
         //Target List View in Activity
         foodGridView = findViewById(R.id.recipesListView);
@@ -193,8 +193,6 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
 
             }
         });
-
-
     }
 
     //If foodList is empty, notify the user (Call Snackbar)

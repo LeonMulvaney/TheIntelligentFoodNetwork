@@ -1,7 +1,9 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,9 @@ public class UserAccount extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     DatabaseReference usersRef;
+    DatabaseReference foodItemsRef;
+    DatabaseReference favouriteRecipesRef;
+    DatabaseReference shoppingListRef;
 
     String name;
     String email;
@@ -30,6 +35,14 @@ public class UserAccount extends AppCompatActivity {
     TextView emailTv;
     TextView weightTv;
     TextView joinedTv;
+
+    TextView foodItemCountTv;
+    TextView favouriteRecipeCountTv;
+    TextView shoppingItemCountTv;
+
+    int numberOfFoodItems;
+    int numberofFavouriteRecipes;
+    int numberOfShoppingItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +61,24 @@ public class UserAccount extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReferenceFromUrl("https://theintelligentfoodnetwork.firebaseio.com/");
         usersRef = databaseReference.child("Users/"+userId+"/accountDetails");
+        foodItemsRef = databaseReference.child("Users/"+userId+"/foodItems");
+        favouriteRecipesRef = databaseReference.child("Users/"+userId+"/favourites");
+        shoppingListRef = databaseReference.child("Users/"+userId+"/shoppingList");
 
         nameTv = findViewById(R.id.nameTv);
         emailTv = findViewById(R.id.emailTv);
         weightTv = findViewById(R.id.weightTv);
         joinedTv = findViewById(R.id.joinedTv);
 
+        foodItemCountTv = findViewById(R.id.foodItemCountTv);
+        favouriteRecipeCountTv = findViewById(R.id.favouriteRecipeCountTv);
+        shoppingItemCountTv = findViewById(R.id.shoppingItemCountTv);
+
+        //Call the Methods at the end of OnCreate to get User data and other information
         getUserData();
+        getFoodItemsCount();
+        getFavouriteRecipesCount();
+        getShoppingItemsCount();
     }
     //Function to return when back button is pressed From --> Same link as "Add Back Button" above
     @Override
@@ -88,5 +112,79 @@ public class UserAccount extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void getFoodItemsCount() {
+        foodItemsRef.addListenerForSingleValueEvent(new ValueEventListener() { //SingleValueEvent Listener
+            @Override
+            public void onDataChange (DataSnapshot dataSnapshot){
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    //The DataSnapshot will iterate through all elements within the specified table(JSON Object), add to the counter for each item iterated
+                     numberOfFoodItems = numberOfFoodItems +1;
+                }
+                //Append the Number of items in the table to the relevant TextView
+                foodItemCountTv.setText(Long.toString(numberOfFoodItems));
+                System.out.println("Food Item Count:--------------------------" + numberOfFoodItems);
+            }
+
+            @Override
+            public void onCancelled (DatabaseError databaseError){
+
+            }
+        });
+    }
+
+    public void getFavouriteRecipesCount() {
+        favouriteRecipesRef.addListenerForSingleValueEvent(new ValueEventListener() { //SingleValueEvent Listener
+            @Override
+            public void onDataChange (DataSnapshot dataSnapshot){
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    //The DataSnapshot will iterate through all elements within the specified table(JSON Object), add to the counter for each item iterated
+                    numberofFavouriteRecipes = numberofFavouriteRecipes +1;
+                }
+                favouriteRecipeCountTv.setText(Long.toString(numberofFavouriteRecipes));
+                System.out.println("Favourite Recipe Count:--------------------------" + numberofFavouriteRecipes);
+            }
+
+            @Override
+            public void onCancelled (DatabaseError databaseError){
+
+            }
+        });
+    }
+
+    public void getShoppingItemsCount() {
+        shoppingListRef.addListenerForSingleValueEvent(new ValueEventListener() { //SingleValueEvent Listener
+            @Override
+            public void onDataChange (DataSnapshot dataSnapshot){
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    //The DataSnapshot will iterate through all elements within the specified table(JSON Object), add to the counter for each item iterated
+                    numberOfShoppingItems = numberOfShoppingItems +1;
+
+                }
+                shoppingItemCountTv.setText(Long.toString(numberOfShoppingItems));
+                System.out.println("Shopping Item Count:--------------------------" + numberOfShoppingItems);
+            }
+
+            @Override
+            public void onCancelled (DatabaseError databaseError){
+
+            }
+        });
+    }
+
+    public void openFoodContents(View view){
+        Intent intent = new Intent(this,FoodContents.class);
+        startActivity(intent);
+    }
+
+    public void openFavouriteRecipes(View view){
+        Intent intent = new Intent(this,FavouriteRecipes.class);
+        startActivity(intent);
+    }
+
+    public void openShoppingList(View view){
+        Intent intent = new Intent(this,ShoppingList.class);
+        startActivity(intent);
     }
 }

@@ -163,7 +163,6 @@ public class FavouriteRecipes extends AppCompatActivity {
 
             }
         });
-        Toast.makeText(this,"All Favourite Recipes Loaded!",Toast.LENGTH_SHORT).show();//Send the user confirmation that they have refreshed the List
     }
 
     //Check if the Users Favourites List is Empty
@@ -203,6 +202,7 @@ public class FavouriteRecipes extends AppCompatActivity {
         intent.putExtra("recipeId",id); //Pass String from one Activity to another From: https://stackoverflow.com/questions/6707900/pass-a-string-from-one-activity-to-another-activity-in-android
         startActivity(intent);
     }
+
 
 
 
