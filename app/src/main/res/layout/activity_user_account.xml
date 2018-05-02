@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.UserAccount"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/userAccountActivity">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -18,7 +19,8 @@
             android:id="@+id/profileIv"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:onClick="editProfile"/>
 
         <TextView
         android:id="@+id/nameTv"

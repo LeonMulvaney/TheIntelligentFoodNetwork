@@ -8,7 +8,8 @@
     android:orientation="vertical"
     android:background="@drawable/blurgrey"
     android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:id="@+id/editProfileActivity">
 
     <ScrollView
         android:layout_width="fill_parent"

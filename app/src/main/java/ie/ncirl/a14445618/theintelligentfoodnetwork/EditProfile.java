@@ -58,6 +58,7 @@ public class EditProfile extends AppCompatActivity {
     String weight;
     String joined;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +107,8 @@ public class EditProfile extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
+                String uploadTipImage = "https://firebasestorage.googleapis.com/v0/b/theintelligentfoodnetwork.appspot.com/o/profileImages%2Fuploadtip.png?alt=media&token=a97bae0f-2bb3-4b2f-bbb3-adaed98fb5c7";
+                Picasso.with(getApplicationContext()).load(uploadTipImage).into(profileIv);
             }
         });
 

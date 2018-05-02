@@ -3,6 +3,7 @@ package ie.ncirl.a14445618.theintelligentfoodnetwork;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -61,6 +62,8 @@ public class UserAccount extends AppCompatActivity {
     int numberofFavouriteRecipes;
     int numberOfShoppingItems;
 
+    View userAccountActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,9 +101,9 @@ public class UserAccount extends AppCompatActivity {
         favouriteRecipeCountTv = findViewById(R.id.favouriteRecipeCountTv);
         shoppingItemCountTv = findViewById(R.id.shoppingItemCountTv);
 
+        userAccountActivity = findViewById(R.id.userAccountActivity);
+
         //Call the Methods at the end of OnCreate to get User data and other information
-        //profileImageUrl = storageReference.child("profileImages/"+userId+"/profileImage").getDownloadUrl().getResult().toString();
-        //Picasso.with(getApplicationContext()).load(profileImageUrl).into(profileIv);
         getUserData();
         getFoodItemsCount();
         getFavouriteRecipesCount();
@@ -113,7 +116,11 @@ public class UserAccount extends AppCompatActivity {
         finish();
         startActivity(intent);
         return true;
+    }
 
+    //Android Snackbar From: https://spin.atomicobject.com/2017/07/10/android-snackbar-tutorial/
+    public void showSnackbar(View view, String message, int duration) {
+        Snackbar.make(view, message, duration).show();
     }
     public void getUserData() {
         //Android Getting Image From Firebase Storage From: https://stackoverflow.com/questions/38424203/firebase-storage-getting-image-url
@@ -126,6 +133,13 @@ public class UserAccount extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
+                String uploadTipImage = "https://firebasestorage.googleapis.com/v0/b/theintelligentfoodnetwork.appspot.com/o/profileImages%2Fuploadimage.png?alt=media&token=6dadee2f-cfcd-43ff-8d54-035153d0c12c";
+                Picasso.with(getApplicationContext()).load(uploadTipImage).into(profileIv);
+
+                View view = findViewById(R.id.userAccountActivity);
+                String message = "Upload an image to complete your profile!";
+                int duration = Snackbar.LENGTH_SHORT;
+                showSnackbar(view, message, duration);
             }
         });
 
