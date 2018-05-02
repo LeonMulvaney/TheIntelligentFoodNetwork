@@ -9,7 +9,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +33,6 @@ public class Shopping extends AppCompatActivity {
     DatabaseReference shoppingListRef;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +48,6 @@ public class Shopping extends AppCompatActivity {
         shoppingListRef = databaseReference.child("ShoppingList");
 
     }
-
 
     //Function to return when back button is pressed From --> Same link as "Add Back Button" above
     @Override
@@ -70,6 +71,7 @@ public class Shopping extends AppCompatActivity {
         Intent intent = new Intent(this,ShoppingListRecommendation.class);
         startActivity(intent);
     }
+
 
 
 }

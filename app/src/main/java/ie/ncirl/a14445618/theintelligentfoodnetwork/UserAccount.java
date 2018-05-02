@@ -123,9 +123,12 @@ public class UserAccount extends AppCompatActivity {
     }
 
     public void getFoodItemsCount() {
-        foodItemsRef.addListenerForSingleValueEvent(new ValueEventListener() { //SingleValueEvent Listener
+
+        foodItemsRef.addValueEventListener(new ValueEventListener() {
+            //SingleValueEvent Listener
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
+                numberOfFoodItems =0; //Initially set the value to 0 in case additional items are added
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     //The DataSnapshot will iterate through all elements within the specified table(JSON Object), add to the counter for each item iterated
                      numberOfFoodItems = numberOfFoodItems +1;
@@ -143,7 +146,7 @@ public class UserAccount extends AppCompatActivity {
     }
 
     public void getFavouriteRecipesCount() {
-        favouriteRecipesRef.addListenerForSingleValueEvent(new ValueEventListener() { //SingleValueEvent Listener
+        favouriteRecipesRef.addValueEventListener(new ValueEventListener() { //SingleValueEvent Listener
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -162,7 +165,7 @@ public class UserAccount extends AppCompatActivity {
     }
 
     public void getShoppingItemsCount() {
-        shoppingListRef.addListenerForSingleValueEvent(new ValueEventListener() { //SingleValueEvent Listener
+        shoppingListRef.addValueEventListener(new ValueEventListener() { //SingleValueEvent Listener
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
