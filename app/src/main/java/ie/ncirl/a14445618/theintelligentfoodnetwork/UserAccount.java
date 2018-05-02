@@ -1,18 +1,26 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 public class UserAccount extends AppCompatActivity {
 
@@ -25,6 +33,13 @@ public class UserAccount extends AppCompatActivity {
     DatabaseReference foodItemsRef;
     DatabaseReference favouriteRecipesRef;
     DatabaseReference shoppingListRef;
+
+    //Firebase Storage From: https://code.tutsplus.com/tutorials/image-upload-to-firebase-in-android-application--cms-29934
+    FirebaseStorage storage;
+    StorageReference storageReference;
+
+    ImageView profileIv;
+    String profileImageUrl;
 
     String name;
     String email;
@@ -67,6 +82,12 @@ public class UserAccount extends AppCompatActivity {
         favouriteRecipesRef = databaseReference.child("Users/"+userId+"/favourites");
         shoppingListRef = databaseReference.child("Users/"+userId+"/shoppingList");
 
+        //Firebase Storage
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
+        profileIv = findViewById(R.id.profileIv);
+
         nameTv = findViewById(R.id.nameTv);
         emailTv = findViewById(R.id.emailTv);
         phoneTv = findViewById(R.id.phoneTv);
@@ -78,6 +99,8 @@ public class UserAccount extends AppCompatActivity {
         shoppingItemCountTv = findViewById(R.id.shoppingItemCountTv);
 
         //Call the Methods at the end of OnCreate to get User data and other information
+        //profileImageUrl = storageReference.child("profileImages/"+userId+"/profileImage").getDownloadUrl().getResult().toString();
+        //Picasso.with(getApplicationContext()).load(profileImageUrl).into(profileIv);
         getUserData();
         getFoodItemsCount();
         getFavouriteRecipesCount();
@@ -92,8 +115,20 @@ public class UserAccount extends AppCompatActivity {
         return true;
 
     }
-
     public void getUserData() {
+        //Android Getting Image From Firebase Storage From: https://stackoverflow.com/questions/38424203/firebase-storage-getting-image-url
+        storageReference.child("profileImages/"+userId+"/profileImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                System.out.println("-----------------------------------Successfully Downloaded Image");
+                Picasso.with(getApplicationContext()).load(uri).into(profileIv);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+            }
+        });
+
         //Get contents from Firebase into String From : https://www.youtube.com/watch?v=WDGmpvKpHyw
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -123,7 +158,6 @@ public class UserAccount extends AppCompatActivity {
     }
 
     public void getFoodItemsCount() {
-
         foodItemsRef.addValueEventListener(new ValueEventListener() {
             //SingleValueEvent Listener
             @Override

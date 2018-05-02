@@ -52,6 +52,7 @@ public class ShoppingListRecommendation extends AppCompatActivity {
         foodItemsList = new ArrayList<>();
         recommendationList = new ArrayList<>();
 
+        //Android Simple ListView From: https://androidexample.com/Create_A_Simple_Listview_-_Android_Example/index.php?view=article_discription&aid=65
         shoppingListRecommendationLv = findViewById(R.id.shoppingListRecommendationLv);
         recommendationListAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,android.R.id.text1,recommendationList);
 

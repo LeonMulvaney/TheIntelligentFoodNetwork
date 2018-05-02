@@ -27,10 +27,11 @@
                 android:paddingTop="25dp">
 
                 <ImageView
+                    android:id="@+id/profileIv"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/user"/>
+                    android:onClick="chooseImage"/>
 
                 <TextView
                     android:id="@+id/nameTv"

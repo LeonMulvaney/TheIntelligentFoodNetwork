@@ -7,6 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 /**
@@ -50,7 +54,6 @@ public class AdapterIngredients extends BaseAdapter {
 
 
         // Populate the data into the template view using the data object
-        //tvIngredient.setText("" + ingredientList.get(i).getAmount() + " " + ingredientList.get(i).getUnit() + " " + ingredientList.get(i).getIngredientName());
         tvIngredient.setText(ingredientList.get(i).getOriginalString());
 
         return view;

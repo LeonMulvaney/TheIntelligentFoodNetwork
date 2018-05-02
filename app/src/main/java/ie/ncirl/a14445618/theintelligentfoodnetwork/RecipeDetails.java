@@ -246,7 +246,6 @@ public class RecipeDetails extends AppCompatActivity {
                 ModelIngredient ingredientModel = ingredientList.get(position); //Use original list as not filtered
                 ingredient = StringUtils.capitalize(ingredientModel.getIngredientName().toString());
 
-                //toast();
                 //Alert Dialog From: http://rajeshvijayakumar.blogspot.ie/2013/04/alert-dialog-dialog-with-item-list.html
                 final CharSequence[] items = {
                         "Add to Shopping List", "View Nutritional Info"
