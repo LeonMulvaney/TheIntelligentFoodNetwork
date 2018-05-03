@@ -48,8 +48,6 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
     //Variables
     ArrayList<ModelFoodItem> foodList;
 
-    Spinner spinner;
-
     String foodType;
 
 
@@ -100,7 +98,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                     ModelFoodItem item = foodList.get(position); //Use original list as not filtered
-                    foodType = item.getFoodType().toString();
+                    foodType = item.getFoodType().toString().toLowerCase().trim();
                     //toast();
                 //Alert Dialog From: http://rajeshvijayakumar.blogspot.ie/2013/04/alert-dialog-dialog-with-item-list.html
                 final CharSequence[] items = {
@@ -243,7 +241,6 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void filterByPoultry(){
-
         keyRef.addListenerForSingleValueEvent(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

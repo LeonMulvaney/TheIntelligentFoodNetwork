@@ -25,7 +25,15 @@
                 android:textColor="@color/black"
                 android:layout_toRightOf="@id/addBtn"
                 android:gravity="left|center"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/alreadyInShoppingListIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_vertical" />
 
         </LinearLayout>
 

@@ -40,8 +40,10 @@ public class RecipeDetails extends AppCompatActivity {
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
+    DatabaseReference foodItemsRef;
     DatabaseReference shoppingListRef;
     DatabaseReference favouritesRef;
+
 
     ScrollView recipeDetailsScrollView;
     String myUrl;
@@ -63,7 +65,7 @@ public class RecipeDetails extends AppCompatActivity {
     String spoonacularSourceUrl;
 
     ArrayList<ModelIngredient> ingredientList;
-    AdapterIngredients adapter;
+    AdapterIngredients ingredientsAdapter;
     NonScrollListView ingredientLv;
 
     ArrayList<ModelInstruction> instructionsList;
@@ -78,6 +80,7 @@ public class RecipeDetails extends AppCompatActivity {
     String ingredient;
     ArrayList<String> favouritesList;
     ArrayList<String> shoppingList;
+    ArrayList<String> foodList;
 
     Button similarRecipesBtn;
 
@@ -86,7 +89,6 @@ public class RecipeDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
-
 
         Intent intent = getIntent();
         recipeId = intent.getStringExtra("recipeId");
@@ -102,13 +104,16 @@ public class RecipeDetails extends AppCompatActivity {
         //Firebase
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReferenceFromUrl("https://theintelligentfoodnetwork.firebaseio.com/");
-        //shoppingListRef = databaseReference.child("shoppingList");
+        foodItemsRef = databaseReference.child("Users/"+userId+"/foodItems");
         shoppingListRef = databaseReference.child("Users/"+userId+"/shoppingList");
         favouritesRef = databaseReference.child("Users/"+userId+"/favourites");
 
+
         ingredientLv = findViewById(R.id.ingredientLv);
         ingredientList = new ArrayList();
-        adapter = new AdapterIngredients(this, ingredientList);
+
+        foodList = new ArrayList<>();
+        shoppingList = new ArrayList<>();
 
         instructionsList = new ArrayList<>();
         instructionsAdapter = new AdapterInstructions(this,instructionsList);
@@ -154,7 +159,6 @@ public class RecipeDetails extends AppCompatActivity {
 
             //Get Ingredients, Store in Model called ModelIngredient, save objects to Arraylist, then parse arraylist to View using ListView Adapter (With custom Layout)
             JSONArray extendedIngredientsArray = object.getJSONArray("extendedIngredients");
-
             for(int i=0;i<extendedIngredientsArray.length();i++){
                 JSONObject object = (JSONObject) extendedIngredientsArray.get(i);
                 String originalString = object.getString("original");
@@ -179,12 +183,9 @@ public class RecipeDetails extends AppCompatActivity {
             }
 
 
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
         //Locate all Views to Reference
         recipeImage = findViewById(R.id.recipeImage);
@@ -201,10 +202,26 @@ public class RecipeDetails extends AppCompatActivity {
         preparationTv.setText(preparation);
         cookTimeTv.setText(cookTime);
 
-        ingredientLv.setAdapter(adapter);
+
         instructionsLv.setAdapter(instructionsAdapter);
         Picasso.with(RecipeDetails.this).load(imageUrl).into(recipeImage);
         System.out.println(result);
+
+
+        //Grab Food Items in Home from Firebase and save in ArrayList - This can then be passed to the custom adapter
+        foodItemsRef.addValueEventListener(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
+            @Override
+            public void onDataChange (DataSnapshot dataSnapshot){
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String foodItem = ds.child("foodType").getValue().toString().toLowerCase().trim();
+                    foodList.add(foodItem);
+                }
+            }
+
+            @Override
+            public void onCancelled (DatabaseError databaseError){
+            }
+        });
 
 
         //Grab Favourites from Firebase and save in ArrayList - This prevents the user adding duplicate favourites
@@ -224,14 +241,15 @@ public class RecipeDetails extends AppCompatActivity {
         });
 
         //Grab Shopping List from Firebase and save in ArrayList - This prevents the user adding duplicate Shopping List Items
-        shoppingList = new ArrayList<>();
         shoppingListRef.addValueEventListener(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String firebaseShoppingItemtitle = ds.child("title").getValue().toString();
+                    String firebaseShoppingItemtitle = ds.child("title").getValue().toString().toLowerCase().trim();
                     shoppingList.add(firebaseShoppingItemtitle);
                 }
+                ingredientsAdapter = new AdapterIngredients(getApplicationContext(), ingredientList,foodList,shoppingList); //Pass all the required parameters to the custom adapter
+                ingredientLv.setAdapter(ingredientsAdapter);
             }
 
             @Override
@@ -244,7 +262,7 @@ public class RecipeDetails extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 ModelIngredient ingredientModel = ingredientList.get(position); //Use original list as not filtered
-                ingredient = StringUtils.capitalize(ingredientModel.getIngredientName().toString());
+                ingredient = StringUtils.capitalize(ingredientModel.getIngredientName());
 
                 //Alert Dialog From: http://rajeshvijayakumar.blogspot.ie/2013/04/alert-dialog-dialog-with-item-list.html
                 final CharSequence[] items = {
@@ -265,7 +283,6 @@ public class RecipeDetails extends AppCompatActivity {
                 });
                 AlertDialog alert = builder.create();
                 alert.show();
-
             }
         }); //End of listView onClickListener
 
@@ -319,7 +336,7 @@ public class RecipeDetails extends AppCompatActivity {
         String addItemToShoppingList = "true";
 
         for(int i=0;i<shoppingList.size();i++){
-            if(shoppingList.get(i).toString().equals(ingredient)){
+            if(shoppingList.get(i).toString().equals(ingredient.toLowerCase().trim())){
                 addItemToShoppingList = "false";
                 System.out.println("____________________________________");
                 System.out.println("i is : " + i);
@@ -332,7 +349,7 @@ public class RecipeDetails extends AppCompatActivity {
         if(addItemToShoppingList.equals("true")){
             String itemId = shoppingListRef.push().getKey();
             Map<String,String> ingredientHmap = new HashMap<>();
-            ingredientHmap.put("title",ingredient);
+            ingredientHmap.put("title",StringUtils.capitalize(ingredient));
             shoppingListRef.child(itemId).setValue(ingredientHmap);
 
             View view = findViewById(R.id.recipeDetailsScrollView);

@@ -1,15 +1,22 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 
@@ -24,9 +31,15 @@ public class AdapterIngredients extends BaseAdapter {
     ArrayList<ModelIngredient> ingredientList;
     LayoutInflater inflter;
 
-    public AdapterIngredients(Context applicationContext, ArrayList<ModelIngredient> ingredientList) {
+    ArrayList<String> foodList;
+    ArrayList<String> shoppingList;
+
+
+    public AdapterIngredients(Context applicationContext, ArrayList<ModelIngredient> ingredientList, ArrayList<String> foodList,ArrayList<String>shoppingList) {
         this.context = applicationContext;
         this.ingredientList = ingredientList;
+        this.foodList = foodList;
+        this.shoppingList = shoppingList;
         inflter = (LayoutInflater.from(applicationContext));
     }
 
@@ -51,11 +64,32 @@ public class AdapterIngredients extends BaseAdapter {
 
         // Lookup view for data population
         TextView tvIngredient = view.findViewById(R.id.ingredientTv);
-
+        ImageView alreadyInShoppingListIcon = view.findViewById(R.id.alreadyInShoppingListIcon);
 
         // Populate the data into the template view using the data object
-        tvIngredient.setText(ingredientList.get(i).getOriginalString());
+        //Android Set color programmatically From: https://stackoverflow.com/questions/4602902/how-to-set-the-text-color-of-textview-in-code
+        System.out.println("FoodList ----------------------"+ foodList);
+        System.out.println("ShoppingList ----------------------"+ shoppingList);
+        //System.out.println("Ingredient ----------------------"+ ingredientList.get(i).getIngredientName());
+
+        if(foodList.contains(ingredientList.get(i).getIngredientName().toLowerCase().trim())){
+            tvIngredient.setTextColor(Color.parseColor("#159B4A"));
+            tvIngredient.setText(ingredientList.get(i).getOriginalString());
+        }
+        else{
+            tvIngredient.setText(ingredientList.get(i).getOriginalString());
+            System.out.println("Food List-----------------------No Match: " + ingredientList.get(i).getIngredientName().toLowerCase().trim());
+        }
+
+        if(shoppingList.contains(ingredientList.get(i).getIngredientName())){
+            alreadyInShoppingListIcon.setBackgroundResource(R.drawable.ic_shopping_cart);
+        }
+        else{
+            System.out.println("Shopping List-----------------------No Match: " + ingredientList.get(i).getIngredientName().toLowerCase().trim());
+        }
 
         return view;
     }
+
+
 }
