@@ -3,11 +3,11 @@ package ie.ncirl.a14445618.theintelligentfoodnetwork;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,9 +31,17 @@ import java.util.ArrayList;
 
 public class FoodContents extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
+    //Hamburger Menu
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdapter;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private DrawerLayout mDrawerLayout;
+
+    //Firebase Authentication
     private FirebaseAuth mAuth;
     String userId;
 
+    //Firebase Database
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     DatabaseReference keyRef;
@@ -47,7 +55,6 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
 
     //Variables
     ArrayList<ModelFoodItem> foodList;
-
     String foodType;
 
 
@@ -124,17 +131,43 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
             }
         }); //End of listView onClickListener
 
+        //Hamburger Menu ------------------------------------------------
+        mDrawerList = findViewById(R.id.navList);
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(id == 0){
+                    finish();
+                    openHome();
+                }
+                else if(id == 1){
+                    finish();
+                    openFoodContents();
+                }
+                else if(id == 2){
+                    finish();
+                    openShoppping();
+                }
+                else if(id == 3){
+                    finish();
+                    openRecipes();
+                }
+                else if(id == 4){
+                    finish();
+                    openNutrientsSearch();
+                }
+                else{
+                    finish();
+                    openAccount();
+                }
+            }
+        });
+        mDrawerLayout = findViewById(R.id.foodContentsLayout);
+        addDrawerItems();
+        setupDrawer();
+        //Hamburger Menu End ------------------------------------------------
+
     } //End of OnCreate
-
-
-    // Add Buttons to Action Bar From: http://android.xsoftlab.net/training/basics/actionbar/adding-buttons.html
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.refresh_actionbar, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
     //Function to return to home when back button is pressed From --> Same link as "Add Back Button" above
     @Override
@@ -148,20 +181,6 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
         Snackbar.make(view, message, duration).show();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
-        switch (item.getItemId()) {
-            case R.id.action_refresh:
-                //refreshList();
-                Spinner spinnerInstance =  findViewById(R.id.filterByCategorySpinner);
-                spinnerInstance.setSelection(0);
-                getContents();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
     public void getContents() {
         //Get contents from Firebase into String From : https://www.youtube.com/watch?v=WDGmpvKpHyw
         keyRef.addValueEventListener(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
@@ -196,7 +215,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
     //If foodList is empty, notify the user (Call Snackbar)
     public void isFoodListEmpty(){
         if(foodList.isEmpty()){
-            View view = findViewById(R.id.foodContentsActivity);
+            View view = findViewById(R.id.foodContentsLayout);
             String message = "No Items present";
             int duration = Snackbar.LENGTH_SHORT;
             showSnackbar(view, message, duration);
@@ -448,8 +467,75 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
         startActivity(intent);
     }
 
+    //Hamburger Menu From: http://blog.teamtreehouse.com/add-navigation-drawer-android
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        // Activate the navigation drawer toggle
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
+    private void addDrawerItems() {
+        String[] array = { "Home", "Food Network", "Shopping", "Recipes", "Nutrient Search", "Account" };
+        mAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, array);
+        mDrawerList.setAdapter(mAdapter);
+    }
 
+    private void setupDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.string.drawer_open, R.string.drawer_close) {
 
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+    public void openHome(){
+        Intent intent = new Intent(this,Home.class);
+        startActivity(intent);
+    }
+    public void openFoodContents(){
+        Intent intent = new Intent(this,FoodContents.class);
+        startActivity(intent);
+    }
+    public void openShoppping(){
+        Intent intent = new Intent(this,Shopping.class);
+        startActivity(intent);
+    }
+    public void openRecipes(){
+        Intent intent = new Intent(this,Recipes.class);
+        startActivity(intent);
+    }
+    public void openNutrientsSearch(){
+        Intent intent = new Intent(this,NutrientSearch.class);
+        startActivity(intent);
+    }
+    public void openAccount(){
+        Intent intent = new Intent(this,UserAccount.class);
+        startActivity(intent);
+    }
 
 }

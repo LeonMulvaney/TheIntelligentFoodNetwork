@@ -4,12 +4,17 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,9 +30,17 @@ import com.squareup.picasso.Picasso;
 
 public class UserAccount extends AppCompatActivity {
 
+    //Hamburger Menu
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdapter;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private DrawerLayout mDrawerLayout;
+
+    //Firebase Authentication
     private FirebaseAuth mAuth;
     String userId;
 
+    //Firebase Database
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     DatabaseReference usersRef;
@@ -62,7 +75,7 @@ public class UserAccount extends AppCompatActivity {
     int numberofFavouriteRecipes;
     int numberOfShoppingItems;
 
-    View userAccountActivity;
+    View userAccountLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +114,43 @@ public class UserAccount extends AppCompatActivity {
         favouriteRecipeCountTv = findViewById(R.id.favouriteRecipeCountTv);
         shoppingItemCountTv = findViewById(R.id.shoppingItemCountTv);
 
-        userAccountActivity = findViewById(R.id.userAccountActivity);
+        userAccountLayout = findViewById(R.id.userAccountLayout);
+
+        //Hamburger Menu ------------------------------------------------
+        mDrawerList = findViewById(R.id.navList);
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(id == 0){
+                    finish();
+                    openHome();
+                }
+                else if(id == 1){
+                    finish();
+                    openFoodContents();
+                }
+                else if(id == 2){
+                    finish();
+                    openShoppping();
+                }
+                else if(id == 3){
+                    finish();
+                    openRecipes();
+                }
+                else if(id == 4){
+                    finish();
+                    openNutrientsSearch();
+                }
+                else{
+                    finish();
+                    openAccount();
+                }
+            }
+        });
+        mDrawerLayout = findViewById(R.id.userAccountLayout);
+        addDrawerItems();
+        setupDrawer();
+        //Hamburger Menu End ------------------------------------------------
 
         //Call the Methods at the end of OnCreate to get User data and other information
         getUserData();
@@ -136,7 +185,7 @@ public class UserAccount extends AppCompatActivity {
                 String uploadTipImage = "https://firebasestorage.googleapis.com/v0/b/theintelligentfoodnetwork.appspot.com/o/profileImages%2Fuploadimage.png?alt=media&token=6dadee2f-cfcd-43ff-8d54-035153d0c12c";
                 Picasso.with(getApplicationContext()).load(uploadTipImage).into(profileIv);
 
-                View view = findViewById(R.id.userAccountActivity);
+                View view = findViewById(R.id.userAccountLayout);
                 String message = "Upload an image to complete your profile!";
                 int duration = Snackbar.LENGTH_SHORT;
                 showSnackbar(view, message, duration);
@@ -251,6 +300,78 @@ public class UserAccount extends AppCompatActivity {
 
     public void editProfile(View view){
         Intent intent = new Intent(this,EditProfile.class);
+        startActivity(intent);
+    }
+
+
+    //Hamburger Menu From: http://blog.teamtreehouse.com/add-navigation-drawer-android
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        // Activate the navigation drawer toggle
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void addDrawerItems() {
+        String[] array = { "Home", "Food Network", "Shopping", "Recipes", "Nutrient Search", "Account" };
+        mAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, array);
+        mDrawerList.setAdapter(mAdapter);
+    }
+
+    private void setupDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.string.drawer_open, R.string.drawer_close) {
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+    public void openHome(){
+        Intent intent = new Intent(this,Home.class);
+        startActivity(intent);
+    }
+    public void openFoodContents(){
+        Intent intent = new Intent(this,FoodContents.class);
+        startActivity(intent);
+    }
+    public void openShoppping(){
+        Intent intent = new Intent(this,Shopping.class);
+        startActivity(intent);
+    }
+    public void openRecipes(){
+        Intent intent = new Intent(this,Recipes.class);
+        startActivity(intent);
+    }
+    public void openNutrientsSearch(){
+        Intent intent = new Intent(this,NutrientSearch.class);
+        startActivity(intent);
+    }
+    public void openAccount(){
+        Intent intent = new Intent(this,UserAccount.class);
         startActivity(intent);
     }
 }

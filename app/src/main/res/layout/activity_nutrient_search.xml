@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.FoodSearch"
+    tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.NutrientSearch"
     android:orientation="vertical"
     android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:id="@+id/nutrientSearchLayout">
 
 
     <ScrollView
@@ -69,5 +70,12 @@
         </LinearLayout>
     </ScrollView>
 
-
-</LinearLayout>
+    <ListView
+        android:id="@+id/navList"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|start"
+        android:background="#ffeeeeee"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"/>
+</android.support.v4.widget.DrawerLayout>

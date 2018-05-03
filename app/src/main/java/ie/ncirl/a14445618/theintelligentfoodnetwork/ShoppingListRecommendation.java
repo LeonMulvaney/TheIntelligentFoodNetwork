@@ -36,6 +36,11 @@ public class ShoppingListRecommendation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Change Action Bar Title From: https://stackoverflow.com/questions/3438276/how-to-change-the-text-on-the-action-bar
+        setTitle(R.string.shopping_list_recommendation_string);
+        //Add Back Button to Action Bar - From https://stackoverflow.com/questions/12070744/add-back-button-to-action-bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         setContentView(R.layout.activity_shopping_list_recommendation);
 
         //Get Instance of Firebase Authentication
@@ -58,6 +63,13 @@ public class ShoppingListRecommendation extends AppCompatActivity {
 
 
        generateShoppingRecommendation();
+    }
+
+    //Function to return when back button is pressed From --> Same link as "Add Back Button" above
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     public void generateShoppingRecommendation() {

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.Shopping"
     android:orientation="vertical"
-    android:id="@+id/shoppingActivityLayout">
+    android:id="@+id/shoppingLayout">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -39,9 +39,9 @@
     <ListView
         android:id="@+id/navList"
         android:layout_width="200dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="left|start"
-        android:background="#ffeeeeee"/>
-
-
+        android:background="#ffeeeeee"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"/>
 </android.support.v4.widget.DrawerLayout>
