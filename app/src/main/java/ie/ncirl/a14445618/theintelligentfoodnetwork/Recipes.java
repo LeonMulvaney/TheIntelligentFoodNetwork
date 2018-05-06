@@ -55,7 +55,6 @@ public class Recipes extends AppCompatActivity {
     GetSimilarRecipesApi getRequest = new GetSimilarRecipesApi();
     String myUrl;
     String result;
-    String chopped;
     ArrayList<ModelRecipeFromIngredient> recipesList;
     JSONArray array;
 
@@ -123,19 +122,15 @@ public class Recipes extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(Recipes.this);
-                //AlertDialog.Builder alert = new AlertDialog.Builder(Recipes.this, R.style.AlertDialogCustom); //Custom AlertDialog Theme From: https://stackoverflow.com/questions/2422562/how-to-change-theme-for-alertdialog
-
                 final EditText searchEt = new EditText(Recipes.this);
                 alert.setMessage("Enter an ingredient...");
                 alert.setTitle("Recipes Search");
-
                 alert.setView(searchEt);
-
                 alert.setPositiveButton("Search", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         //What ever you want to do with the value
                          recipeSearchString = searchEt.getText().toString();
-                         openRecipesFromFoodContents();
+                         openRecipesFromFoodContents(); //Open class to make API call
                     }
                 });
 
@@ -233,15 +228,10 @@ public class Recipes extends AppCompatActivity {
                 else{
                     listSize = dataSnapshot.getChildrenCount();//Firebase Get Children Count From: https://stackoverflow.com/questions/43606235/android-firebase-get-childrens-count
                     rand = new Random();
-                    System.out.println("_____________________________");
-                    System.out.println("List Size ----------> " + listSize);
                     randomRecipeFromFavourites = rand.nextInt((int) listSize)+0;
-                    System.out.println("Random Recipe Number ---------->" + randomRecipeFromFavourites);
-                    System.out.println("_____________________________");
                     String idForSimilarRecipeApi = favouriteRecipesList.get(randomRecipeFromFavourites).getRecipeId();
                     String titleForSimilarRecipeApi = favouriteRecipesList.get(randomRecipeFromFavourites).getRecipeTitle();
                     recommendationCv.setClickable(true);
-
 
                     //Get Data From API
                     myUrl = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/"+idForSimilarRecipeApi+ "/similar";
@@ -252,11 +242,8 @@ public class Recipes extends AppCompatActivity {
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     }
-                    //Substring of String From: https://stackoverflow.com/questions/8846173/how-to-remove-first-and-last-character-of-a-string/31896180
-                    chopped = StringUtils.substringBetween(result,"[","]");
 
                     //Convert String to JSON in Java From: https://stackoverflow.com/questions/35722646/how-to-read-json-string-in-java
-
                     try {
                         array = new JSONArray(result); //Create JSON Array
                     } catch (JSONException e) {
@@ -269,8 +256,7 @@ public class Recipes extends AppCompatActivity {
                             jsonObj = array.getJSONObject(i);
                             int id = (int) jsonObj.get("id");
                             String title = (String) jsonObj.get("title");
-                            System.out.println("_____________________________");
-                            System.out.println(title);
+
                             String imageUrl = "https://spoonacular.com/recipeImages/" + (String) jsonObj.get("image");
                             ModelRecipeFromIngredient recipe = new ModelRecipeFromIngredient(id,title,imageUrl);
                             recipesList.add(recipe);

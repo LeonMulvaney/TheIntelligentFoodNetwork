@@ -17,8 +17,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
+    //Firebase Authentication
     private FirebaseAuth mAuth;
 
+    //Declare Variables and Views
     String email;
     String password;
 
@@ -31,24 +33,16 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         //Android Hide Action Bar From: https://stackoverflow.com/questions/19545370/android-how-to-hide-actionbar-on-certain-activities
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        actionBar.hide(); //Hide Action Bar
 
         //Get Instance of Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
 
+        //Target Views
         emailEt = findViewById(R.id.emailEt);
         passwordEt = findViewById(R.id.passwordEt);
     }
 
-    public void viewRegister(View view){
-        Intent intent = new Intent(this,Register.class);
-        startActivity(intent);
-    }
-
-    public void viewHome(View view){
-        Intent intent = new Intent(this,Home.class);
-        startActivity(intent);
-    }
 
     public void login(View view){
         email = emailEt.getText().toString().trim();
@@ -67,15 +61,14 @@ public class Login extends AppCompatActivity {
         }
 
         else {
-            mAuth.signInWithEmailAndPassword(email, password)
+            mAuth.signInWithEmailAndPassword(email, password) //Pass the parameters email and password to the function
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         public static final String TAG = "";
-
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "Successful Login. \n Welcome " + email);
+                                Log.d(TAG, "Successful Login. \n Welcome " + email); //Welcome the user on successful login
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Intent intent = new Intent(Login.this, Home.class);
                                 startActivity(intent);
@@ -84,15 +77,16 @@ public class Login extends AppCompatActivity {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
                                 Toast.makeText(Login.this, "Login failed.", Toast.LENGTH_SHORT).show();
-                                System.out.println("--------------------------------------------------" + task.toString());
-                                System.out.println("signInWithEmail:failure" + task.getException().toString());
                             }
-
                         }
                     });
         }
     }
 
+    public void viewRegister(View view){
+        Intent intent = new Intent(this,Register.class);
+        startActivity(intent);
+    }
 
 
 }

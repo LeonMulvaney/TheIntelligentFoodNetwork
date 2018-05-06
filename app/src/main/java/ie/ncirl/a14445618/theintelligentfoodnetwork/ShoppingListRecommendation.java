@@ -109,9 +109,6 @@ public class ShoppingListRecommendation extends AppCompatActivity {
                     }
                 }
                 shoppingListRecommendationLv.setAdapter(recommendationListAdapter);
-                System.out.println("Food Items List: --------------------------" + foodItemsList.toString());
-                System.out.println("Shopping List: --------------------------" + shoppingList.toString());
-                System.out.println("Recommendation List: --------------------------" + recommendationList.toString());
             }
 
             @Override

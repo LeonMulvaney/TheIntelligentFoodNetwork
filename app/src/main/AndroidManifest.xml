@@ -23,9 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MyFoodNetwork" />
         <activity android:name=".Home" />
-        <activity android:name=".AddFoodItem" />
         <activity android:name=".FoodContents" />
         <activity android:name=".NutrientSearch" />
         <activity android:name=".RecipesFromFoodContents" />

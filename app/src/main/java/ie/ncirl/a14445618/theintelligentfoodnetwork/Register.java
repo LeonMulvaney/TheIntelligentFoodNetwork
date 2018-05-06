@@ -29,12 +29,15 @@ import java.util.Map;
 //Android Firebase Authentication From: https://www.androidhive.info/2016/06/android-getting-started-firebase-simple-login-registration-auth/
 public class Register extends AppCompatActivity {
 
+    //Firebase Authentication
     private FirebaseAuth mAuth;
 
+    //Firebase Database
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     DatabaseReference usersRef;
 
+    //Declare Variables and Views
     String name;
     String weight;
     String email;

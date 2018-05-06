@@ -98,7 +98,7 @@ public class FavouriteRecipes extends AppCompatActivity {
                             openRecipeDetails();
                         }
                         else{
-                            removeRecipe();
+                            removeFavouriteRecipe();
                         }
                         View view = findViewById(R.id.favouriteRecipesLinearLayout);
                         String message = recipeTitle + " removed from favourites."; //Capitalize Using StringUtils From: https://stackoverflow.com/questions/5725892/how-to-capitalize-the-first-letter-of-word-in-a-string-using-java
@@ -175,7 +175,7 @@ public class FavouriteRecipes extends AppCompatActivity {
         }
     }
 
-    public void removeRecipe(){
+    public void removeFavouriteRecipe(){
         //Firebase Remove Files From: https://firebase.google.com/docs/storage/android/delete-files
         keyRef.addValueEventListener(new ValueEventListener() {
             @Override

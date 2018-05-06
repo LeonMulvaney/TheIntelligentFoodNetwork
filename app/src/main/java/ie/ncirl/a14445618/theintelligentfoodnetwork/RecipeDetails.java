@@ -57,11 +57,10 @@ public class RecipeDetails extends AppCompatActivity {
     DatabaseReference favouritesRef;
 
 
-    ScrollView recipeDetailsScrollView;
     String myUrl;
     String result;
     String recipeId;
-    GetRecipeFromIdApi getRequest = new GetRecipeFromIdApi();
+    GetRecipeFromIdApi getRecipeFromIdApiRequest = new GetRecipeFromIdApi();
     JSONObject object;
 
     String title;
@@ -120,7 +119,6 @@ public class RecipeDetails extends AppCompatActivity {
         shoppingListRef = databaseReference.child("Users/"+userId+"/shoppingList");
         favouritesRef = databaseReference.child("Users/"+userId+"/favourites");
 
-
         ingredientLv = findViewById(R.id.ingredientLv);
         ingredientList = new ArrayList();
 
@@ -142,9 +140,7 @@ public class RecipeDetails extends AppCompatActivity {
         //Get Data From API
         myUrl = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/"+recipeId+"/information";
         try {
-            result = getRequest.execute(myUrl).get();
-            System.out.println("---------------------------------");
-            System.out.println(result);
+            result = getRecipeFromIdApiRequest.execute(myUrl).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -169,7 +165,7 @@ public class RecipeDetails extends AppCompatActivity {
                 cookTime = "-";
             }
 
-            //Get Ingredients, Store in Model called ModelIngredient, save objects to Arraylist, then parse arraylist to View using ListView Adapter (With custom Layout)
+            //Get Ingredients, Store in Object called ModelIngredient, save objects to Arraylist
             JSONArray extendedIngredientsArray = object.getJSONArray("extendedIngredients");
             for(int i=0;i<extendedIngredientsArray.length();i++){
                 JSONObject object = (JSONObject) extendedIngredientsArray.get(i);
@@ -182,7 +178,7 @@ public class RecipeDetails extends AppCompatActivity {
                 ingredientList.add(ingredientModel);
             }
 
-            //Get Instructions
+            //Get Instructions, Store in Object called ModelInstruction, save objects to Arraylist
             JSONArray analyzedInstructions = object.getJSONArray("analyzedInstructions");
             JSONObject instructionsObject = (JSONObject) analyzedInstructions.get(0);
             JSONArray instructionsObjectArray = (JSONArray) instructionsObject.get("steps");
@@ -342,22 +338,6 @@ public class RecipeDetails extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.share_and_back, menu);
         return true;
     }
-//Original
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.shareRecipe:
-//                shareRecipe();
-//                return true;
-//
-//            case R.id.favouriteRecipe:
-//                addToFavourites();
-//                return true;
-//
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
 
     public void shareRecipe(){
         //Share Intent From: https://stackoverflow.com/questions/19683297/how-to-send-message-from-android-app-through-viber-message
@@ -381,8 +361,6 @@ public class RecipeDetails extends AppCompatActivity {
         for(int i=0;i<shoppingList.size();i++){
             if(shoppingList.get(i).toString().equals(ingredient.toLowerCase().trim())){
                 addItemToShoppingList = "false";
-                System.out.println("____________________________________");
-                System.out.println("i is : " + i);
             }
             else{
                 //Do nothing
@@ -417,16 +395,12 @@ public class RecipeDetails extends AppCompatActivity {
         for(int i=0;i<favouritesList.size();i++){
             if(favouritesList.get(i).toString().equals(recipeId)){
                 addRecipeToFavourites = "false";
-                System.out.println("____________________________________");
-                System.out.println("i is : " + i);
             }
             else{
                 //Do nothing
             }
         }
 
-        System.out.println("____________________________________");
-        System.out.println(addRecipeToFavourites);
 
         if(addRecipeToFavourites.equals("true")){
             String itemId = favouritesRef.push().getKey();
@@ -440,8 +414,6 @@ public class RecipeDetails extends AppCompatActivity {
             View view = findViewById(R.id.recipeDetailsLayout);
             String message = title + " added to your favourites."; //Capitalize Using StringUtils From: https://stackoverflow.com/questions/5725892/how-to-capitalize-the-first-letter-of-word-in-a-string-using-java
             int duration = Snackbar.LENGTH_SHORT;
-
-
             showSnackbar(view, message, duration);
         }
 
@@ -490,23 +462,6 @@ public class RecipeDetails extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    //Original
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.shareRecipe:
-//                shareRecipe();
-//                return true;
-//
-//            case R.id.favouriteRecipe:
-//                addToFavourites();
-//                return true;
-//
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
 
     private void addDrawerItems() {
         String[] array = { "Home", "Food Network", "Shopping", "Recipes", "Nutrient Search", "Account" };

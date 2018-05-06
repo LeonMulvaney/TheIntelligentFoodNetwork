@@ -64,7 +64,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_food_contents);
 
         //Change Action Bar Title From: https://stackoverflow.com/questions/3438276/how-to-change-the-text-on-the-action-bar
-        setTitle(R.string.recipes_action_bar_string);
+        setTitle(R.string.my_food_network_action_bar_string);
         //Add Back Button to Action Bar - From https://stackoverflow.com/questions/12070744/add-back-button-to-action-bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -169,12 +169,6 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
 
     } //End of OnCreate
 
-    //Function to return to home when back button is pressed From --> Same link as "Add Back Button" above
-    @Override
-    public boolean onSupportNavigateUp(){
-        finish();
-        return true;
-    }
 
     //Android Snackbar From: https://spin.atomicobject.com/2017/07/10/android-snackbar-tutorial/
     public void showSnackbar(View view, String message, int duration) {
@@ -184,7 +178,6 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
     public void getContents() {
         //Get contents from Firebase into String From : https://www.youtube.com/watch?v=WDGmpvKpHyw
         keyRef.addValueEventListener(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
-
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
                 foodList.clear(); //Clear foodlist before adding items again
@@ -192,11 +185,9 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     String type = ds.child("foodType").getValue().toString();
                     String expDate = ds.child("expiryDate").getValue().toString();
-                    String calories = "50";
-                    String protein = "22";
                     String category = ds.child("category").getValue().toString();
 
-                    ModelFoodItem newItem = new ModelFoodItem(type, expDate, calories, protein,category);
+                    ModelFoodItem newItem = new ModelFoodItem(type, expDate,category);
                     foodList.add(newItem);
                 }
                 //foodListView.setAdapter(myArrayAdapter);
@@ -222,42 +213,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
-    //1. Refresh the List - Take a new Snapshot of Firebase
-    //2. Clear the original foodlist array so it doesn't re-enter the same contents
-    //3. Re-populate the foodlist array
-    //4. Set the adapter as null to clear the ListView
-    //5. Re-populate the adapter with the new, updated foodlist array
-    public void refreshList(){
 
-        keyRef.addValueEventListener(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                foodList.clear(); //Remove items from arraylist
-                //Get ID From: https://stackoverflow.com/questions/43975734/get-parent-firebase-android
-                for (DataSnapshot ds: dataSnapshot.getChildren()) {
-                    String type = ds.child("foodType").getValue().toString();
-                    String expDate = ds.child("expiryDate").getValue().toString();
-                    String calories = ds.child("calories").getValue().toString();
-                    String protein = ds.child("protein").getValue().toString();
-                    String category = ds.child("category").getValue().toString();
-
-                    ModelFoodItem newItem = new ModelFoodItem(type, expDate, calories, protein,category);
-                    foodList.add(newItem);//Add objects to arraylist
-                }
-                //foodListView.setAdapter(myArrayAdapter);
-                foodGridView.setAdapter(null); //Clear the ListView
-                foodGridView.setAdapter(adapter);//Re-Populate the list view
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        Toast.makeText(this,"List Refreshed!",Toast.LENGTH_SHORT).show();//Send the user confirmation that they have refreshed the List
-
-    }
 
     public void filterByPoultry(){
         keyRef.addListenerForSingleValueEvent(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
@@ -268,22 +224,19 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
                     String type = ds.child("foodType").getValue().toString();
                     String expDate = ds.child("expiryDate").getValue().toString();
-                    String calories = ds.child("calories").getValue().toString();
-                    String protein = ds.child("protein").getValue().toString();
                     String category = ds.child("category").getValue().toString();
 
-                        ModelFoodItem newItem = new ModelFoodItem(type, expDate, calories, protein,category);
+                    ModelFoodItem newItem = new ModelFoodItem(type, expDate,category);
                         foodList.add(newItem);//Add objects to arraylist
 
                     for(int i =0;i<foodList.size();i++){
                         if(foodList.get(i).getCategory().equals("Poultry")){
+                            //Do nothing
                         }
                         else{
                             foodList.remove(i);
                         }
                     }
-
-
                 }
                 //foodListView.setAdapter(myArrayAdapter);
                 foodGridView.setAdapter(null); //Clear the ListView
@@ -310,11 +263,9 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
                     String type = ds.child("foodType").getValue().toString();
                     String expDate = ds.child("expiryDate").getValue().toString();
-                    String calories = ds.child("calories").getValue().toString();
-                    String protein = ds.child("protein").getValue().toString();
                     String category = ds.child("category").getValue().toString();
 
-                    ModelFoodItem newItem = new ModelFoodItem(type, expDate, calories, protein,category);
+                    ModelFoodItem newItem = new ModelFoodItem(type, expDate,category);
                     foodList.add(newItem);//Add objects to arraylist
 
                     for(int i =0;i<foodList.size();i++){
@@ -324,8 +275,6 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                             foodList.remove(i);
                         }
                     }
-
-
                 }
                 //foodListView.setAdapter(myArrayAdapter);
                 foodGridView.setAdapter(null); //Clear the ListView
@@ -337,9 +286,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
 
             }
         });
-
         Toast.makeText(this,"Filtered by Fruit and Veg!",Toast.LENGTH_SHORT).show();//Send the user confirmation that they have refreshed the List
-
     }
 
     public void filterByDairy(){
@@ -352,11 +299,9 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
                     String type = ds.child("foodType").getValue().toString();
                     String expDate = ds.child("expiryDate").getValue().toString();
-                    String calories = ds.child("calories").getValue().toString();
-                    String protein = ds.child("protein").getValue().toString();
                     String category = ds.child("category").getValue().toString();
 
-                    ModelFoodItem newItem = new ModelFoodItem(type, expDate, calories, protein,category);
+                    ModelFoodItem newItem = new ModelFoodItem(type, expDate,category);
                     foodList.add(newItem);//Add objects to arraylist
 
                     for(int i =0;i<foodList.size();i++){
@@ -366,8 +311,6 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                             foodList.remove(i);
                         }
                     }
-
-
                 }
                 //foodListView.setAdapter(myArrayAdapter);
                 foodGridView.setAdapter(null); //Clear the ListView
@@ -385,7 +328,6 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void filterByMisc(){
-
         keyRef.addListenerForSingleValueEvent(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -394,11 +336,9 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
                     String type = ds.child("foodType").getValue().toString();
                     String expDate = ds.child("expiryDate").getValue().toString();
-                    String calories = ds.child("calories").getValue().toString();
-                    String protein = ds.child("protein").getValue().toString();
                     String category = ds.child("category").getValue().toString();
 
-                    ModelFoodItem newItem = new ModelFoodItem(type, expDate, calories, protein,category);
+                    ModelFoodItem newItem = new ModelFoodItem(type, expDate,category);
                     foodList.add(newItem);//Add objects to arraylist
 
                     for(int i =0;i<foodList.size();i++){

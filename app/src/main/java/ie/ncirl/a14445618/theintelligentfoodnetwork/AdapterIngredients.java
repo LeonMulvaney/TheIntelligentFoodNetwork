@@ -68,24 +68,22 @@ public class AdapterIngredients extends BaseAdapter {
 
         // Populate the data into the template view using the data object
         //Android Set color programmatically From: https://stackoverflow.com/questions/4602902/how-to-set-the-text-color-of-textview-in-code
-        System.out.println("FoodList ----------------------"+ foodList);
-        System.out.println("ShoppingList ----------------------"+ shoppingList);
-        //System.out.println("Ingredient ----------------------"+ ingredientList.get(i).getIngredientName());
-
         if(foodList.contains(ingredientList.get(i).getIngredientName().toLowerCase().trim())){
+            //If match, highlight in Green
             tvIngredient.setTextColor(Color.parseColor("#159B4A"));
             tvIngredient.setText(ingredientList.get(i).getOriginalString());
         }
         else{
+            //Just Parse the value
             tvIngredient.setText(ingredientList.get(i).getOriginalString());
-            System.out.println("Food List-----------------------No Match: " + ingredientList.get(i).getIngredientName().toLowerCase().trim());
         }
 
         if(shoppingList.contains(ingredientList.get(i).getIngredientName())){
+            //Set Image porgramatically
             alreadyInShoppingListIcon.setBackgroundResource(R.drawable.ic_shopping_cart);
         }
         else{
-            System.out.println("Shopping List-----------------------No Match: " + ingredientList.get(i).getIngredientName().toLowerCase().trim());
+            //Do nothing
         }
 
         return view;

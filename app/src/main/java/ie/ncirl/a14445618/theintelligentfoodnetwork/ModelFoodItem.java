@@ -12,20 +12,15 @@ import java.util.Date;
 public class ModelFoodItem {
     public String foodType;
     public String expiryDate;
-    public String calories;
-    public String protein;
     public String category;
-
 
     public ModelFoodItem(){
 
     }
 
-    public ModelFoodItem(String foodType, String expiryDate, String calories, String protein, String category) {
+    public ModelFoodItem(String foodType, String expiryDate,String category) {
         this.foodType = foodType;
         this.expiryDate = expiryDate;
-        this.calories = calories;
-        this.protein = protein;
         this.category = category;
     }
 
@@ -45,21 +40,6 @@ public class ModelFoodItem {
         this.expiryDate = expiryDate;
     }
 
-    public String getCalories() {
-        return calories;
-    }
-
-    public void setCalories(String calories) {
-        this.calories = calories;
-    }
-
-    public String getProtein() {
-        return protein;
-    }
-
-    public void setProtein(String protein) {
-        this.protein = protein;
-    }
 
     public String getCategory() {
         return category;
@@ -69,15 +49,6 @@ public class ModelFoodItem {
         this.category = category;
     }
 
-//Allow ListView to get elements from Array of Objects into String From: https://stackoverflow.com/questions/16937347/populating-listview-with-arraylistobject
-    //This method now redundant as Custom Adapter is implemented
-   /* public String toString(){
-        String string = this.foodType + "\n" +
-                     "Expiry Date: " + this.expiryDate+ "\n" +
-                     "Calories: " + this.calories+ "\n" +
-                     "Protein(grams): " + this.protein;
-        return string;
-    }*/
 
 
 }
