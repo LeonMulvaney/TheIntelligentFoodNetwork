@@ -20,6 +20,7 @@
     <string name="account_action_bar_string">My Account</string>
     <string name="edit_profile_action_bar_string">Edit Profile</string>
     <string name="shopping_list_recommendation_string">Shopping Recommendation</string>
+    <string name="contact_developers_string">Contact Developers</string>
 
 
     <!--Food Contents Spinner -->

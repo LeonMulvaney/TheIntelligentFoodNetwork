@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -38,44 +39,44 @@ public class UserAccount extends AppCompatActivity {
 
     //Firebase Authentication
     private FirebaseAuth mAuth;
-    String userId;
+    private String userId;
 
     //Firebase Database
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-    DatabaseReference usersRef;
-    DatabaseReference foodItemsRef;
-    DatabaseReference favouriteRecipesRef;
-    DatabaseReference shoppingListRef;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    private DatabaseReference usersRef;
+    private DatabaseReference foodItemsRef;
+    private DatabaseReference favouriteRecipesRef;
+    private DatabaseReference shoppingListRef;
 
     //Firebase Storage From: https://code.tutsplus.com/tutorials/image-upload-to-firebase-in-android-application--cms-29934
-    FirebaseStorage storage;
-    StorageReference storageReference;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
 
-    ImageView profileIv;
-    String profileImageUrl;
+    private ImageView profileIv;
+    private String profileImageUrl;
 
-    String name;
-    String email;
-    String phone;
-    String weight;
-    String joined;
+    private String name;
+    private String email;
+    private String phone;
+    private String weight;
+    private String joined;
 
-    TextView nameTv;
-    TextView emailTv;
-    TextView phoneTv;
-    TextView weightTv;
-    TextView joinedTv;
+    private TextView nameTv;
+    private TextView emailTv;
+    private TextView phoneTv;
+    private TextView weightTv;
+    private TextView joinedTv;
 
-    TextView foodItemCountTv;
-    TextView favouriteRecipeCountTv;
-    TextView shoppingItemCountTv;
+    private TextView foodItemCountTv;
+    private TextView favouriteRecipeCountTv;
+    private TextView shoppingItemCountTv;
 
-    int numberOfFoodItems;
-    int numberofFavouriteRecipes;
-    int numberOfShoppingItems;
+    private int numberOfFoodItems;
+    private int numberofFavouriteRecipes;
+    private int numberOfShoppingItems;
 
-    View userAccountLayout;
+    private View userAccountLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,17 +154,16 @@ public class UserAccount extends AppCompatActivity {
         //Hamburger Menu End ------------------------------------------------
 
         //Call the Methods at the end of OnCreate to get User data and other information
-        getUserData();
+        getUserImage();
         getFoodItemsCount();
         getFavouriteRecipesCount();
         getShoppingItemsCount();
     }
-    //Function to return when back button is pressed From --> Same link as "Add Back Button" above
+
+    //Adding Icons to Action Bar From: http://www.vogella.com/tutorials/AndroidActionBar/article.html
     @Override
-    public boolean onSupportNavigateUp(){
-        Intent intent = new Intent(getApplicationContext(),Home.class);
-        finish();
-        startActivity(intent);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.contact_developers, menu);
         return true;
     }
 
@@ -171,12 +171,11 @@ public class UserAccount extends AppCompatActivity {
     public void showSnackbar(View view, String message, int duration) {
         Snackbar.make(view, message, duration).show();
     }
-    public void getUserData() {
+    public void getUserImage() {
         //Android Getting Image From Firebase Storage From: https://stackoverflow.com/questions/38424203/firebase-storage-getting-image-url
         storageReference.child("profileImages/"+userId+"/profileImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                System.out.println("-----------------------------------Successfully Downloaded Image");
                 Picasso.with(getApplicationContext()).load(uri).into(profileIv);
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -198,7 +197,6 @@ public class UserAccount extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
                      name = ds.child("name").getValue().toString();
                      email = ds.child("email").getValue().toString();
                      phone = ds.child("phone").getValue().toString();
@@ -232,7 +230,6 @@ public class UserAccount extends AppCompatActivity {
                 }
                 //Append the Number of items in the table to the relevant TextView
                 foodItemCountTv.setText(Long.toString(numberOfFoodItems));
-                System.out.println("Food Item Count:--------------------------" + numberOfFoodItems);
             }
 
             @Override
@@ -252,7 +249,6 @@ public class UserAccount extends AppCompatActivity {
                     numberofFavouriteRecipes = numberofFavouriteRecipes +1;
                 }
                 favouriteRecipeCountTv.setText(Long.toString(numberofFavouriteRecipes));
-                System.out.println("Favourite Recipe Count:--------------------------" + numberofFavouriteRecipes);
             }
 
             @Override
@@ -273,12 +269,10 @@ public class UserAccount extends AppCompatActivity {
 
                 }
                 shoppingItemCountTv.setText(Long.toString(numberOfShoppingItems));
-                System.out.println("Shopping Item Count:--------------------------" + numberOfShoppingItems);
             }
 
             @Override
             public void onCancelled (DatabaseError databaseError){
-
             }
         });
     }
@@ -299,10 +293,14 @@ public class UserAccount extends AppCompatActivity {
     }
 
     public void editProfile(View view){
-        Intent intent = new Intent(this,EditProfile.class);
+        Intent intent = new Intent(this,EditAccount.class);
         startActivity(intent);
     }
 
+    public void openContactDevelopers(){
+        Intent intent = new Intent(this,ContactDevelopers.class);
+        startActivity(intent);
+    }
 
     //Hamburger Menu From: http://blog.teamtreehouse.com/add-navigation-drawer-android
     @Override
@@ -316,6 +314,11 @@ public class UserAccount extends AppCompatActivity {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
+        if(id == R.id.contactDevelopers){
+            openContactDevelopers();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

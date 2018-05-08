@@ -1,6 +1,5 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -30,33 +29,35 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
-public class EditProfile extends AppCompatActivity {
+public class EditAccount extends AppCompatActivity {
 
+    //Firebase Authentication
     private FirebaseAuth mAuth;
-    String userId;
+    private String userId;
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
-    DatabaseReference usersRef;
+    //Firebase Database
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    private DatabaseReference usersRef;
 
-    FirebaseStorage storage;
-    StorageReference storageReference;
+    //Firebase Storage
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
 
-    ImageView profileIv;
-    Uri filePath;
+    private ImageView profileIv;
+    private Uri filePath;
     private final int PICK_IMAGE_REQUEST = 71;
 
-    EditText nameEt;
-    EditText phoneEt;
-    EditText weightEt;
+    private EditText nameEt;
+    private EditText phoneEt;
+    private EditText weightEt;
 
-    String name;
-    String email;
-    String phone;
-    String weight;
-    String joined;
+    private String name;
+    private String email;
+    private String phone;
+    private String weight;
+    private String joined;
 
 
     @Override
@@ -66,7 +67,7 @@ public class EditProfile extends AppCompatActivity {
         setTitle(R.string.edit_profile_action_bar_string);
         //Add Back Button to Action Bar - From https://stackoverflow.com/questions/12070744/add-back-button-to-action-bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_edit_profile);
+        setContentView(R.layout.activity_edit_account);
 
         //Get Instance of Firebase Authentication
         mAuth = FirebaseAuth.getInstance();
@@ -101,7 +102,6 @@ public class EditProfile extends AppCompatActivity {
         storageReference.child("profileImages/"+userId+"/profileImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                System.out.println("-----------------------------------Successfully Downloaded Image");
                 Picasso.with(getApplicationContext()).load(uri).into(profileIv);
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -146,13 +146,13 @@ public class EditProfile extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(EditProfile.this, "Profile Image Uploaded", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditAccount.this, "Profile Image Uploaded", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(EditProfile.this, "Image Upload Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditAccount.this, "Image Upload Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -173,7 +173,7 @@ public class EditProfile extends AppCompatActivity {
         usersRef.setValue(updatedUserDetails); //Push the created Hashmap to the Database (Using the Declared Reference to the Users Table)
         Toast.makeText(getApplicationContext(),"User Account Successfully Updated",Toast.LENGTH_LONG).show();
         finish(); //Finish/Close the Edit Profile
-        startActivity(new Intent(EditProfile.this, UserAccount.class)); //Open the Home Activity (As user has successfully signed in)
+        startActivity(new Intent(EditAccount.this, UserAccount.class)); //Open the Home Activity (As user has successfully signed in)
     }
 
     //Method which allows user to access device Gallery to upload a Profile Image
@@ -193,7 +193,7 @@ public class EditProfile extends AppCompatActivity {
             filePath = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                profileIv.setImageBitmap(bitmap);
+                profileIv.setImageBitmap(bitmap); //Set Image in View
             }
             catch (IOException e)
             {

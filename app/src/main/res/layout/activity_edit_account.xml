@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.EditProfile"
+    tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.EditAccount"
     android:orientation="vertical"
     android:background="@drawable/blurgrey"
     android:descendantFocusability="beforeDescendants"

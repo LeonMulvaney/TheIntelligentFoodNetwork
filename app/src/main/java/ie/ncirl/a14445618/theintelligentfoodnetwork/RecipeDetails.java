@@ -16,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -335,7 +334,7 @@ public class RecipeDetails extends AppCompatActivity {
     //Adding Share & Favourite Button to TitleBar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.share_and_back, menu);
+        getMenuInflater().inflate(R.menu.favourite_and_share, menu);
         return true;
     }
 

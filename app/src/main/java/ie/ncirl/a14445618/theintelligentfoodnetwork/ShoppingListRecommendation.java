@@ -15,6 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ShoppingListRecommendation extends AppCompatActivity {
 
@@ -108,6 +109,8 @@ public class ShoppingListRecommendation extends AppCompatActivity {
                         recommendationList.add(StringUtils.capitalize(shoppingListItem));
                     }
                 }
+                //Sort ArrayList Alphabetically From: https://stackoverflow.com/questions/5815423/sorting-arraylist-in-alphabetical-order-case-insensitive
+                Collections.sort(recommendationList);
                 shoppingListRecommendationLv.setAdapter(recommendationListAdapter);
             }
 
