@@ -10,15 +10,25 @@
     <TextView
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Based on your shopping list and food contents this is what you need:"
         android:layout_gravity="center"
         android:textAlignment="center"
-        android:layout_marginTop="10dp"/>
+        android:text="Based on your Shopping List and Food at home, we recommend picking up these items on the next shopping trip:"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#FAF49C">
+
 
     <ListView
         android:id="@+id/shoppingListRecommendationLv"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"></ListView>
+        android:layout_gravity="center"
+        android:dividerHeight="1dp"
+        android:divider="@color/lightBlue"></ListView>
+    </LinearLayout>
 
 </LinearLayout>

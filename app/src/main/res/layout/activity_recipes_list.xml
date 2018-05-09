@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.RecipesFromFoodContents"
+    tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.RecipesList"
     android:orientation="vertical"
     android:id="@+id/recipesFromFoodContentsLayout">
 

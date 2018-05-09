@@ -27,7 +27,7 @@
         <activity android:name=".Home" />
         <activity android:name=".FoodContents" />
         <activity android:name=".NutrientSearch" />
-        <activity android:name=".RecipesFromFoodContents" />
+        <activity android:name=".RecipesList" />
         <activity android:name=".NutrientsResult" />
         <activity android:name=".RecipeDetails" />
         <activity android:name=".Recipes" />

@@ -396,7 +396,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void openRecipesFromFoodContents(){
-        Intent intent = new Intent(this,RecipesFromFoodContents.class);
+        Intent intent = new Intent(this,RecipesList.class);
         intent.putExtra("foodType",foodType); //Pass String from one Activity to another From: https://stackoverflow.com/questions/6707900/pass-a-string-from-one-activity-to-another-activity-in-android
         startActivity(intent);
     }

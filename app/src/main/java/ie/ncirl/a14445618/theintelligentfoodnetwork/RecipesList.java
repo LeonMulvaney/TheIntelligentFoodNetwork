@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 //Http Request From: https://medium.com/@JasonCromer/android-asynctask-http-request-tutorial-6b429d833e28
-public class RecipesFromFoodContents extends AppCompatActivity {
+public class RecipesList extends AppCompatActivity {
 
     //Hamburger Menu
     private ListView mDrawerList;
@@ -50,7 +49,7 @@ public class RecipesFromFoodContents extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipes_from_food_contents);
+        setContentView(R.layout.activity_recipes_list);
         //Pass String from one Activity to another From: https://stackoverflow.com/questions/6707900/pass-a-string-from-one-activity-to-another-activity-in-android
         Intent intent = getIntent();
         foodType = intent.getStringExtra("foodType");

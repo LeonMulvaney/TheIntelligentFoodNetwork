@@ -26,7 +26,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -193,7 +192,7 @@ public class Recipes extends AppCompatActivity {
     }
 
     public void openRecipesFromFoodContents(){
-        Intent intent = new Intent(this,RecipesFromFoodContents.class);
+        Intent intent = new Intent(this,RecipesList.class);
         intent.putExtra("foodType",recipeSearchString); //Pass String from one Activity to another From: https://stackoverflow.com/questions/6707900/pass-a-string-from-one-activity-to-another-activity-in-android
         startActivity(intent);
     }

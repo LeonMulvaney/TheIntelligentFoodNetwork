@@ -1,7 +1,11 @@
 package ie.ncirl.a14445618.theintelligentfoodnetwork;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -63,6 +67,7 @@ public class ShoppingListRecommendation extends AppCompatActivity {
         recommendationListAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,android.R.id.text1,recommendationList);
 
 
+        //Call the method which generates the recommendation
        generateShoppingRecommendation();
     }
 
