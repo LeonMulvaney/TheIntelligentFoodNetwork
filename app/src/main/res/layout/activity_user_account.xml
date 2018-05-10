@@ -8,275 +8,280 @@
     android:orientation="vertical"
     android:id="@+id/userAccountLayout">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="320dp"
-            android:orientation="vertical"
-            android:background="@drawable/blurgrey"
-            android:paddingTop="25dp">
-
-            <ImageView
-                android:id="@+id/profileIv"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:onClick="editProfile"/>
-
-            <TextView
-            android:id="@+id/nameTv"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_marginTop="15dp"
-                android:layout_marginBottom="10dp"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-            <TextView
-            android:id="@+id/emailTv"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_marginBottom="2dp"
-            android:textColor="@color/white" />
-
-            <TextView
-                android:id="@+id/phoneTv"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:layout_marginBottom="15dp"
-                android:textColor="@color/white" />
-
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="0.1dp"
-                android:background="@color/white"
-                android:layout_gravity="center"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginBottom="5dp"/>
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="5dp">
-
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp">
-
-
-                        <TextView
-                            android:id="@+id/foodItemCountTv"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_gravity="center"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
-                            android:textSize="18sp"
-                            android:onClick="openFoodContents"/>
-
-                        <TextView
-                            android:id="@+id/favouriteRecipeCountTv"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_gravity="center"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
-                            android:textSize="18sp"
-                            android:onClick="openFavouriteRecipes"/>
-
-                        <TextView
-                            android:id="@+id/shoppingItemCountTv"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_gravity="center"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textStyle="bold"
-                            android:textSize="18sp"
-                            android:onClick="openShoppingList"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp">
-
-                            <TextView
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Food\nItems"
-                                android:layout_weight="1"
-                                android:layout_gravity="center"
-                                android:textAlignment="center"
-                                android:textColor="@color/white"
-                                android:onClick="openFoodContents"/>
-
-                            <TextView
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Favourite\nRecipes"
-                                android:layout_weight="1"
-                                android:layout_gravity="center"
-                                android:textAlignment="center"
-                                android:textColor="@color/white"
-                                android:onClick="openFavouriteRecipes"/>
-
-                            <TextView
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Shopping\nItems"
-                                android:layout_weight="1"
-                                android:layout_gravity="center"
-                                android:textAlignment="center"
-                                android:textColor="@color/white"
-                                android:onClick="openShoppingList"/>
-                    </LinearLayout>
-
-                </LinearLayout>
-
-        </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp">
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1">
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_active_since"/>
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="Active Since"
-                android:textColor="@color/colorPrimary"
-                android:textAllCaps="true"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/joinedTv"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:textAlignment="center"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1">
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_weight"/>
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="Weight"
-                android:textColor="@color/colorPrimary"
-                android:textAllCaps="true"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/weightTv"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
-                android:textAlignment="center"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
-    </LinearLayout>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="0.1dp"
-            android:background="@color/colorAccent"
-            android:layout_gravity="center"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginBottom="35dp" />
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_edit"
-                android:scaleType="center"
-                android:onClick="editProfile"/>
+                android:layout_height="320dp"
+                android:orientation="vertical"
+                android:background="@drawable/blurgrey"
+                android:paddingTop="25dp">
 
-            <TextView
-                android:id="@+id/editProfileTv"
+                <ImageView
+                    android:id="@+id/profileIv"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:onClick="editProfile"/>
+
+                <TextView
+                android:id="@+id/nameTv"
                 android:layout_width="fill_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:layout_gravity="center_vertical"
-                android:text="Edit Profile"
-                android:textAllCaps="true"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimary"
-                android:onClick="editProfile"/>
+                android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+                <TextView
+                android:id="@+id/emailTv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_marginBottom="2dp"
+                android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/phoneTv"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:layout_marginBottom="15dp"
+                    android:textColor="@color/white" />
 
 
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/white"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginBottom="5dp"/>
 
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp">
+
+
+                            <TextView
+                                android:id="@+id/foodItemCountTv"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_gravity="center"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:textSize="18sp"
+                                android:onClick="openFoodContents"/>
+
+                            <TextView
+                                android:id="@+id/favouriteRecipeCountTv"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_gravity="center"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:textSize="18sp"
+                                android:onClick="openFavouriteRecipes"/>
+
+                            <TextView
+                                android:id="@+id/shoppingItemCountTv"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_gravity="center"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:textSize="18sp"
+                                android:onClick="openShoppingList"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp">
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Food\nItems"
+                                    android:layout_weight="1"
+                                    android:layout_gravity="center"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/white"
+                                    android:onClick="openFoodContents"/>
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Favourite\nRecipes"
+                                    android:layout_weight="1"
+                                    android:layout_gravity="center"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/white"
+                                    android:onClick="openFavouriteRecipes"/>
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Shopping\nItems"
+                                    android:layout_weight="1"
+                                    android:layout_gravity="center"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/white"
+                                    android:onClick="openShoppingList"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+            </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_active_since"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="Active Since"
+                    android:textColor="@color/colorPrimary"
+                    android:textAllCaps="true"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/joinedTv"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAccent"
+                    android:textAlignment="center"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_weight"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="Weight"
+                    android:textColor="@color/colorPrimary"
+                    android:textAllCaps="true"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/weightTv"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAccent"
+                    android:textAlignment="center"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0.1dp"
+                android:background="@color/colorAccent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="35dp" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_edit"
+                    android:scaleType="center"
+                    android:onClick="editProfile"/>
+
+                <TextView
+                    android:id="@+id/editProfileTv"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:textAlignment="center"
+                    android:layout_gravity="center_vertical"
+                    android:text="Edit Profile"
+                    android:textAllCaps="true"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:onClick="editProfile"/>
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
     <ListView
         android:id="@+id/navList"

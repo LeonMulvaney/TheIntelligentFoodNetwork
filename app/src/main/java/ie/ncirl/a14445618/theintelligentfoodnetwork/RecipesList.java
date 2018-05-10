@@ -70,24 +70,26 @@ public class RecipesList extends AppCompatActivity {
         //Convert String to JSON in Java From: https://stackoverflow.com/questions/35722646/how-to-read-json-string-in-java
         try {
             array = new JSONArray(result); //Create JSON Array
+
+            for(int i=0; i<array.length(); i++){
+                try {
+                    JSONObject jsonObj;
+                    jsonObj = array.getJSONObject(i);
+                    int id = (int) jsonObj.get("id");
+                    String title = (String) jsonObj.get("title");
+                    String imageUrl = (String) jsonObj.get("image");
+                    ModelRecipeFromIngredient recipe = new ModelRecipeFromIngredient(id,title,imageUrl);
+                    recipesList.add(recipe);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        for(int i=0; i<array.length(); i++){
-            try {
-            JSONObject jsonObj;
-                jsonObj = array.getJSONObject(i);
-                int id = (int) jsonObj.get("id");
-                String title = (String) jsonObj.get("title");
-                String imageUrl = (String) jsonObj.get("image");
-                ModelRecipeFromIngredient recipe = new ModelRecipeFromIngredient(id,title,imageUrl);
-                recipesList.add(recipe);
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
 
         //Set Data in View
         recipeListView = findViewById(R.id.recipeListView);

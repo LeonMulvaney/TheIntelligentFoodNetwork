@@ -7,245 +7,256 @@
     tools:context="ie.ncirl.a14445618.theintelligentfoodnetwork.Home"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp">
-
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:src="@drawable/raspberry"/>
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:text="@string/home_logo_info"
-            android:layout_gravity="center"
-            android:textAlignment="center"/>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center">
+            android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/foodNetworkHomeBtn"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:src="@drawable/fridge"
-                android:background="@android:color/transparent"
-                android:layout_weight="1"
-                android:layout_marginRight="30dp"
-                android:layout_marginLeft="30dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:onClick="openMyFoodNetwork"/>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/raspberry"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:text="@string/home_logo_info"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/foodNetworkHomeBtn"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:src="@drawable/fridge"
+                        android:background="@android:color/transparent"
+                        android:layout_weight="1"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:onClick="openMyFoodNetwork"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/shoppingHomeBtn"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/shopping"
+                        android:background="@android:color/transparent"
+                        android:layout_weight="1"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:onClick="openShopping"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="25dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/my_food_network"
+                    android:layout_weight="1"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/shopping"
+                    android:layout_weight="1"
+                    android:textAlignment="center"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/recipesHomeBtn"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:src="@drawable/recipes"
+                        android:background="@android:color/transparent"
+                        android:layout_weight="1"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:onClick="openRecipes"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/searchHomeBtn"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/search"
+                        android:background="@android:color/transparent"
+                        android:layout_weight="1"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:onClick="openFoodSearch"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/recipes"
+                    android:layout_weight="1"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/food_search"
+                    android:layout_weight="1"
+                    android:textAlignment="center"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/accountHomeBtn"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/spatula"
+                        android:background="@android:color/transparent"
+                        android:layout_weight="1"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:onClick="openAccount"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/otherHomeBtn"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:src="@drawable/logout"
+                        android:background="@android:color/transparent"
+                        android:layout_weight="1"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:onClick="logout"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/account"
+                    android:layout_weight="1"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/log_out"
+                    android:layout_weight="1"
+                    android:textAlignment="center"/>
+
+
+            </LinearLayout>
+
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <ImageButton
-                android:id="@+id/shoppingHomeBtn"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/shopping"
-                android:background="@android:color/transparent"
-                android:layout_weight="1"
-                android:layout_marginRight="30dp"
-                android:layout_marginLeft="30dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:onClick="openShopping"/>
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="25dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:text="@string/my_food_network"
-            android:layout_weight="1"
-            android:textAlignment="center"/>
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:text="@string/shopping"
-            android:layout_weight="1"
-            android:textAlignment="center"/>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp">
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center">
-
-            <ImageButton
-                android:id="@+id/recipesHomeBtn"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:src="@drawable/recipes"
-                android:background="@android:color/transparent"
-                android:layout_weight="1"
-                android:layout_marginRight="30dp"
-                android:layout_marginLeft="30dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:onClick="openRecipes"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <ImageButton
-                android:id="@+id/searchHomeBtn"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/search"
-                android:background="@android:color/transparent"
-                android:layout_weight="1"
-                android:layout_marginRight="30dp"
-                android:layout_marginLeft="30dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:onClick="openFoodSearch"/>
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="35dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:text="@string/recipes"
-            android:layout_weight="1"
-            android:textAlignment="center"/>
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:text="@string/food_search"
-            android:layout_weight="1"
-            android:textAlignment="center"/>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp">
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center">
-
-            <ImageButton
-                android:id="@+id/accountHomeBtn"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/spatula"
-                android:background="@android:color/transparent"
-                android:layout_weight="1"
-                android:layout_marginRight="30dp"
-                android:layout_marginLeft="30dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:onClick="openAccount"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <ImageButton
-                android:id="@+id/otherHomeBtn"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:src="@drawable/logout"
-                android:background="@android:color/transparent"
-                android:layout_weight="1"
-                android:layout_marginRight="30dp"
-                android:layout_marginLeft="30dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:onClick="logout"/>
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="35dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp">
-
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:text="@string/account"
-            android:layout_weight="1"
-            android:textAlignment="center"/>
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:text="@string/log_out"
-            android:layout_weight="1"
-            android:textAlignment="center"/>
-
-
-    </LinearLayout>
-
-
+    </ScrollView>
 </LinearLayout>
