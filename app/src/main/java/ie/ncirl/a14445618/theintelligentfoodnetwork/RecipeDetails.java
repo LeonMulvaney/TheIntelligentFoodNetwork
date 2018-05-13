@@ -216,7 +216,7 @@ public class RecipeDetails extends AppCompatActivity {
 
 
         //Grab Food Items in Home from Firebase and save in ArrayList - This can then be passed to the custom adapter
-        foodItemsRef.addValueEventListener(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
+        foodItemsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -233,7 +233,7 @@ public class RecipeDetails extends AppCompatActivity {
 
         //Grab Favourites from Firebase and save in ArrayList - This prevents the user adding duplicate favourites
         favouritesList = new ArrayList<>();
-        favouritesRef.addValueEventListener(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
+        favouritesRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -248,7 +248,7 @@ public class RecipeDetails extends AppCompatActivity {
         });
 
         //Grab Shopping List from Firebase and save in ArrayList - This prevents the user adding duplicate Shopping List Items
-        shoppingListRef.addValueEventListener(new ValueEventListener() { //SingleValueEvent Listener to prevent the append method causing duplicate entries
+        shoppingListRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange (DataSnapshot dataSnapshot){
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {

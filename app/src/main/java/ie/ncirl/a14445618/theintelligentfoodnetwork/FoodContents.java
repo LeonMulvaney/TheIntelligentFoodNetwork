@@ -117,8 +117,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                     public void onClick(DialogInterface dialog, int item) {
                         // Do something with the selection
                         if(item ==0){
-                            //foodType = foodList.get(position).getFoodType().toString();
-                            openRecipesFromFoodContents();
+                            openRecipesFromFoodContents(); //Act based on the order of the list i.e. 0 = View Recipes and 1 = View Nutritional Info
                         }
                         else{
                             openNutrientsResult();
@@ -312,7 +311,6 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                         }
                     }
                 }
-                //foodListView.setAdapter(myArrayAdapter);
                 foodGridView.setAdapter(null); //Clear the ListView
                 foodGridView.setAdapter(adapter);//Re-Populate the list view
             }
@@ -422,6 +420,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
         return super.onOptionsItemSelected(item);
     }
 
+    //Add a list of items to the Hamburger Menu
     private void addDrawerItems() {
         String[] array = { "Home", "Food Network", "Shopping", "Recipes", "Nutrient Search", "Account" };
         mAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, array);
@@ -447,7 +446,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
-
+//The intents that open other clases once the Hamburger Menu has been clicked
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);

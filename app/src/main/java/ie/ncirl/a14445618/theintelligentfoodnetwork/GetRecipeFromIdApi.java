@@ -11,6 +11,7 @@ import java.net.URL;
 /**
  * Created by leonm on 15/02/2018.
  */
+//Making GET Requests in Android From: https://medium.com/@JasonCromer/android-asynctask-http-request-tutorial-6b429d833e28
 
 public class GetRecipeFromIdApi extends AsyncTask<String, Void, String> {
     public static final String REQUEST_METHOD = "GET";

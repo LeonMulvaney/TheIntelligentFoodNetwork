@@ -23,7 +23,6 @@ public class SimilarRecipe extends AppCompatActivity {
     TextView resultTv;
     String myUrl;
     String result;
-    String chopped;
     JSONObject jsonObject;
     GetSimilarRecipesApi getRequest = new GetSimilarRecipesApi();
     JSONArray array;
@@ -56,11 +55,8 @@ public class SimilarRecipe extends AppCompatActivity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        //Substring of String From: https://stackoverflow.com/questions/8846173/how-to-remove-first-and-last-character-of-a-string/31896180
-        chopped = StringUtils.substringBetween(result,"[","]");
 
         //Convert String to JSON in Java From: https://stackoverflow.com/questions/35722646/how-to-read-json-string-in-java
-
         try {
             array = new JSONArray(result); //Create JSON Array
         } catch (JSONException e) {
