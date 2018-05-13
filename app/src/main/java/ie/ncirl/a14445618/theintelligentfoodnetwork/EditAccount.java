@@ -82,13 +82,13 @@ public class EditAccount extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
+        //Target Views
         profileIv = findViewById(R.id.profileIv);
-
         nameEt = findViewById(R.id.nameEt);
         phoneEt = findViewById(R.id.phoneEt);
         weightEt = findViewById(R.id.weightEt);
 
-        getUserData();
+        getUserData(); //Call Method to Get User Data
     }
     //Function to return when back button is pressed From --> Same link as "Add Back Button" above
     @Override
@@ -97,6 +97,7 @@ public class EditAccount extends AppCompatActivity {
         return true;
     }
 
+    //Grab User Data From Firebase
     public void getUserData() {
         //Android Getting Image From Firebase Storage From: https://stackoverflow.com/questions/38424203/firebase-storage-getting-image-url
         storageReference.child("profileImages/"+userId+"/profileImage").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

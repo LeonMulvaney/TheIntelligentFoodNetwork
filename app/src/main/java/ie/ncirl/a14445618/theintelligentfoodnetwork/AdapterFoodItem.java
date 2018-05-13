@@ -18,6 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by Leon on 30/11/2017.
  */
+//Adapter that Parses Food Items to UI
 //Custom Adapter  From: https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView
 //Custom BaseAdapter From: http://abhiandroid.com/ui/baseadapter-tutorial-example.html
 public class AdapterFoodItem extends BaseAdapter {

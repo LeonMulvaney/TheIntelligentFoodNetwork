@@ -46,6 +46,9 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
     DatabaseReference databaseReference;
     DatabaseReference keyRef;
 
+    //Declare Spinner i.e. Filter Menu
+    Spinner spinner;
+
     //Views
     GridView foodGridView;
 
@@ -88,7 +91,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
 
 
         //Spinner From: https://developer.android.com/guide/topics/ui/controls/spinner.html
-        Spinner spinner =  findViewById(R.id.filterByCategorySpinner);
+        spinner =  findViewById(R.id.filterByCategorySpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.food_contents_spinner_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
@@ -193,6 +196,7 @@ public class FoodContents extends AppCompatActivity implements AdapterView.OnIte
                 foodGridView.setAdapter(null); //Clear adapter so the information is not duplicated
                 foodGridView.setAdapter(adapter);
                 isFoodListEmpty();
+                spinner.setSelection(0);
             }
 
             @Override

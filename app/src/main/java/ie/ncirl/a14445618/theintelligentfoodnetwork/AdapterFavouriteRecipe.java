@@ -24,6 +24,7 @@ import java.util.ArrayList;
  * Created by Leon on 27/02/2018.
  */
 
+//Adapter that Parses Favourite Recipes to UI
 public class AdapterFavouriteRecipe extends BaseAdapter {
     Context context;
     ArrayList<ModelFavouriteRecipe> favouriteRecipeList;

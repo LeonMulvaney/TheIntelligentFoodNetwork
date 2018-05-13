@@ -13,26 +13,85 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/shoppingListBtn"
+        <ImageView
             android:layout_width="fill_parent"
-            android:layout_height="75dp"
-            android:text="My Shopping List"
-            android:onClick="openShoppingList"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
-            android:layout_margin="10dp" />
+            android:layout_height="150dp"
+            android:src="@drawable/shopping_cart"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:layout_marginBottom="25dp"/>
 
-        <Button
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="75dp"
-            android:text="What do I need?"
-            android:onClick="openShoppingListRecommendation"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
-            android:layout_margin="10dp" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center">
+
+                <ImageButton
+                    android:id="@+id/foodNetworkHomeBtn"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:src="@drawable/list"
+                    android:background="@android:color/transparent"
+                    android:layout_weight="1"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:onClick="openShoppingList"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/shoppingHomeBtn"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:src="@drawable/cart"
+                    android:background="@android:color/transparent"
+                    android:layout_weight="1"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:onClick="openShoppingListRecommendation"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="My Shopping List"
+                android:layout_weight="1"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Shopping\nRecommendation"
+                android:layout_weight="1"
+                android:textAlignment="center"/>
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
